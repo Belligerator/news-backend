@@ -39,7 +39,7 @@ export class ArticleDto {
         this.title = articleContent.title;
         this.body = articleContent.body;
         this.parent = articleContent.article.parent;
-        this.tags = articleContent.article.tags;
+        this.tags = articleContent.article.tags.filter(tag => tag.language == articleContent.language) ?? [];
         this.dateOfPublication = articleContent.dateOfPublication;
     }
 }

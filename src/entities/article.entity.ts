@@ -12,7 +12,7 @@ export class ArticleEntity {
     @Column('enum', { name: 'article_type', enum: ArticleTypeEnum })
     public articleType: ArticleTypeEnum;
 
-    @Column({ default: false })
+    @Column({ default: true })
     public active: boolean;
 
     @Column({ nullable: true })
@@ -37,10 +37,7 @@ export class ArticleEntity {
     @OneToMany(() => ArticleEntity, (article) => article.parentArticle)
     public childrenArticles?: ArticleEntity[];
     
-    @ManyToMany(() => TagEntity, {
-        onDelete: 'NO ACTION',
-        onUpdate: 'NO ACTION'
-    })
+    @ManyToMany(() => TagEntity, item => item.articles, { cascade: true })
     @JoinTable({
         name: 'article__tag',
         joinColumns: [

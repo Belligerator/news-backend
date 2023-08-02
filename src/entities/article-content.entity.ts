@@ -2,6 +2,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } 
 import { ArticleEntity } from './article.entity';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 
+@Index('article_id', ['articleId'], {})
 @Index('IDX_fulltext', ['title', 'body'], { fulltext: true })
 @Index('date_of_publication_idx', ['dateOfPublication'], {})
 @Index('language', ['language'], {})
@@ -29,10 +30,7 @@ export class ArticleContentEntity {
     @Column('datetime', { name: 'date_of_publication' })
     public dateOfPublication: Date;
 
-    @ManyToOne(() => ArticleEntity, (article) => article.articleContents, {
-        onDelete: 'RESTRICT',
-        onUpdate: 'RESTRICT',
-    })
+    @ManyToOne(() => ArticleEntity, (article) => article.articleContents, { cascade: true })
     @JoinColumn([{ name: 'article_id', referencedColumnName: 'id' }])
     public article: ArticleEntity;
 
