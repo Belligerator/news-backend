@@ -14,9 +14,6 @@ export class TagEntity {
     @Column()
     public title: string;
 
-    @ManyToMany(() => ArticleEntity, item => item.tags, { 
-      onDelete: 'NO ACTION',
-      onUpdate: 'NO ACTION'
-    })
+    @ManyToMany(() => ArticleEntity, item => item.tags)
     public articles?: ArticleEntity[];
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, ValidationError } from '@nestjs/common';
+import { BadRequestException, ValidationError, ValidationPipeOptions } from '@nestjs/common';
 
 /**
   * An error that will be returned if some mandatory attribute is missing from the Article.

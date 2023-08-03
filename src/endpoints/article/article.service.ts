@@ -200,6 +200,8 @@ export class ArticleService {
     
     /**
      * This method is used for updating article activity.
+     * 
+     * @throws NotFoundException    if article does not exist.
      * @param articleContentId  Id of the article content.
      * @param activity          Activity of the article.
      */
@@ -237,7 +239,7 @@ export class ArticleService {
     ): Promise<ArticleDto[]> {
         pattern = this.checkSearchPattern(pattern);
 
-        // Cannot use find() because of the WHERE condition with OR condition.
+        // Cannot use find() because of the WHERE condition with OR operator.
         const sqlQuery: SelectQueryBuilder<ArticleContentEntity> = this.articleContentRepository
             .createQueryBuilder('content')
             .innerJoinAndSelect('content.article', 'article')

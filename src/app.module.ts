@@ -22,6 +22,8 @@ import { FileService } from './services/file.service';
 import { EmailService } from './services/email.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { TagService } from './endpoints/tag/tag.service';
+import { TagController } from './endpoints/tag/tag.controller';
 
 @Module({
     imports: [
@@ -63,13 +65,18 @@ import { join } from 'path';
         }),
         WinstonModule.forRoot(loggerConfig),
     ],
-    controllers: [AppController, ArticleController],
+    controllers: [
+        AppController,
+        ArticleController,
+        TagController
+    ],
     providers: [
         AppService,
         ArticleService,
         SentryService,
         FileService,
         EmailService,
+        TagService,
         {
             provide: APP_FILTER,
             useClass: AllExceptionsFilter,
