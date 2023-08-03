@@ -23,6 +23,11 @@ export class ArticleDto {
     public parent: number | null;
 
     /**
+     * Is article active?
+     */
+    public active: boolean;
+
+    /**
      * Date when the article was publicated or updated.
      */
     public dateOfPublication: Date;
@@ -38,8 +43,9 @@ export class ArticleDto {
         this.language = articleContent.language;
         this.title = articleContent.title;
         this.body = articleContent.body;
+        this.active = articleContent.article.active;
         this.parent = articleContent.article.parent;
-        this.tags = articleContent.article.tags.filter(tag => tag.language == articleContent.language) ?? [];
+        this.tags = articleContent.article.tags?.filter(tag => tag.language == articleContent.language) ?? [];
         this.dateOfPublication = articleContent.dateOfPublication;
     }
 }

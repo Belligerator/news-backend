@@ -10,14 +10,18 @@ import { ArticlesController } from './endpoints/articles/articles.controller';
 import { ArticlesService } from './endpoints/articles/articles.service';
 import loggerConfig from './config/logger-config';
 import { WinstonModule } from 'nest-winston';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { AllExceptionsFilter } from './filters/all-exception.filter';
 import { TagEntity } from './entities/tag.entity';
+import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    CacheModule.register({
+      ttl: 1000, // ms. 1s during developing. In prod, this could be higher.
+    }),
     TypeOrmModule.forRoot(databaseConfig),
     TypeOrmModule.forFeature([
       ArticleEntity,
@@ -40,6 +44,10 @@ import { TagEntity } from './entities/tag.entity';
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
     },
   ],
 })

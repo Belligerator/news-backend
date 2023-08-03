@@ -1,6 +1,7 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { WINSTON_MODULE_PROVIDER } from "nest-winston";
+import { DEFAULT_LANGUAGE, PAGE_COUNT } from "src/constants";
 import { ArticleContentEntity } from "src/entities/article-content.entity";
 import { ArticleEntity } from "src/entities/article.entity";
 import { TagEntity } from "src/entities/tag.entity";
@@ -8,7 +9,7 @@ import { ArticleRequestDto } from "src/models/dtos/article-request.dto";
 import { ArticleDto } from "src/models/dtos/article.dto";
 import { ArticleTypeEnum } from "src/models/enums/article-type.enum";
 import { LanguageEnum } from "src/models/enums/language.enum";
-import { In, Logger, Repository } from "typeorm";
+import { In, Logger, Repository, SelectQueryBuilder } from "typeorm";
 
 @Injectable()
 export class ArticlesService {
@@ -20,6 +21,11 @@ export class ArticlesService {
         @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger
     ) { }
 
+    /**
+     * This method is used for creating new article.
+     * @param articleType   Type of article.
+     * @param newArticleDto Article details.
+     */
     public async createArticle(articleType: ArticleTypeEnum, newArticleDto: ArticleRequestDto): Promise<void> {
         this.logger.log('info', `[STORYBOARD_ARTICLE_SERVICE] Article=${JSON.stringify(newArticleDto)}`);
 
@@ -56,11 +62,20 @@ export class ArticlesService {
         await this.articleContentRepository.save(newArticleContentEntities);
     }
 
+    /**
+     * This method is used for getting articles by type and tag.
+     * @param articleType   Type of article.
+     * @param language      Content language.
+     * @param page          Pagination page.
+     * @param count         Number of articles per page.
+     * @param tagId         If tagId is present, return only articles containing this tag.
+     * @returns             List of articles filtered by type and tag.
+     */
     public async getArticlesByTypeAndFilter(
         articleType: ArticleTypeEnum,
-        language: LanguageEnum = LanguageEnum.CS,
+        language: LanguageEnum = DEFAULT_LANGUAGE,
         page: number = 1,
-        count: number = 10,
+        count: number = PAGE_COUNT,
         tagId?: string
     ): Promise<ArticleDto[]> {
 
@@ -89,7 +104,13 @@ export class ArticlesService {
         return articleContentEntities.map(articleContent => new ArticleDto(articleContent));
     }
 
-    public async getArticleById(articleContentId: number, language: LanguageEnum = LanguageEnum.CS): Promise<ArticleDto> {
+    /**
+     * This method is used for getting article by id.
+     * @param articleContentId  Id of the article content.
+     * @param language          Language of the article.
+     * @returns                 Article with details.
+     */
+    public async getArticleById(articleContentId: number, language: LanguageEnum = DEFAULT_LANGUAGE): Promise<ArticleDto> {
 
         const articleContentEntity: ArticleContentEntity | null = await this.articleContentRepository.findOne({
             where: {
@@ -114,4 +135,132 @@ export class ArticlesService {
         return new ArticleDto(articleContentEntity);
     }
     
+    /**
+     * This method is used for updating article by id.
+     * @throws NotFoundException    if article does not exist.
+     * @param articleContentId      Id of the article content.  
+     * @param body                  Article details.
+     * @returns                     Updated article.
+     */
+    public async updateArticleById(articleContentId: number, body: ArticleDto): Promise<ArticleDto> {
+        
+        const articleContentEntity: ArticleContentEntity | null = await this.articleContentRepository.findOne({
+            where: {
+                id: articleContentId
+            },
+            relations: {
+                article: {
+                    tags: true
+                }
+            }
+        });
+
+        if (!articleContentEntity) {
+            throw new NotFoundException(`Article with id ${articleContentId} not found.`);
+        }
+
+        // Update articleContentEntity with data from body.
+        articleContentEntity.title = body.title;
+        articleContentEntity.body = body.body;
+        articleContentEntity.dateOfPublication = body.dateOfPublication ?? new Date();
+        articleContentEntity.article.tags = await this.tagRepository.findBy({ id: In(body.tags.map(tag => tag.id)) });
+        articleContentEntity.article.parent = body.parent;
+        articleContentEntity.article.active = body.active;
+
+        return new ArticleDto(await this.articleContentRepository.save(articleContentEntity));
+    }
+    
+    /**
+     * This method is used for updating article activity.
+     * @param articleContentId  Id of the article content.
+     * @param activity          Activity of the article.
+     */
+    public async setArticleActivity(articleContentId: number, activity: boolean): Promise<void> {
+        
+        const articleContentEntity: ArticleContentEntity | null = await this.articleContentRepository.findOne({
+            where: {
+                id: articleContentId
+            },
+            relations: {
+                article: true
+            }
+        });
+
+        if (!articleContentEntity) {
+            throw new NotFoundException(`Article with id ${articleContentId} not found.`);
+        }
+
+        await this.articleRepository.update(articleContentEntity.article.id, { active: activity });
+    }
+
+    /**
+     * This method is used for searching articles by pattern in title or body.
+     * @param pattern   Pattern to search.
+     * @param language  Language of the article.
+     * @param page      Pagination page.
+     * @param count     Number of articles per page.
+     * @returns         List of articles.
+     */
+    public async searchArticles(
+        pattern: string,
+        language: LanguageEnum = DEFAULT_LANGUAGE,
+        page: number = 1,
+        count: number = PAGE_COUNT
+    ): Promise<ArticleDto[]> {
+        pattern = this.checkSearchPattern(pattern);
+
+        // Cannot use find() because of the WHERE condition with OR condition.
+        const sqlQuery: SelectQueryBuilder<ArticleContentEntity> = this.articleContentRepository
+            .createQueryBuilder('content')
+            .innerJoinAndSelect('content.article', 'article')
+            .innerJoinAndSelect('article.tags', 'tags')
+            .where('content.language = :language', { language })
+            .andWhere('article.active = 1')
+            .andWhere('(content.title LIKE :pattern OR content.body LIKE :pattern)', { pattern: `%${pattern}%` })
+            .limit(count)
+            .offset(page < 1 ? 0 : (page - 1) * count)
+            .orderBy('date_of_publication', 'DESC');
+
+        const articleContentEntities: ArticleContentEntity[] = await sqlQuery.getMany();
+        return articleContentEntities.map(articleContent => new ArticleDto(articleContent));
+    }
+
+    /**
+     * Method for searching articles for autocomplete. Search only in title. Return only id, title and dateOfPublication.
+     * @param pattern   Pattern to search.
+     * @param language  Language of the article.
+     * @returns         Only id, title and dateOfPublication.
+     */
+    public async searchAutocompleteArticle(pattern: string, language: LanguageEnum = DEFAULT_LANGUAGE ): Promise<ArticleDto[]> {
+        pattern = this.checkSearchPattern(pattern);
+
+        // Search only in title.
+        // Return only id, title and dateOfPublication. It is enough for autocomplete.
+        const queryBuilder: SelectQueryBuilder<ArticleContentEntity> = this.articleContentRepository
+            .createQueryBuilder('content')
+            .select('content.id', 'articleContentId')
+            .addSelect('title')
+            .addSelect('date_of_publication', 'dateOfPublication')
+            .where('language = :language', { language })
+            .andWhere('title LIKE :pattern', { pattern: `%${pattern}%` })
+            .limit(10)
+            .orderBy('dateOfPublication', 'DESC');
+
+        return await queryBuilder.getRawMany();
+    }
+
+    /**
+     * This method is used for checking search pattern.
+     * @throws BadRequestException  if pattern is missing.
+     * @param pattern               Pattern to search.
+     * @returns                     Pattern without unwanted white spaces.
+     */
+    private checkSearchPattern(pattern: string): string {
+        if (!pattern) {
+            throw new BadRequestException('Missing mandatory parameter(s): pattern.');
+        }
+        
+        // Remove unwanted white spaces.
+        return pattern.replace(/ +/g, ' ').trim();
+    }
 }
