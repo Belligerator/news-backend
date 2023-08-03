@@ -18,10 +18,15 @@ export class ArticleRequestDto {
     public parent: number;
 
     /**
+     * URL of the cover image on the server.
+     */
+    public coverImage: string;
+
+    /**
      * Stringified array of tag ids.
      */
     @IsNotEmpty()
-    public tags: TagDto[];
+    public tags: string;
 
     /**
      * Date when the article is publicated. If not present, current date is used.

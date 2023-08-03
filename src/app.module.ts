@@ -15,40 +15,75 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { AllExceptionsFilter } from './filters/all-exception.filter';
 import { TagEntity } from './entities/tag.entity';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
+import { SentryService } from './services/sentry.service';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { FileService } from './services/file.service';
+import { EmailService } from './services/email.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    CacheModule.register({
-      ttl: 1000, // ms. 1s during developing. In prod, this could be higher.
-    }),
-    TypeOrmModule.forRoot(databaseConfig),
-    TypeOrmModule.forFeature([
-      ArticleEntity,
-      ArticleContentEntity,
-      TagEntity
-    ]),
-    WinstonModule.forRoot(loggerConfig)
-  ],
-  controllers: [
-    AppController,
-    ArticlesController
-  ],
-  providers: [
-    AppService,
-    ArticlesService,
-    {
-      provide: APP_FILTER,
-      useClass: AllExceptionsFilter,
-    },
-    {
-      provide: APP_FILTER,
-      useClass: HttpExceptionFilter,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
-    },
-  ],
+    imports: [
+        ServeStaticModule.forRoot(
+            {
+                rootPath: join(__dirname, '..', 'uploads'),
+                serveRoot: '/uploads',
+                exclude: ['/api/(.*)'],
+            },
+        ),
+        ConfigModule.forRoot(),
+        CacheModule.register({
+            ttl: 1000, // ms. 1s during developing. In prod, this could be higher.
+        }),
+        TypeOrmModule.forRoot(databaseConfig),
+        TypeOrmModule.forFeature([
+            ArticleEntity,
+            ArticleContentEntity,
+            TagEntity,
+        ]),
+        MailerModule.forRoot({
+            transport: {
+                host: 'localhost',
+                port: 1025,
+                ignoreTLS: true,
+                secure: false,
+            },
+            preview: true,
+            defaults: {
+                from: '"Info" <test@test.com>',
+            },
+            template: {
+                dir: __dirname + '/templates/emails',
+                adapter: new HandlebarsAdapter(),
+                options: {
+                    strict: true,
+                },
+            },
+        }),
+        WinstonModule.forRoot(loggerConfig),
+    ],
+    controllers: [AppController, ArticlesController],
+    providers: [
+        AppService,
+        ArticlesService,
+        SentryService,
+        FileService,
+        EmailService,
+        {
+            provide: APP_FILTER,
+            useClass: AllExceptionsFilter,
+        },
+        {
+            provide: APP_FILTER,
+            useClass: HttpExceptionFilter,
+        },
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: CacheInterceptor,
+        },
+    ],
 })
 export class AppModule {}
+
+export const SERVER_URL: string = process.env.SERVER_URL ?? '';

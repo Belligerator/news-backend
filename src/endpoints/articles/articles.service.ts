@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { WINSTON_MODULE_PROVIDER } from "nest-winston";
 import { DEFAULT_LANGUAGE, PAGE_COUNT } from "src/constants";
@@ -9,7 +9,9 @@ import { ArticleRequestDto } from "src/models/dtos/article-request.dto";
 import { ArticleDto } from "src/models/dtos/article.dto";
 import { ArticleTypeEnum } from "src/models/enums/article-type.enum";
 import { LanguageEnum } from "src/models/enums/language.enum";
-import { In, Logger, Repository, SelectQueryBuilder } from "typeorm";
+import { EmailService } from "src/services/email.service";
+import { FileService } from "src/services/file.service";
+import { In, Repository, SelectQueryBuilder } from "typeorm";
 
 @Injectable()
 export class ArticlesService {
@@ -18,7 +20,9 @@ export class ArticlesService {
         @InjectRepository(TagEntity) private tagRepository: Repository<TagEntity>,
         @InjectRepository(ArticleEntity) private articleRepository: Repository<ArticleEntity>,
         @InjectRepository(ArticleContentEntity) private articleContentRepository: Repository<ArticleContentEntity>,
-        @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger
+        @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+        private readonly emailService: EmailService,
+        private readonly fileService: FileService
     ) { }
 
     /**
@@ -37,8 +41,17 @@ export class ArticlesService {
         newArticle.articleType = articleType;
         newArticle.parent = newArticleDto.parent;
 
+        // Parse tags from request.
+        let tagsFromDto: TagEntity[] = [];
+        try {
+            tagsFromDto = JSON.parse(newArticleDto.tags);
+        } catch(e) {
+            this.logger.error(`[STORYBOARD_ARTICLE_SERVICE] Cannot parse tags from request. ${e}`);
+            throw new BadRequestException(`Cannot parse tags from request. ${newArticleDto.tags}`);
+        }
+
         // Find tags from database by id from request.
-        newArticle.tags = await this.tagRepository.findBy({ id: In(newArticleDto.tags.map(tag => tag.id)) });
+        newArticle.tags = await this.tagRepository.findBy({ id: In(tagsFromDto.map(tag => tag.id)) });
 
         // Create new article content for each language.
         const newArticleContentEntities: ArticleContentEntity[] = languages.map((language: keyof typeof newArticleDto.title) => {
@@ -48,6 +61,7 @@ export class ArticlesService {
             newArticleContent.language = <LanguageEnum> language;
             newArticleContent.dateOfPublication = newArticleDto.dateOfPublication ?? new Date();
             newArticleContent.article = newArticle;
+            newArticleContent.coverImage = newArticleDto.coverImage;
 
             if (!newArticleContent.title) {
                 throw new BadRequestException(`Missing mandatory parameter(s): title for language ${language}.`);
@@ -58,6 +72,9 @@ export class ArticlesService {
             }
             return newArticleContent;
         });
+
+        // Send email about new article.
+        this.emailService.sendEmail(new ArticleDto(newArticleContentEntities[0]));
 
         await this.articleContentRepository.save(newArticleContentEntities);
     }
@@ -144,7 +161,7 @@ export class ArticlesService {
      */
     public async updateArticleById(articleContentId: number, body: ArticleDto): Promise<ArticleDto> {
         
-        const articleContentEntity: ArticleContentEntity | null = await this.articleContentRepository.findOne({
+        const oldArticleContentEntity: ArticleContentEntity | null = await this.articleContentRepository.findOne({
             where: {
                 id: articleContentId
             },
@@ -155,19 +172,30 @@ export class ArticlesService {
             }
         });
 
-        if (!articleContentEntity) {
+        if (!oldArticleContentEntity) {
             throw new NotFoundException(`Article with id ${articleContentId} not found.`);
         }
 
-        // Update articleContentEntity with data from body.
-        articleContentEntity.title = body.title;
-        articleContentEntity.body = body.body;
-        articleContentEntity.dateOfPublication = body.dateOfPublication ?? new Date();
-        articleContentEntity.article.tags = await this.tagRepository.findBy({ id: In(body.tags.map(tag => tag.id)) });
-        articleContentEntity.article.parent = body.parent;
-        articleContentEntity.article.active = body.active;
+        // Update oldArticleContentEntity with data from body.
+        oldArticleContentEntity.title = body.title;
+        oldArticleContentEntity.body = body.body;
+        oldArticleContentEntity.dateOfPublication = body.dateOfPublication ?? new Date();
+        oldArticleContentEntity.article.tags = await this.tagRepository.findBy({ id: In(body.tags.map(tag => tag.id)) });
+        oldArticleContentEntity.article.parent = body.parent;
+        oldArticleContentEntity.article.active = body.active;
 
-        return new ArticleDto(await this.articleContentRepository.save(articleContentEntity));
+        // If cover image is present, update it.
+        if (body.coverImage) {
+            oldArticleContentEntity.coverImage = body.coverImage;
+        }
+
+        const newArticleContentEntity: ArticleContentEntity = await this.articleContentRepository.save(oldArticleContentEntity);
+
+        // New entity is saved, we can remove old cover image.
+        // Do not await, we do not want to wait for this operation.
+        this.fileService.removeFileFromSystem(oldArticleContentEntity.coverImage);
+
+        return new ArticleDto(newArticleContentEntity);
     }
     
     /**

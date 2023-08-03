@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, UseInterceptors, ValidationError, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, UploadedFile, UseInterceptors, ValidationError, ValidationPipe } from '@nestjs/common';
 import { LanguageEnum } from '../../models/enums/language.enum';
 import { ArticleTypeEnum } from '../../models/enums/article-type.enum';
 import { ArticlesService } from './articles.service';
@@ -8,15 +8,20 @@ import { ArticleDto } from 'src/models/dtos/article.dto';
 import { ApiOperation } from '@nestjs/swagger';
 import { BadValidationRequestException } from 'src/models/exceptions/bad-validation-request.exception';
 import { ArticleRequestDto } from 'src/models/dtos/article-request.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { FileService } from 'src/services/file.service';
+import { UploadedFileDto } from 'src/models/dtos/uploaded-file.dto';
+import { SERVER_URL } from 'src/app.module';
 
 @Controller('articles')
 export class ArticlesController {
 
-    constructor(private readonly articlesService: ArticlesService) {
+    constructor(private readonly articlesService: ArticlesService,
+                private readonly fileService: FileService) {
     }
     
     /**
-     * This method is used for searching articles by pattern in title or body.
+     * This API is used for searching articles by pattern in title or body.
      * 
      * @param pattern   Pattern to search.
      * @param language  Language of the article.
@@ -34,7 +39,7 @@ export class ArticlesController {
     }
 
     /**
-     * Method for searching articles for autocomplete. Search only in title. Return only id, title and dateOfPublication.
+     * API for searching articles for autocomplete. Search only in title. Return only id, title and dateOfPublication.
      * 
      * @param pattern   Pattern to search.
      * @param language  Language of the article.
@@ -48,21 +53,61 @@ export class ArticlesController {
     }
 
     /**
-     * API accept ArticleRequestDto from request. For each language creates new ArticleContent.
+     * API accepts ArticleRequestDto from request. For each language creates new ArticleContent.
      * 
-     * @param body          Article request body.
+     * @param body      Article request body.
      */
     @ApiOperation({ summary: 'Create new article.' })
     @HttpCode(200)
     @Post(':articleType')
-    // Use interceptor if body is serverd as form-data.
-    // @UseInterceptors(AnyFilesInterceptor())
-    public savePressReleaseArticleFromStoryBoard(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
+    @UseInterceptors(FileInterceptor('coverImage', FileService.multerOptions))
+    public async savePressReleaseArticleFromStoryBoard(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
+                                                 @UploadedFile() file: UploadedFileDto,
                                                  @Body(new ValidationPipe({
                                                      transform: true,
                                                      exceptionFactory: (errors: ValidationError[]) => new BadValidationRequestException(errors),
                                                  })) body: ArticleRequestDto): Promise<void> {
-        return this.articlesService.createArticle(articleType, body);
+
+        if (file) {
+            await this.fileService.resizeImage(file.path);
+            body.coverImage = `${SERVER_URL}/${file.destination}/${file.filename}`;
+        }
+
+        // Create article. If error occurs, remove file if exists.
+        return this.articlesService.createArticle(articleType, body).catch((error) => {
+            if (file) {
+                this.fileService.removeFileFromSystem(file.path);
+            }
+            throw error;
+        });
+    }
+
+    /**
+     * This API is used for updating article by id.
+     * 
+     * @throws NotFoundException    if article does not exist.
+     * @param articleContentId      Id of the article content.  
+     * @param body                  Article details.
+     * @returns                     Updated article.
+     */
+    @ApiOperation({ summary: 'Update article by id.' })
+    @Put(':id')
+    @UseInterceptors(FileInterceptor('coverImage', FileService.multerOptions))
+    public async updateArticleById(@Param('id', StringToNumberPipe) articleContentId: number,
+                                   @UploadedFile() file: UploadedFileDto,
+                                   @Body() body: ArticleDto): Promise<ArticleDto> {
+
+        if (file) {
+            await this.fileService.resizeImage(file.path);
+            body.coverImage = `${SERVER_URL}/${file.destination}/${file.filename}`;
+        }
+        
+        return this.articlesService.updateArticleById(articleContentId, body).catch((error) => {
+            if (file) {
+                this.fileService.removeFileFromSystem(file.path);
+            }
+            throw error;
+        });
     }
 
     /**
@@ -98,21 +143,6 @@ export class ArticlesController {
     public async getArticleById(@Param('id', StringToNumberPipe) id: number,
                                 @Headers('x-language') language: LanguageEnum): Promise<ArticleDto> {
         return this.articlesService.getArticleById(id, language);
-    }
-
-    /**
-     * This API is used for updating article by id.
-     * 
-     * @throws NotFoundException    if article does not exist.
-     * @param articleContentId      Id of the article content.  
-     * @param body                  Article details.
-     * @returns                     Updated article.
-     */
-    @ApiOperation({ summary: 'Update article by id.' })
-    @Put(':id')
-    public async updateArticleById(@Param('id', StringToNumberPipe) articleContentId: number,
-                                   @Body() body: ArticleDto): Promise<ArticleDto> {
-        return this.articlesService.updateArticleById(articleContentId, body);
     }
 
     /**

@@ -28,6 +28,11 @@ export class ArticleDto {
     public active: boolean;
 
     /**
+     * Cover image of the article.
+     */
+    public coverImage: string | null;
+
+    /**
      * Date when the article was publicated or updated.
      */
     public dateOfPublication: Date;
@@ -45,6 +50,7 @@ export class ArticleDto {
         this.body = articleContent.body;
         this.active = articleContent.article.active;
         this.parent = articleContent.article.parent;
+        this.coverImage = articleContent.coverImage;
         this.tags = articleContent.article.tags?.filter(tag => tag.language == articleContent.language) ?? [];
         this.dateOfPublication = articleContent.dateOfPublication;
     }

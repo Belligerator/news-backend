@@ -4,13 +4,15 @@ import { HttpAdapterHost } from '@nestjs/core';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { ErrorResponse } from 'src/models/dtos/error-response.dto';
+import { SentryService } from 'src/services/sentry.service';
 
 /**
- * Default rrror handler catching all but HTTP exceptions.
+ * Default error handler catching all but HTTP exceptions.
  */
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
     constructor(private readonly httpAdapterHost: HttpAdapterHost,
+                private readonly sentryService: SentryService,
                 @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {
     }
 
@@ -29,8 +31,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
         };
 
         httpAdapter.reply(response, responseBody, status);
-
-        this.logger.error(`Internal server error ${status}: ${request.url}`);
-        this.logger.error(exception['stack']);
+        this.sentryService.captureException(`Internal server error ${status}: ${request.url}`, exception['stack']);
     }
 }
