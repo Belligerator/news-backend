@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, UploadedFile, UseInterceptors, ValidationError, ValidationPipe } from '@nestjs/common';
 import { LanguageEnum } from '../../models/enums/language.enum';
 import { ArticleTypeEnum } from '../../models/enums/article-type.enum';
-import { ArticlesService } from './articles.service';
+import { ArticleService } from './article.service';
 import { CheckArticleType } from 'src/utils/pipes/check-article-type.pipe';
 import { StringToNumberPipe } from 'src/utils/pipes/string-to-number.pipe';
 import { ArticleDto } from 'src/models/dtos/article.dto';
@@ -14,9 +14,9 @@ import { UploadedFileDto } from 'src/models/dtos/uploaded-file.dto';
 import { SERVER_URL } from 'src/app.module';
 
 @Controller('articles')
-export class ArticlesController {
+export class ArticleController {
 
-    constructor(private readonly articlesService: ArticlesService,
+    constructor(private readonly articleService: ArticleService,
                 private readonly fileService: FileService) {
     }
     
@@ -35,7 +35,7 @@ export class ArticlesController {
                   @Query('count', StringToNumberPipe) count: number,
                   @Headers('x-language') language: LanguageEnum,
                   @Query('pattern') pattern: string): Promise<ArticleDto[]> {
-        return this.articlesService.searchArticles(pattern, language, page, count);
+        return this.articleService.searchArticles(pattern, language, page, count);
     }
 
     /**
@@ -49,7 +49,7 @@ export class ArticlesController {
     @Get('search/autocomplete')
     public searchAutocomplete(@Headers('x-language') language: LanguageEnum,
                               @Query('pattern') pattern: string): Promise<ArticleDto[]> {
-        return this.articlesService.searchAutocompleteArticle(pattern, language);
+        return this.articleService.searchAutocompleteArticle(pattern, language);
     }
 
     /**
@@ -74,7 +74,7 @@ export class ArticlesController {
         }
 
         // Create article. If error occurs, remove file if exists.
-        return this.articlesService.createArticle(articleType, body).catch((error) => {
+        return this.articleService.createArticle(articleType, body).catch((error) => {
             if (file) {
                 this.fileService.removeFileFromSystem(file.path);
             }
@@ -102,7 +102,7 @@ export class ArticlesController {
             body.coverImage = `${SERVER_URL}/${file.destination}/${file.filename}`;
         }
         
-        return this.articlesService.updateArticleById(articleContentId, body).catch((error) => {
+        return this.articleService.updateArticleById(articleContentId, body).catch((error) => {
             if (file) {
                 this.fileService.removeFileFromSystem(file.path);
             }
@@ -128,7 +128,7 @@ export class ArticlesController {
                              @Query('count', StringToNumberPipe) count: number,
                              @Headers('x-language') language: LanguageEnum,
                              @Query('tagId') tagId: string): Promise<ArticleDto[]> {
-        return this.articlesService.getArticlesByTypeAndFilter(articleType, language, page, count, tagId);
+        return this.articleService.getArticlesByTypeAndFilter(articleType, language, page, count, tagId);
     }
 
     /**
@@ -142,7 +142,7 @@ export class ArticlesController {
     @Get('detail/:id')
     public async getArticleById(@Param('id', StringToNumberPipe) id: number,
                                 @Headers('x-language') language: LanguageEnum): Promise<ArticleDto> {
-        return this.articlesService.getArticleById(id, language);
+        return this.articleService.getArticleById(id, language);
     }
 
     /**
@@ -157,6 +157,6 @@ export class ArticlesController {
     @Put(':id/activity')
     public async setArticleActivity(@Param('id', StringToNumberPipe) articleContentId: number,
                                     @Body('active') activity: boolean): Promise<void> {
-        return this.articlesService.setArticleActivity(articleContentId, activity);
+        return this.articleService.setArticleActivity(articleContentId, activity);
     }
 }

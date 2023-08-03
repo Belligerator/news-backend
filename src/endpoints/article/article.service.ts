@@ -14,7 +14,7 @@ import { FileService } from "src/services/file.service";
 import { In, Repository, SelectQueryBuilder } from "typeorm";
 
 @Injectable()
-export class ArticlesService {
+export class ArticleService {
 
     constructor(
         @InjectRepository(TagEntity) private tagRepository: Repository<TagEntity>,

@@ -6,8 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import databaseConfig from './config/database-config';
 import { ArticleEntity } from './entities/article.entity';
 import { ArticleContentEntity } from './entities/article-content.entity';
-import { ArticlesController } from './endpoints/articles/articles.controller';
-import { ArticlesService } from './endpoints/articles/articles.service';
+import { ArticleController } from './endpoints/article/article.controller';
+import { ArticleService } from './endpoints/article/article.service';
 import loggerConfig from './config/logger-config';
 import { WinstonModule } from 'nest-winston';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
@@ -63,10 +63,10 @@ import { join } from 'path';
         }),
         WinstonModule.forRoot(loggerConfig),
     ],
-    controllers: [AppController, ArticlesController],
+    controllers: [AppController, ArticleController],
     providers: [
         AppService,
-        ArticlesService,
+        ArticleService,
         SentryService,
         FileService,
         EmailService,
