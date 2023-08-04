@@ -19,42 +19,6 @@ export class ArticleController {
     constructor(private readonly articleService: ArticleService,
                 private readonly fileService: FileService) {
     }
-    
-    /**
-     * This API is used for searching articles by pattern in title or body.
-     * 
-     * @throws NotFoundException    if pattern is not present.
-     * @param pattern   Pattern to search.
-     * @param language  Language of the article.
-     * @param page      Pagination page.
-     * @param count     Number of articles per page.
-     * @returns         List of articles.
-     */
-    @ApiOperation({ summary: 'Search articles by pattern in title or body.' })
-    @ApiNotFoundResponse({ description: 'Pattern is not present.' })
-    @Get('search')
-    public search(@Query('page', StringToNumberPipe) page: number,
-                  @Query('count', StringToNumberPipe) count: number,
-                  @Headers('x-language') language: LanguageEnum,
-                  @Query('pattern') pattern: string): Promise<ArticleDto[]> {
-        return this.articleService.searchArticles(pattern, language, page, count);
-    }
-
-    /**
-     * API for searching articles for autocomplete. Search only in title. Return only id, title and dateOfPublication.
-     * 
-     * @throws NotFoundException    if pattern is not present.
-     * @param pattern   Pattern to search.
-     * @param language  Language of the article.
-     * @returns         Only id, title and dateOfPublication.
-     */
-    @ApiOperation({ summary: 'Search articles for autocomplete.' })
-    @ApiNotFoundResponse({ description:  })
-    @Get('search/autocomplete')
-    public searchAutocomplete(@Headers('x-language') language: LanguageEnum,
-                              @Query('pattern') pattern: string): Promise<ArticleDto[]> {
-        return this.articleService.searchAutocompleteArticle(pattern, language);
-    }
 
     /**
      * API accepts ArticleRequestDto from request. For each language creates new ArticleContent.
@@ -115,6 +79,20 @@ export class ArticleController {
     }
 
     /**
+     * API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.
+     * 
+     * @param id 
+     * @param language 
+     * @returns article detail.
+     */
+    @ApiOperation({ summary: 'Get article by id.' })
+    @Get('detail/:id')
+    public async getArticleById(@Param('id', StringToNumberPipe) id: number,
+                                @Headers('x-language') language: LanguageEnum): Promise<ArticleDto> {
+        return this.articleService.getArticleById(id, language);
+    }
+
+    /**
      * Get all articles by article type.
      * API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.
      *
@@ -135,18 +113,43 @@ export class ArticleController {
         return this.articleService.getArticlesByTypeAndFilter(articleType, language, page, count, tagId);
     }
 
+        
     /**
-     * API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.
+     * This API is used for searching articles by pattern in title or body.
      * 
-     * @param id 
-     * @param language 
-     * @returns article detail.
+     * @throws NotFoundException    if pattern is not present.
+     * @param pattern   Pattern to search.
+     * @param language  Language of the article.
+     * @param page      Pagination page.
+     * @param count     Number of articles per page.
+     * @returns         List of articles.
      */
-    @ApiOperation({ summary: 'Get article by id.' })
-    @Get('detail/:id')
-    public async getArticleById(@Param('id', StringToNumberPipe) id: number,
-                                @Headers('x-language') language: LanguageEnum): Promise<ArticleDto> {
-        return this.articleService.getArticleById(id, language);
+    @ApiOperation({ summary: 'Search articles by pattern in title or body.' })
+    @ApiNotFoundResponse({ description: 'Pattern is not present.' })
+    @Get(':articleType/search')
+    public search(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
+                  @Query('page', StringToNumberPipe) page: number,
+                  @Query('count', StringToNumberPipe) count: number,
+                  @Headers('x-language') language: LanguageEnum,
+                  @Query('pattern') pattern: string): Promise<ArticleDto[]> {
+        return this.articleService.searchArticles(articleType, pattern, language, page, count);
+    }
+
+    /**
+     * API for searching articles for autocomplete. Search only in title. Return only id, title and dateOfPublication.
+     * 
+     * @throws NotFoundException    if pattern is not present.
+     * @param pattern   Pattern to search.
+     * @param language  Language of the article.
+     * @returns         Only id, title and dateOfPublication.
+     */
+    @ApiOperation({ summary: 'Search articles for autocomplete.' })
+    @ApiNotFoundResponse({ description: 'Pattern is not present.' })
+    @Get(':articleType/search/autocomplete')
+    public searchAutocomplete(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
+                              @Headers('x-language') language: LanguageEnum,
+                              @Query('pattern') pattern: string): Promise<ArticleDto[]> {
+        return this.articleService.searchAutocompleteArticle(articleType, pattern, language);
     }
 
     /**

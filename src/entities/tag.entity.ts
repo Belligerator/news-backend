@@ -14,6 +14,9 @@ export class TagEntity {
     @Column()
     public title: string;
 
+    @Column({ default: 10 })
+    public order: number;
+
     @ManyToMany(() => ArticleEntity, item => item.tags)
     public articles?: ArticleEntity[];
 }

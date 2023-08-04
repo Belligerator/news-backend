@@ -5,6 +5,8 @@
   "compilerOptions": {
     "deleteOutDir": true,
     "assets": [
+      "assets/certs/**/*",
+      "assets/i18n/**/*",
       "**/*.hbs",
       "**/*.png",
       "**/*.svg",

@@ -27,8 +27,8 @@ export class ArticleContentEntity {
     @Column('longtext')
     public body: string;
 
-    @Column({ nullable: true })
-    public coverImage: string;
+    @Column('varchar', { nullable: true, length: 255 })
+    public coverImage: string | null;
 
     @Column('datetime', { name: 'date_of_publication' })
     public dateOfPublication: Date;

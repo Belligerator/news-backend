@@ -25,11 +25,17 @@ export class TagDto {
     @IsNotEmpty()
     public title: string;
 
+    /**
+     * Order of the tag.
+     */
+    public order: number;
+
     constructor(tagEntity: TagEntity) {
         if (tagEntity) {
             this.id = tagEntity.id;
             this.language = tagEntity.language;
             this.title = tagEntity.title;
+            this.order = tagEntity.order;
         }
     }
     

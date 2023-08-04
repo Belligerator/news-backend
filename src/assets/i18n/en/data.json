@@ -1,0 +1,4 @@
+{
+    "PUSH_NOTIFICATION_TITLE": "New article",
+    "PUSH_NOTIFICATION_BODY": "New article was created: {body}"
+}

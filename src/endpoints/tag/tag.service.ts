@@ -25,14 +25,15 @@ export class TagService {
         const savedTag: TagEntity = await this.tagRepository.save({
             id: newTag.id,
             title: newTag.title,
-            language: newTag.language
+            language: newTag.language,
+            order: newTag.order
         });
 
         return new TagDto(savedTag);
     }
 
     public async getAllTags(language: LanguageEnum = DEFAULT_LANGUAGE): Promise<TagDto[]> {
-        const tags: TagEntity[] = await this.tagRepository.findBy({ language });
+        const tags: TagEntity[] = await this.tagRepository.find({ where: { language }, order: { order: 'ASC' } });
 
         return tags.map(tag => new TagDto(tag));
     }
@@ -50,6 +51,7 @@ export class TagService {
         }
 
         tag.title = newTag.title;
+        tag.order = newTag.order;
 
         tag = await this.tagRepository.save(tag);
 

@@ -24,6 +24,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { TagService } from './endpoints/tag/tag.service';
 import { TagController } from './endpoints/tag/tag.controller';
+import { AcceptLanguageResolver, HeaderResolver, I18nModule } from 'nestjs-i18n';
+import { PushNotificationService } from './endpoints/push-notification/push-notification.service';
 
 @Module({
     imports: [
@@ -44,6 +46,16 @@ import { TagController } from './endpoints/tag/tag.controller';
             ArticleContentEntity,
             TagEntity,
         ]),
+        I18nModule.forRoot({
+            fallbackLanguage: 'en',
+            loaderOptions: {
+                path: join(__dirname, 'assets', 'i18n'),
+                watch: true,
+            },
+            resolvers: [
+                { use: HeaderResolver, options: ['x-language']}
+            ]
+        }),
         MailerModule.forRoot({
             transport: {
                 host: 'localhost',
@@ -51,7 +63,7 @@ import { TagController } from './endpoints/tag/tag.controller';
                 ignoreTLS: true,
                 secure: false,
             },
-            preview: true,
+            preview: false,
             defaults: {
                 from: '"Info" <test@test.com>',
             },
@@ -77,6 +89,7 @@ import { TagController } from './endpoints/tag/tag.controller';
         FileService,
         EmailService,
         TagService,
+        PushNotificationService,
         {
             provide: APP_FILTER,
             useClass: AllExceptionsFilter,

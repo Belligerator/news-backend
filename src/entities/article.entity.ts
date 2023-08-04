@@ -37,7 +37,7 @@ export class ArticleEntity {
     @OneToMany(() => ArticleEntity, (article) => article.parentArticle)
     public childrenArticles?: ArticleEntity[];
     
-    @ManyToMany(() => TagEntity, item => item.articles, { cascade: true })
+    @ManyToMany(() => TagEntity, { cascade: true })
     @JoinTable({
         name: 'article__tag',
         joinColumns: [

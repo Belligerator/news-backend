@@ -12,6 +12,7 @@ import { LanguageEnum } from "src/models/enums/language.enum";
 import { EmailService } from "src/services/email.service";
 import { FileService } from "src/services/file.service";
 import { In, Repository, SelectQueryBuilder } from "typeorm";
+import { PushNotificationService } from "../push-notification/push-notification.service";
 
 @Injectable()
 export class ArticleService {
@@ -22,6 +23,7 @@ export class ArticleService {
         @InjectRepository(ArticleContentEntity) private articleContentRepository: Repository<ArticleContentEntity>,
         @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
         private readonly emailService: EmailService,
+        private readonly pushNotificationService: PushNotificationService,
         private readonly fileService: FileService
     ) { }
 
@@ -50,8 +52,10 @@ export class ArticleService {
             throw new BadRequestException(`Cannot parse tags from request. ${newArticleDto.tags}`);
         }
 
-        // Find tags from database by id from request.
-        newArticle.tags = await this.tagRepository.findBy({ id: In(tagsFromDto.map(tag => tag.id)) });
+        // Find tags from database by ids from request.
+        newArticle.tags = await this.tagRepository.findBy({
+            id: In(tagsFromDto.map(tag => tag.id))
+        });
 
         // Create new article content for each language.
         const newArticleContentEntities: ArticleContentEntity[] = languages.map((language: keyof typeof newArticleDto.title) => {
@@ -73,10 +77,17 @@ export class ArticleService {
             return newArticleContent;
         });
 
+        await this.articleContentRepository.save(newArticleContentEntities);
+
         // Send email about new article.
+        // This feature is just for testing purposes, so pick first language.
         this.emailService.sendEmail(new ArticleDto(newArticleContentEntities[0]));
 
-        await this.articleContentRepository.save(newArticleContentEntities);
+        // Send push notification about new article for every language.
+        newArticleContentEntities.forEach(item => {
+            this.pushNotificationService.sendPushNotificationToTopic(item, item.language);
+        });
+        
     }
 
     /**
@@ -156,10 +167,10 @@ export class ArticleService {
      * This method is used for updating article by id.
      * @throws NotFoundException    if article does not exist.
      * @param articleContentId      Id of the article content.  
-     * @param body                  Article details.
+     * @param updatedArticle        Article details.
      * @returns                     Updated article.
      */
-    public async updateArticleById(articleContentId: number, body: ArticleDto): Promise<ArticleDto> {
+    public async updateArticleById(articleContentId: number, updatedArticle: ArticleDto): Promise<ArticleDto> {
         
         const oldArticleContentEntity: ArticleContentEntity | null = await this.articleContentRepository.findOne({
             where: {
@@ -177,23 +188,54 @@ export class ArticleService {
         }
 
         // Update oldArticleContentEntity with data from body.
-        oldArticleContentEntity.title = body.title;
-        oldArticleContentEntity.body = body.body;
-        oldArticleContentEntity.dateOfPublication = body.dateOfPublication ?? new Date();
-        oldArticleContentEntity.article.tags = await this.tagRepository.findBy({ id: In(body.tags.map(tag => tag.id)) });
-        oldArticleContentEntity.article.parent = body.parent;
-        oldArticleContentEntity.article.active = body.active;
+        oldArticleContentEntity.title = updatedArticle.title;
+        oldArticleContentEntity.body = updatedArticle.body;
+        oldArticleContentEntity.dateOfPublication = updatedArticle.dateOfPublication ?? new Date();
+        oldArticleContentEntity.article.parent = updatedArticle.parent;
+        oldArticleContentEntity.article.active = updatedArticle.active;
+
+        if (updatedArticle.updatedTags) {
+            // Parse tags from request form.
+            let tagsFromDto: TagEntity[] = [];
+            try {
+                tagsFromDto = JSON.parse(updatedArticle.updatedTags);
+            } catch(e) {
+                this.logger.error(`[STORYBOARD_ARTICLE_SERVICE] Cannot parse tags from request. ${e}`);
+                throw new BadRequestException(`Cannot parse tags from request. ${updatedArticle.updatedTags}`);
+            }
+
+            // Find tags from database by ids from request.
+            oldArticleContentEntity.article.tags = await this.tagRepository.findBy({ 
+                id: In(tagsFromDto.map(tag => tag.id)) 
+            });
+        } else {
+            // If tags are not present, remove all tags from article.
+            oldArticleContentEntity.article.tags = [];
+        }
+
+        let coverImageToDelete: string | null = null;
 
         // If cover image is present, update it.
-        if (body.coverImage) {
-            oldArticleContentEntity.coverImage = body.coverImage;
+        if (updatedArticle.coverImage) {
+            // If cover image is updated, delete old one.
+            coverImageToDelete = oldArticleContentEntity.coverImage;
+
+            // New cover image.
+            oldArticleContentEntity.coverImage = updatedArticle.coverImage;
+        } else if (updatedArticle.coverImage === '') {
+
+            // If cover image is unset, delete it.
+            coverImageToDelete = oldArticleContentEntity.coverImage;
+            oldArticleContentEntity.coverImage = null;
         }
 
         const newArticleContentEntity: ArticleContentEntity = await this.articleContentRepository.save(oldArticleContentEntity);
 
         // New entity is saved, we can remove old cover image.
         // Do not await, we do not want to wait for this operation.
-        this.fileService.removeFileFromSystem(oldArticleContentEntity.coverImage);
+        if (coverImageToDelete) {
+            this.fileService.removeFileFromSystem(coverImageToDelete);
+        }
 
         return new ArticleDto(newArticleContentEntity);
     }
@@ -232,6 +274,7 @@ export class ArticleService {
      * @returns         List of articles.
      */
     public async searchArticles(
+        articleType: ArticleTypeEnum,
         pattern: string,
         language: LanguageEnum = DEFAULT_LANGUAGE,
         page: number = 1,
@@ -243,9 +286,10 @@ export class ArticleService {
         const sqlQuery: SelectQueryBuilder<ArticleContentEntity> = this.articleContentRepository
             .createQueryBuilder('content')
             .innerJoinAndSelect('content.article', 'article')
-            .innerJoinAndSelect('article.tags', 'tags')
+            .leftJoinAndSelect('article.tags', 'tags')
             .where('content.language = :language', { language })
             .andWhere('article.active = 1')
+            .andWhere('article.articleType = :articleType', { articleType })
             .andWhere('(content.title LIKE :pattern OR content.body LIKE :pattern)', { pattern: `%${pattern}%` })
             .limit(count)
             .offset(page < 1 ? 0 : (page - 1) * count)
@@ -261,7 +305,7 @@ export class ArticleService {
      * @param language  Language of the article.
      * @returns         Only id, title and dateOfPublication.
      */
-    public async searchAutocompleteArticle(pattern: string, language: LanguageEnum = DEFAULT_LANGUAGE ): Promise<ArticleDto[]> {
+    public async searchAutocompleteArticle(articleType: ArticleTypeEnum, pattern: string, language: LanguageEnum = DEFAULT_LANGUAGE ): Promise<ArticleDto[]> {
         pattern = this.checkSearchPattern(pattern);
 
         // Search only in title.
@@ -271,7 +315,9 @@ export class ArticleService {
             .select('content.id', 'articleContentId')
             .addSelect('title')
             .addSelect('date_of_publication', 'dateOfPublication')
+            .innerJoin('content.article', 'article')
             .where('language = :language', { language })
+            .andWhere('article.articleType = :articleType', { articleType })
             .andWhere('title LIKE :pattern', { pattern: `%${pattern}%` })
             .limit(10)
             .orderBy('dateOfPublication', 'DESC');

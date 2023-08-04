@@ -1,5 +1,4 @@
 import { IsNotEmpty } from 'class-validator';
-import { TagDto } from './tag.dto';
 
 /**
  * DTO for validating article from the reqeust during article creation.

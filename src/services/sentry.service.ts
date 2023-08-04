@@ -10,8 +10,8 @@ export class SentryService {
     ) { }
 
     public captureException(message: string, data?: any): void {
-        this.logger.error(`[Sentry captureException]: ${message}`);
-        this.logger.error(data);
+        this.logger.error(`[SENTRY_SERVICE] Capture exception: ${message}`);
+        this.logger.error(`[SENTRY_SERVICE] Data: ${data}`);
         Sentry.captureException(`${message} ---\n${data}`);
     }
 

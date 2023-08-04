@@ -19,10 +19,10 @@ export class EmailService {
      * @param article   Article to send.
      */
     public async sendEmail(article: ArticleDto): Promise<void> {
-        this.logger.log('info', `Sending email about new article ${article.articleContentId}`);
+        this.logger.log('info', `[EMAIL_SERVICE] Sending email about new article ${article.articleContentId}`);
 
         this.mailerService.sendMail({
-            to: 'dmitrij.buckovsky@gmail.com',
+            to: 'test@test.com',
             subject: 'New article: ' + article.title,
             template: 'new-article',
             context: {
@@ -40,7 +40,7 @@ export class EmailService {
         }).then(() => {
             this.logger.log('info', `Email about new article ${article.articleContentId} was sent.`);
         }).catch((error) => {
-            this.sentryService.captureException('[EmailService Error]: Cannot send email.', `Email about new article ${article.articleContentId} was not sent. Error: ${error}`);
+            this.sentryService.captureException('[EMAIL_SERVICE_ERROR] Cannot send email.', `Email about new article (${article.articleContentId}-${article.title}) was not sent. Error: ${error}`);
         });
     }
 }

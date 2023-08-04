@@ -42,6 +42,11 @@ export class ArticleDto {
      */
     public tags: TagDto[];
 
+    /**
+     * Tags in string format. When coming from form.
+     */
+    public updatedTags: string;
+
     constructor(articleContent: ArticleContentEntity) {
         this.articleContentId = articleContent.id;
         this.articleType = articleContent.article.articleType;
