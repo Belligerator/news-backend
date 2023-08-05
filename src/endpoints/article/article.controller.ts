@@ -10,7 +10,6 @@ import { ArticleRequestDto } from 'src/models/dtos/article-request.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileService } from 'src/services/file.service';
 import { UploadedFileDto } from 'src/models/dtos/uploaded-file.dto';
-import { SERVER_URL } from 'src/app.module';
 import { CustomValidationPipe } from 'src/utils/pipes/validation.pipe';
 
 @Controller('articles')
@@ -72,7 +71,7 @@ export class ArticleController {
 
         if (file) {
             await this.fileService.resizeImage(file.path);
-            body.coverImage = `${SERVER_URL}/${file.destination}/${file.filename}`;
+            body.coverImage = `${file.destination}/${file.filename}`;
         }
 
         // Create article. If error occurs, remove file if exists.
@@ -102,7 +101,7 @@ export class ArticleController {
 
         if (file) {
             await this.fileService.resizeImage(file.path);
-            body.coverImage = `${SERVER_URL}/${file.destination}/${file.filename}`;
+            body.coverImage = `${file.destination}/${file.filename}`;
         }
         
         return this.articleService.updateArticleById(articleContentId, body).catch((error) => {

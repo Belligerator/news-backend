@@ -129,6 +129,23 @@ export class ArticleService {
             order: { dateOfPublication: 'DESC' }
         });
 
+        // Previous query returns only tags for searched tagId (because we want to filter articles by tagId).
+        // But we want to return articles with all their tags.
+        // So we run another query to get articles from previous query with all their tags.
+        if (tagId) {
+
+            // Find all articles from previous query by ids, but now with all tags.
+            const articlesWithTags: ArticleContentEntity[] = await this.articleContentRepository.find({
+                where: { id: In(articleContentEntities.map(articleContent => articleContent.id)) },
+                relations: { article: { tags: true } }
+            });
+
+            // Map tags to articleContentEntities tags.
+            articleContentEntities.forEach(articleContent => {
+                articleContent.article.tags = articlesWithTags.find(tag => tag.id === articleContent.id)?.article.tags ?? [];
+            });
+        }
+
         return articleContentEntities.map(articleContent => new ArticleDto(articleContent));
     }
 
