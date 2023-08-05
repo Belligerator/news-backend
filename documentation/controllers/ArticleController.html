@@ -1,0 +1,958 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>news-backend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">news-backend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content controller">
+                   <div class="content-data">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Controllers</li>
+  <li class="breadcrumb-item" >ArticleController</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/endpoints/article/article.controller.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Prefix</h3>
+            </p>
+            <p class="comment">
+                <code>articles</code>
+            </p>
+
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#createArticle" >createArticle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getArticleById" >getArticleById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getArticles" >getArticles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#setArticleActivity" >setArticleActivity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateArticleById" >updateArticleById</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createArticle"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>createArticle</b></span>
+                        <a href="#createArticle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createArticle(articleType: <a href="../undefineds/ArticleTypeEnum.html" target="_self">ArticleTypeEnum</a>, file: <a href="../interfaces/UploadedFileDto.html" target="_self">UploadedFileDto</a>, body: <a href="../classes/ArticleRequestDto.html" target="_self">ArticleRequestDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Create new article.&#x27;})<br />@ApiNotFoundResponse({description: &#x27;Cannot parse tags or body is missing for some language.&#x27;})<br />@HttpCode(200)<br />@Post(&#x27;:articleType&#x27;)<br />@UseInterceptors(undefined)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:69</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>API accepts ArticleRequestDto from request. For each language creates new ArticleContent.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleType</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ArticleTypeEnum" target="_self" >ArticleTypeEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>file</td>
+                                    <td>
+                                                <code><a href="../interfaces/UploadedFileDto.html" target="_self" >UploadedFileDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>body</td>
+                                    <td>
+                                                <code><a href="../classes/ArticleRequestDto.html" target="_self" >ArticleRequestDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Article request body.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getArticleById"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>getArticleById</b></span>
+                        <a href="#getArticleById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getArticleById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, language: <a href="../undefineds/LanguageEnum.html" target="_self">LanguageEnum</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Get article by id.&#x27;})<br />@Get(&#x27;detail/:id&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:32</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>language</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#LanguageEnum" target="_self" >LanguageEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ArticleDto.html" target="_self" >Promise&lt;ArticleDto&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>article detail.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getArticles"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>getArticles</b></span>
+                        <a href="#getArticles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getArticles(articleType: <a href="../undefineds/ArticleTypeEnum.html" target="_self">ArticleTypeEnum</a>, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, count: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, language: <a href="../undefineds/LanguageEnum.html" target="_self">LanguageEnum</a>, tagId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Get all articles by article type.&#x27;})<br />@Get(&#x27;:articleType&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:50</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Get all articles by article type.
+API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleType</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ArticleTypeEnum" target="_self" >ArticleTypeEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Type of article.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Page (1, 2, 3, atd)</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>count</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Number of articles per page.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>language</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#LanguageEnum" target="_self" >LanguageEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Content language.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>tagId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>If tagId is present, return only articles containing this tag.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ArticleDto.html" target="_self" >Promise&lt;ArticleDto[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>list of articles.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setArticleActivity"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>setArticleActivity</b></span>
+                        <a href="#setArticleActivity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setArticleActivity(articleContentId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, activity: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Set article activity.&#x27;})<br />@ApiNotFoundResponse({description: &#x27;Article not found.&#x27;})<br />@Put(&#x27;:id/activity&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:127</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This API is used for updating article activity. Articles cannot be deleted, only deactivated.
+Articles can be deactivated also via updateArticleById. But this API is for quick deactivation via administration.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleContentId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Id of the article content.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>activity</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Activity of the article.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateArticleById"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>updateArticleById</b></span>
+                        <a href="#updateArticleById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateArticleById(articleContentId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, file: <a href="../interfaces/UploadedFileDto.html" target="_self">UploadedFileDto</a>, body: <a href="../classes/ArticleDto.html" target="_self">ArticleDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Update article by id.&#x27;})<br />@ApiNotFoundResponse({description: &#x27;Article not found.&#x27;})<br />@Put(&#x27;:id&#x27;)<br />@UseInterceptors(undefined)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:99</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This API is used for updating article by id.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleContentId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Id of the article content.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>file</td>
+                                    <td>
+                                                <code><a href="../interfaces/UploadedFileDto.html" target="_self" >UploadedFileDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>body</td>
+                                    <td>
+                                                <code><a href="../classes/ArticleDto.html" target="_self" >ArticleDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Article details.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ArticleDto.html" target="_self" >Promise&lt;ArticleDto&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Updated article.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, UploadedFile, UseInterceptors } from &#x27;@nestjs/common&#x27;;
+import { LanguageEnum } from &#x27;../../models/enums/language.enum&#x27;;
+import { ArticleTypeEnum } from &#x27;../../models/enums/article-type.enum&#x27;;
+import { ArticleService } from &#x27;./article.service&#x27;;
+import { CheckArticleType } from &#x27;src/utils/pipes/check-article-type.pipe&#x27;;
+import { StringToNumberPipe } from &#x27;src/utils/pipes/string-to-number.pipe&#x27;;
+import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
+import { ApiNotFoundResponse, ApiOperation } from &#x27;@nestjs/swagger&#x27;;
+import { ArticleRequestDto } from &#x27;src/models/dtos/article-request.dto&#x27;;
+import { FileInterceptor } from &#x27;@nestjs/platform-express&#x27;;
+import { FileService } from &#x27;src/services/file.service&#x27;;
+import { UploadedFileDto } from &#x27;src/models/dtos/uploaded-file.dto&#x27;;
+import { SERVER_URL } from &#x27;src/app.module&#x27;;
+import { CustomValidationPipe } from &#x27;src/utils/pipes/validation.pipe&#x27;;
+
+@Controller(&#x27;articles&#x27;)
+export class ArticleController {
+
+    constructor(private readonly articleService: ArticleService,
+                private readonly fileService: FileService) {
+    }
+
+    /**
+     * API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.
+     * 
+     * @param id 
+     * @param language 
+     * @returns article detail.
+     */
+    @ApiOperation({ summary: &#x27;Get article by id.&#x27; })
+    @Get(&#x27;detail/:id&#x27;)
+    public async getArticleById(@Param(&#x27;id&#x27;, StringToNumberPipe) id: number,
+                                @Headers(&#x27;x-language&#x27;) language: LanguageEnum): Promise&lt;ArticleDto&gt; {
+        return this.articleService.getArticleById(id, language);
+    }
+
+    /**
+     * Get all articles by article type.
+     * API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.
+     *
+     * @param articleType   Type of article.
+     * @param language      Content language.
+     * @param page          Page (1, 2, 3, atd)
+     * @param count         Number of articles per page.
+     * @param tagId         If tagId is present, return only articles containing this tag.
+     * @returns             list of articles.
+     */
+    @ApiOperation({ summary: &#x27;Get all articles by article type.&#x27; })
+    @Get(&#x27;:articleType&#x27;)
+    public async getArticles(@Param(&#x27;articleType&#x27;, CheckArticleType) articleType: ArticleTypeEnum,
+                             @Query(&#x27;page&#x27;, StringToNumberPipe) page: number,
+                             @Query(&#x27;count&#x27;, StringToNumberPipe) count: number,
+                             @Headers(&#x27;x-language&#x27;) language: LanguageEnum,
+                             @Query(&#x27;tagId&#x27;) tagId: string): Promise&lt;ArticleDto[]&gt; {
+        return this.articleService.getArticlesByTypeAndFilter(articleType, language, page, count, tagId);
+    }
+
+    /**
+     * API accepts ArticleRequestDto from request. For each language creates new ArticleContent.
+     * 
+     * @throws BadRequestException    if cannot parse tags or body is missing for some language.
+     * @param body      Article request body.
+     */
+    @ApiOperation({ summary: &#x27;Create new article.&#x27; })
+    @ApiNotFoundResponse({ description: &#x27;Cannot parse tags or body is missing for some language.&#x27; })
+    @HttpCode(200)
+    @Post(&#x27;:articleType&#x27;)
+    @UseInterceptors(FileInterceptor(&#x27;coverImage&#x27;, FileService.multerOptions))
+    public async createArticle(@Param(&#x27;articleType&#x27;, CheckArticleType) articleType: ArticleTypeEnum,
+                               @UploadedFile() file: UploadedFileDto,
+                               @Body(CustomValidationPipe) body: ArticleRequestDto): Promise&lt;void&gt; {
+
+        if (file) {
+            await this.fileService.resizeImage(file.path);
+            body.coverImage &#x3D; &#x60;${SERVER_URL}/${file.destination}/${file.filename}&#x60;;
+        }
+
+        // Create article. If error occurs, remove file if exists.
+        return this.articleService.createArticle(articleType, body).catch((error) &#x3D;&gt; {
+            if (file) {
+                this.fileService.removeFileFromSystem(file.path);
+            }
+            throw error;
+        });
+    }
+
+    /**
+     * This API is used for updating article by id.
+     * 
+     * @throws NotFoundException    if article does not exist.
+     * @param articleContentId      Id of the article content.  
+     * @param body                  Article details.
+     * @returns                     Updated article.
+     */
+    @ApiOperation({ summary: &#x27;Update article by id.&#x27; })
+    @ApiNotFoundResponse({ description: &#x27;Article not found.&#x27; })
+    @Put(&#x27;:id&#x27;)
+    @UseInterceptors(FileInterceptor(&#x27;coverImage&#x27;, FileService.multerOptions))
+    public async updateArticleById(@Param(&#x27;id&#x27;, StringToNumberPipe) articleContentId: number,
+                                   @UploadedFile() file: UploadedFileDto,
+                                   @Body() body: ArticleDto): Promise&lt;ArticleDto&gt; {
+
+        if (file) {
+            await this.fileService.resizeImage(file.path);
+            body.coverImage &#x3D; &#x60;${SERVER_URL}/${file.destination}/${file.filename}&#x60;;
+        }
+        
+        return this.articleService.updateArticleById(articleContentId, body).catch((error) &#x3D;&gt; {
+            if (file) {
+                this.fileService.removeFileFromSystem(file.path);
+            }
+            throw error;
+        });
+    }
+
+    /**
+     * This API is used for updating article activity. Articles cannot be deleted, only deactivated.
+     * Articles can be deactivated also via updateArticleById. But this API is for quick deactivation via administration.
+     * 
+     * @throws NotFoundException    if article does not exist.
+     * @param articleContentId      Id of the article content.
+     * @param activity              Activity of the article.
+     */
+    @ApiOperation({ summary: &#x27;Set article activity.&#x27; })
+    @ApiNotFoundResponse({ description: &#x27;Article not found.&#x27; })
+    @Put(&#x27;:id/activity&#x27;)
+    public async setArticleActivity(@Param(&#x27;id&#x27;, StringToNumberPipe) articleContentId: number,
+                                    @Body(&#x27;active&#x27;) activity: boolean): Promise&lt;void&gt; {
+        return this.articleService.setArticleActivity(articleContentId, activity);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'ArticleController.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

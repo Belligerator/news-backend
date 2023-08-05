@@ -1,0 +1,1145 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>news-backend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">news-backend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >ArticleService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/endpoints/article/article.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#createArticle" >createArticle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getArticleById" >getArticleById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getArticlesByTypeAndFilter" >getArticlesByTypeAndFilter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#setArticleActivity" >setArticleActivity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateArticleById" >updateArticleById</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(tagRepository: <a href="../entitys/TagEntity.html" target="_self">Repository&lt;TagEntity&gt;</a>, articleRepository: <a href="../entitys/ArticleEntity.html" target="_self">Repository&lt;ArticleEntity&gt;</a>, articleContentRepository: <a href="../classes/ArticleContentEntity.html" target="_self">Repository&lt;ArticleContentEntity&gt;</a>, logger: Logger, emailService: <a href="../injectables/EmailService.html" target="_self">EmailService</a>, pushNotificationService: <a href="../injectables/PushNotificationService.html" target="_self">PushNotificationService</a>, fileService: <a href="../injectables/FileService.html" target="_self">FileService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/endpoints/article/article.service.ts:18</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>tagRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/TagEntity.html" target="_self" >Repository&lt;TagEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>articleRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/ArticleEntity.html" target="_self" >Repository&lt;ArticleEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>articleContentRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/ArticleContentEntity.html" target="_self" >Repository&lt;ArticleContentEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>logger</td>
+                                                  
+                                                        <td>
+                                                                    <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>emailService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/EmailService.html" target="_self" >EmailService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>pushNotificationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PushNotificationService.html" target="_self" >PushNotificationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fileService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FileService.html" target="_self" >FileService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createArticle"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>createArticle</b></span>
+                        <a href="#createArticle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createArticle(articleType: <a href="../undefineds/ArticleTypeEnum.html" target="_self">ArticleTypeEnum</a>, newArticleDto: <a href="../classes/ArticleRequestDto.html" target="_self">ArticleRequestDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:35</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This method is used for creating new article.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleType</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ArticleTypeEnum" target="_self" >ArticleTypeEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Type of article.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>newArticleDto</td>
+                                    <td>
+                                                <code><a href="../classes/ArticleRequestDto.html" target="_self" >ArticleRequestDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Article details.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getArticleById"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>getArticleById</b></span>
+                        <a href="#getArticleById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getArticleById(articleContentId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, language: <a href="../undefineds/LanguageEnum.html" target="_self">LanguageEnum</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="141"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:141</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This method is used for getting article by id.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleContentId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Id of the article content.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>language</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#LanguageEnum" target="_self" >LanguageEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>DEFAULT_LANGUAGE</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Language of the article.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ArticleDto.html" target="_self" >Promise&lt;ArticleDto&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Article with details.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getArticlesByTypeAndFilter"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>getArticlesByTypeAndFilter</b></span>
+                        <a href="#getArticlesByTypeAndFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getArticlesByTypeAndFilter(articleType: <a href="../undefineds/ArticleTypeEnum.html" target="_self">ArticleTypeEnum</a>, language: <a href="../undefineds/LanguageEnum.html" target="_self">LanguageEnum</a>, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, count: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, tagId?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:102</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This method is used for getting articles by type and tag.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleType</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ArticleTypeEnum" target="_self" >ArticleTypeEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Type of article.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>language</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#LanguageEnum" target="_self" >LanguageEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>DEFAULT_LANGUAGE</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Content language.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>1</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Pagination page.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>count</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>PAGE_COUNT</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Number of articles per page.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>tagId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>If tagId is present, return only articles containing this tag.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ArticleDto.html" target="_self" >Promise&lt;ArticleDto[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>List of articles filtered by type and tag.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setArticleActivity"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>setArticleActivity</b></span>
+                        <a href="#setArticleActivity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setArticleActivity(articleContentId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, activity: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="250"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:250</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This method is used for updating article activity.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleContentId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Id of the article content.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>activity</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Activity of the article.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateArticleById"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>updateArticleById</b></span>
+                        <a href="#updateArticleById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateArticleById(articleContentId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, updatedArticle: <a href="../classes/ArticleDto.html" target="_self">ArticleDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="173"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:173</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This method is used for updating article by id.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleContentId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Id of the article content.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>updatedArticle</td>
+                                    <td>
+                                                <code><a href="../classes/ArticleDto.html" target="_self" >ArticleDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Article details.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ArticleDto.html" target="_self" >Promise&lt;ArticleDto&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Updated article.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BadRequestException, Inject, Injectable, Logger, NotFoundException } from &quot;@nestjs/common&quot;;
+import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
+import { WINSTON_MODULE_PROVIDER } from &quot;nest-winston&quot;;
+import { DEFAULT_LANGUAGE, PAGE_COUNT } from &quot;src/constants&quot;;
+import { ArticleContentEntity } from &quot;src/entities/article-content.entity&quot;;
+import { ArticleEntity } from &quot;src/entities/article.entity&quot;;
+import { TagEntity } from &quot;src/entities/tag.entity&quot;;
+import { ArticleRequestDto } from &quot;src/models/dtos/article-request.dto&quot;;
+import { ArticleDto } from &quot;src/models/dtos/article.dto&quot;;
+import { ArticleTypeEnum } from &quot;src/models/enums/article-type.enum&quot;;
+import { LanguageEnum } from &quot;src/models/enums/language.enum&quot;;
+import { EmailService } from &quot;src/services/email.service&quot;;
+import { FileService } from &quot;src/services/file.service&quot;;
+import { In, Repository } from &quot;typeorm&quot;;
+import { PushNotificationService } from &quot;src/endpoints/push-notification/push-notification.service&quot;;
+
+@Injectable()
+export class ArticleService {
+
+    constructor(
+        @InjectRepository(TagEntity) private tagRepository: Repository&lt;TagEntity&gt;,
+        @InjectRepository(ArticleEntity) private articleRepository: Repository&lt;ArticleEntity&gt;,
+        @InjectRepository(ArticleContentEntity) private articleContentRepository: Repository&lt;ArticleContentEntity&gt;,
+        @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+        private readonly emailService: EmailService,
+        private readonly pushNotificationService: PushNotificationService,
+        private readonly fileService: FileService
+    ) { }
+
+    /**
+     * This method is used for creating new article.
+     * @param articleType   Type of article.
+     * @param newArticleDto Article details.
+     */
+    public async createArticle(articleType: ArticleTypeEnum, newArticleDto: ArticleRequestDto): Promise&lt;void&gt; {
+        this.logger.log(&#x27;info&#x27;, &#x60;[STORYBOARD_ARTICLE_SERVICE] Article&#x3D;${JSON.stringify(newArticleDto)}&#x60;);
+
+        // Title is mandatory, we will take from it what languages are in the request.
+        const languages: string [] &#x3D; Object.keys(newArticleDto.title) as Array&lt;keyof typeof newArticleDto.title&gt;;
+
+        // Create new article.
+        const newArticle: ArticleEntity &#x3D; new ArticleEntity();
+        newArticle.articleType &#x3D; articleType;
+        newArticle.parent &#x3D; newArticleDto.parent;
+
+        // Parse tags from request.
+        let tagsFromDto: TagEntity[] &#x3D; [];
+        try {
+            tagsFromDto &#x3D; JSON.parse(newArticleDto.tags);
+        } catch(e) {
+            this.logger.error(&#x60;[STORYBOARD_ARTICLE_SERVICE] Cannot parse tags from request. ${e}&#x60;);
+            throw new BadRequestException(&#x60;Cannot parse tags from request. ${newArticleDto.tags}&#x60;);
+        }
+
+        // Find tags from database by ids from request.
+        newArticle.tags &#x3D; await this.tagRepository.findBy({
+            id: In(tagsFromDto.map(tag &#x3D;&gt; tag.id))
+        });
+
+        // Create new article content for each language.
+        const newArticleContentEntities: ArticleContentEntity[] &#x3D; languages.map((language: keyof typeof newArticleDto.title) &#x3D;&gt; {
+            const newArticleContent: ArticleContentEntity &#x3D; new ArticleContentEntity();
+            newArticleContent.title &#x3D; newArticleDto.title[language];
+            newArticleContent.body &#x3D; newArticleDto.body[language];
+            newArticleContent.language &#x3D; &lt;LanguageEnum&gt; language;
+            newArticleContent.dateOfPublication &#x3D; newArticleDto.dateOfPublication ?? new Date();
+            newArticleContent.article &#x3D; newArticle;
+            newArticleContent.coverImage &#x3D; newArticleDto.coverImage;
+
+            if (!newArticleContent.title) {
+                throw new BadRequestException(&#x60;Missing mandatory parameter(s): title for language ${language}.&#x60;);
+            }
+            
+            if (!newArticleContent.body) {
+                throw new BadRequestException(&#x60;Missing mandatory parameter(s): body for language ${language}.&#x60;);
+            }
+            return newArticleContent;
+        });
+
+        await this.articleContentRepository.save(newArticleContentEntities);
+
+        // Send email about new article.
+        // This feature is just for testing purposes, so pick first language.
+        this.emailService.sendEmail(new ArticleDto(newArticleContentEntities[0]));
+
+        // Send push notification about new article for every language.
+        newArticleContentEntities.forEach(item &#x3D;&gt; {
+            this.pushNotificationService.sendPushNotificationToTopic(item, item.language);
+        });
+        
+    }
+
+    /**
+     * This method is used for getting articles by type and tag.
+     * @param articleType   Type of article.
+     * @param language      Content language.
+     * @param page          Pagination page.
+     * @param count         Number of articles per page.
+     * @param tagId         If tagId is present, return only articles containing this tag.
+     * @returns             List of articles filtered by type and tag.
+     */
+    public async getArticlesByTypeAndFilter(
+        articleType: ArticleTypeEnum,
+        language: LanguageEnum &#x3D; DEFAULT_LANGUAGE,
+        page: number &#x3D; 1,
+        count: number &#x3D; PAGE_COUNT,
+        tagId?: string
+    ): Promise&lt;ArticleDto[]&gt; {
+
+        const articleContentEntities: ArticleContentEntity[] &#x3D; await this.articleContentRepository.find({
+            where: {
+                language: language,
+                article: {
+                    active: true,
+                    articleType: articleType,
+                    tags: tagId ? {
+                        language: language,
+                        id: tagId
+                    } : undefined
+                }
+            },
+            relations: {
+                article: {
+                    tags: true
+                }
+            },
+            skip: (page &lt; 1 ? 0 : (page - 1) * count),
+            take: count,
+            order: { dateOfPublication: &#x27;DESC&#x27; }
+        });
+
+        return articleContentEntities.map(articleContent &#x3D;&gt; new ArticleDto(articleContent));
+    }
+
+    /**
+     * This method is used for getting article by id.
+     * @param articleContentId  Id of the article content.
+     * @param language          Language of the article.
+     * @returns                 Article with details.
+     */
+    public async getArticleById(articleContentId: number, language: LanguageEnum &#x3D; DEFAULT_LANGUAGE): Promise&lt;ArticleDto&gt; {
+
+        const articleContentEntity: ArticleContentEntity | null &#x3D; await this.articleContentRepository.findOne({
+            where: {
+                id: articleContentId,
+                article: {
+                    tags: {
+                        language: language
+                    }
+                }
+            },
+            relations: {
+                article: {
+                    tags: true
+                }
+            }
+        });
+
+        if (!articleContentEntity) {
+            throw new NotFoundException(&#x60;Article with id ${articleContentId} not found.&#x60;);
+        }
+
+        return new ArticleDto(articleContentEntity);
+    }
+    
+    /**
+     * This method is used for updating article by id.
+     * @throws NotFoundException    if article does not exist.
+     * @param articleContentId      Id of the article content.  
+     * @param updatedArticle        Article details.
+     * @returns                     Updated article.
+     */
+    public async updateArticleById(articleContentId: number, updatedArticle: ArticleDto): Promise&lt;ArticleDto&gt; {
+        
+        const oldArticleContentEntity: ArticleContentEntity | null &#x3D; await this.articleContentRepository.findOne({
+            where: {
+                id: articleContentId
+            },
+            relations: {
+                article: {
+                    tags: true
+                }
+            }
+        });
+
+        if (!oldArticleContentEntity) {
+            throw new NotFoundException(&#x60;Article with id ${articleContentId} not found.&#x60;);
+        }
+
+        // Update oldArticleContentEntity with data from body.
+        oldArticleContentEntity.title &#x3D; updatedArticle.title;
+        oldArticleContentEntity.body &#x3D; updatedArticle.body;
+        oldArticleContentEntity.dateOfPublication &#x3D; updatedArticle.dateOfPublication ?? new Date();
+        oldArticleContentEntity.article.parent &#x3D; updatedArticle.parent;
+        oldArticleContentEntity.article.active &#x3D; updatedArticle.active;
+
+        if (updatedArticle.updatedTags) {
+            // Parse tags from request form.
+            let tagsFromDto: TagEntity[] &#x3D; [];
+            try {
+                tagsFromDto &#x3D; JSON.parse(updatedArticle.updatedTags);
+            } catch(e) {
+                this.logger.error(&#x60;[STORYBOARD_ARTICLE_SERVICE] Cannot parse tags from request. ${e}&#x60;);
+                throw new BadRequestException(&#x60;Cannot parse tags from request. ${updatedArticle.updatedTags}&#x60;);
+            }
+
+            // Find tags from database by ids from request.
+            oldArticleContentEntity.article.tags &#x3D; await this.tagRepository.findBy({ 
+                id: In(tagsFromDto.map(tag &#x3D;&gt; tag.id)) 
+            });
+        } else {
+            // If tags are not present, remove all tags from article.
+            oldArticleContentEntity.article.tags &#x3D; [];
+        }
+
+        let coverImageToDelete: string | null &#x3D; null;
+
+        // If cover image is present, update it.
+        if (updatedArticle.coverImage) {
+            // If cover image is updated, delete old one.
+            coverImageToDelete &#x3D; oldArticleContentEntity.coverImage;
+
+            // New cover image.
+            oldArticleContentEntity.coverImage &#x3D; updatedArticle.coverImage;
+        } else if (updatedArticle.coverImage &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+
+            // If cover image is unset, delete it.
+            coverImageToDelete &#x3D; oldArticleContentEntity.coverImage;
+            oldArticleContentEntity.coverImage &#x3D; null;
+        }
+
+        const newArticleContentEntity: ArticleContentEntity &#x3D; await this.articleContentRepository.save(oldArticleContentEntity);
+
+        // New entity is saved, we can remove old cover image.
+        // Do not await, we do not want to wait for this operation.
+        if (coverImageToDelete) {
+            this.fileService.removeFileFromSystem(coverImageToDelete);
+        }
+
+        return new ArticleDto(newArticleContentEntity);
+    }
+    
+    /**
+     * This method is used for updating article activity.
+     * 
+     * @throws NotFoundException    if article does not exist.
+     * @param articleContentId  Id of the article content.
+     * @param activity          Activity of the article.
+     */
+    public async setArticleActivity(articleContentId: number, activity: boolean): Promise&lt;void&gt; {
+        
+        const articleContentEntity: ArticleContentEntity | null &#x3D; await this.articleContentRepository.findOne({
+            where: {
+                id: articleContentId
+            },
+            relations: {
+                article: true
+            }
+        });
+
+        if (!articleContentEntity) {
+            throw new NotFoundException(&#x60;Article with id ${articleContentId} not found.&#x60;);
+        }
+
+        await this.articleRepository.update(articleContentEntity.article.id, { active: activity });
+    }
+
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ArticleService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,691 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>news-backend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">news-backend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >ArticleSearchService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/endpoints/article/search/article-search.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkSearchPattern" >checkSearchPattern</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#searchArticles" >searchArticles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#searchAutocompleteArticle" >searchAutocompleteArticle</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(articleContentRepository: <a href="../classes/ArticleContentEntity.html" target="_self">Repository&lt;ArticleContentEntity&gt;</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/endpoints/article/search/article-search.service.ts:11</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>articleContentRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/ArticleContentEntity.html" target="_self" >Repository&lt;ArticleContentEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkSearchPattern"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>checkSearchPattern</b></span>
+                        <a href="#checkSearchPattern"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkSearchPattern(pattern: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="83"
+                            class="link-to-prism">src/endpoints/article/search/article-search.service.ts:83</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This method is used for checking search pattern.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>pattern</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Pattern to search.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Pattern without unwanted white spaces.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchArticles"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>searchArticles</b></span>
+                        <a href="#searchArticles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>searchArticles(articleType: <a href="../undefineds/ArticleTypeEnum.html" target="_self">ArticleTypeEnum</a>, pattern: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, language: <a href="../undefineds/LanguageEnum.html" target="_self">LanguageEnum</a>, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, count: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/endpoints/article/search/article-search.service.ts:25</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This method is used for searching articles by pattern in title or body.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleType</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ArticleTypeEnum" target="_self" >ArticleTypeEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>pattern</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Pattern to search.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>language</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#LanguageEnum" target="_self" >LanguageEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>DEFAULT_LANGUAGE</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Language of the article.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>1</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Pagination page.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>count</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>PAGE_COUNT</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Number of articles per page.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ArticleDto.html" target="_self" >Promise&lt;ArticleDto[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>List of articles.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchAutocompleteArticle"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>searchAutocompleteArticle</b></span>
+                        <a href="#searchAutocompleteArticle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>searchAutocompleteArticle(articleType: <a href="../undefineds/ArticleTypeEnum.html" target="_self">ArticleTypeEnum</a>, pattern: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, language: <a href="../undefineds/LanguageEnum.html" target="_self">LanguageEnum</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/endpoints/article/search/article-search.service.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Method for searching articles for autocomplete. Search only in title. Return only id, title and dateOfPublication.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>articleType</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ArticleTypeEnum" target="_self" >ArticleTypeEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>pattern</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Pattern to search.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>language</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#LanguageEnum" target="_self" >LanguageEnum</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>DEFAULT_LANGUAGE</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Language of the article.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/ArticleDto.html" target="_self" >Promise&lt;ArticleDto[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Only id, title and dateOfPublication.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BadRequestException, Injectable } from &quot;@nestjs/common&quot;;
+import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
+import { DEFAULT_LANGUAGE, PAGE_COUNT } from &quot;src/constants&quot;;
+import { ArticleContentEntity } from &quot;src/entities/article-content.entity&quot;;
+import { ArticleDto } from &quot;src/models/dtos/article.dto&quot;;
+import { ArticleTypeEnum } from &quot;src/models/enums/article-type.enum&quot;;
+import { LanguageEnum } from &quot;src/models/enums/language.enum&quot;;
+import { Repository, SelectQueryBuilder } from &quot;typeorm&quot;;
+
+@Injectable()
+export class ArticleSearchService {
+
+    constructor(
+        @InjectRepository(ArticleContentEntity) private articleContentRepository: Repository&lt;ArticleContentEntity&gt;,
+    ) { }
+
+    /**
+     * This method is used for searching articles by pattern in title or body.
+     * @param pattern   Pattern to search.
+     * @param language  Language of the article.
+     * @param page      Pagination page.
+     * @param count     Number of articles per page.
+     * @returns         List of articles.
+     */
+    public async searchArticles(
+        articleType: ArticleTypeEnum,
+        pattern: string,
+        language: LanguageEnum &#x3D; DEFAULT_LANGUAGE,
+        page: number &#x3D; 1,
+        count: number &#x3D; PAGE_COUNT
+    ): Promise&lt;ArticleDto[]&gt; {
+        pattern &#x3D; this.checkSearchPattern(pattern);
+
+        // Cannot use find() because of the WHERE condition with OR operator.
+        const sqlQuery: SelectQueryBuilder&lt;ArticleContentEntity&gt; &#x3D; this.articleContentRepository
+            .createQueryBuilder(&#x27;content&#x27;)
+            .innerJoinAndSelect(&#x27;content.article&#x27;, &#x27;article&#x27;)
+            .leftJoinAndSelect(&#x27;article.tags&#x27;, &#x27;tags&#x27;)
+            .where(&#x27;content.language &#x3D; :language&#x27;, { language })
+            .andWhere(&#x27;article.active &#x3D; 1&#x27;)
+            .andWhere(&#x27;article.articleType &#x3D; :articleType&#x27;, { articleType })
+            .andWhere(&#x27;(content.title LIKE :pattern OR content.body LIKE :pattern)&#x27;, { pattern: &#x60;%${pattern}%&#x60; })
+            .limit(count)
+            .offset(page &lt; 1 ? 0 : (page - 1) * count)
+            .orderBy(&#x27;date_of_publication&#x27;, &#x27;DESC&#x27;);
+
+        const articleContentEntities: ArticleContentEntity[] &#x3D; await sqlQuery.getMany();
+        return articleContentEntities.map(articleContent &#x3D;&gt; new ArticleDto(articleContent));
+    }
+
+    /**
+     * Method for searching articles for autocomplete. Search only in title. Return only id, title and dateOfPublication.
+     * @param pattern   Pattern to search.
+     * @param language  Language of the article.
+     * @returns         Only id, title and dateOfPublication.
+     */
+    public async searchAutocompleteArticle(articleType: ArticleTypeEnum, pattern: string, language: LanguageEnum &#x3D; DEFAULT_LANGUAGE ): Promise&lt;ArticleDto[]&gt; {
+        pattern &#x3D; this.checkSearchPattern(pattern);
+
+        // Search only in title.
+        // Return only id, title and dateOfPublication. It is enough for autocomplete.
+        const queryBuilder: SelectQueryBuilder&lt;ArticleContentEntity&gt; &#x3D; this.articleContentRepository
+            .createQueryBuilder(&#x27;content&#x27;)
+            .select(&#x27;content.id&#x27;, &#x27;articleContentId&#x27;)
+            .addSelect(&#x27;title&#x27;)
+            .addSelect(&#x27;date_of_publication&#x27;, &#x27;dateOfPublication&#x27;)
+            .innerJoin(&#x27;content.article&#x27;, &#x27;article&#x27;)
+            .where(&#x27;language &#x3D; :language&#x27;, { language })
+            .andWhere(&#x27;article.articleType &#x3D; :articleType&#x27;, { articleType })
+            .andWhere(&#x27;title LIKE :pattern&#x27;, { pattern: &#x60;%${pattern}%&#x60; })
+            .limit(10)
+            .orderBy(&#x27;dateOfPublication&#x27;, &#x27;DESC&#x27;);
+
+        return await queryBuilder.getRawMany();
+    }
+
+    /**
+     * This method is used for checking search pattern.
+     * @throws BadRequestException  if pattern is missing.
+     * @param pattern               Pattern to search.
+     * @returns                     Pattern without unwanted white spaces.
+     */
+    private checkSearchPattern(pattern: string): string {
+        if (!pattern) {
+            throw new BadRequestException(&#x27;Missing mandatory parameter(s): pattern.&#x27;);
+        }
+        
+        // Remove unwanted white spaces.
+        return pattern.replace(/ +/g, &#x27; &#x27;).trim();
+    }
+}</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ArticleSearchService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
