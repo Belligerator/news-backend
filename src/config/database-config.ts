@@ -12,7 +12,7 @@ const databaseConfig: DataSourceOptions = {
         __dirname + '/../endpoints/**/*.entity{.ts,.js}',
         __dirname + '/../entities/**/*.entity{.ts,.js}',
     ],
-    synchronize: true,
+    synchronize: false,
     logging: false,
     charset: 'utf8_unicode_ci',
     migrations: [__dirname + '/../migrations/*{.ts,.js}'],

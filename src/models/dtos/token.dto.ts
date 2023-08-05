@@ -1,3 +1,5 @@
+import { LanguageEnum } from "../enums/language.enum";
+
 export class PushTokenDto {
 
     /**
@@ -5,4 +7,9 @@ export class PushTokenDto {
      */
     public token: string;
 
+    /**
+     * Language of the device.
+     */
+    public language: LanguageEnum;
+    
 }

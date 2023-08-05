@@ -1,4 +1,6 @@
 {
     "PUSH_NOTIFICATION_TITLE": "New article",
-    "PUSH_NOTIFICATION_BODY": "New article was created: {body}"
+    "PUSH_NOTIFICATION_BODY": "New article was created: {body}",
+    "PUSH_NOTIFICATION_TITLE_COOKIE": "Daily cookie",
+    "PUSH_NOTIFICATION_BODY_COOKIE": "Congratulation, you won daily cookie! 🍪"
 }

@@ -1,3 +1,5 @@
+import { DEFAULT_LANGUAGE } from "src/constants";
+import { LanguageEnum } from "src/models/enums/language.enum";
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
 /**
@@ -11,6 +13,9 @@ export class PushTokenEntity {
     @PrimaryColumn()
     public token: string;
 
+    @Column('enum', { enum: LanguageEnum, default: DEFAULT_LANGUAGE })
+    public language: LanguageEnum;
+    
     @Column('datetime', { name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
     public createdAt: Date;
 

@@ -24,12 +24,14 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { TagService } from './endpoints/tag/tag.service';
 import { TagController } from './endpoints/tag/tag.controller';
-import { AcceptLanguageResolver, HeaderResolver, I18nModule } from 'nestjs-i18n';
+import { HeaderResolver, I18nModule } from 'nestjs-i18n';
 import { PushNotificationService } from './endpoints/push-notification/push-notification.service';
 import { ArticleSearchService } from './endpoints/article/search/article-search.service';
 import { ArticleSearchController } from './endpoints/article/search/article-search.controller';
 import { PushNotificationController } from './endpoints/push-notification/push-notification.controller';
 import { PushTokenEntity } from './entities/push-token.entity';
+import { ScheduleModule } from '@nestjs/schedule';
+import { CronJobService } from './services/cron-job.service';
 
 @Module({
     imports: [
@@ -41,6 +43,7 @@ import { PushTokenEntity } from './entities/push-token.entity';
             },
         ),
         ConfigModule.forRoot(),
+        ScheduleModule.forRoot(),
         CacheModule.register({
             ttl: 1000, // ms. 1s during developing. In prod, this could be higher.
         }),
@@ -97,6 +100,7 @@ import { PushTokenEntity } from './entities/push-token.entity';
         FileService,
         EmailService,
         TagService,
+        CronJobService,
         PushNotificationService,
         {
             provide: APP_FILTER,

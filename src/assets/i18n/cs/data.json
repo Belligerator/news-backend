@@ -1,4 +1,6 @@
 {
     "PUSH_NOTIFICATION_TITLE": "Nový článek",
-    "PUSH_NOTIFICATION_BODY": "Byl vytvořen nový článek: {body}"
+    "PUSH_NOTIFICATION_BODY": "Byl vytvořen nový článek: {body}",
+    "PUSH_NOTIFICATION_TITLE_COOKIE": "Denní sušenka",
+    "PUSH_NOTIFICATION_BODY_COOKIE": "Gratulujeme, vyhrál jste denní sušenku! 🍪"
 }

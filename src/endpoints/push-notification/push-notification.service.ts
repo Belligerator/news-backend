@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { TopicMessage } from 'firebase-admin/lib/messaging/messaging-api';
+import { TokenMessage, TopicMessage } from 'firebase-admin/lib/messaging/messaging-api';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { I18nService } from 'nestjs-i18n';
 import { LanguageEnum } from 'src/models/enums/language.enum';
@@ -23,9 +23,13 @@ export class PushNotificationService {
      * @param token     Token to save.
      */
     public async saveToken(token: PushTokenDto): Promise<void> {
-        await this.pushTokenRepository.save({ token: token.token, updatedAt: new Date() });
+        await this.pushTokenRepository.save({ token: token.token, language: token.language, updatedAt: new Date() });
     }
 
+    /**
+     * Delete token for push notifications.
+     * @param token 
+     */
     public async deleteToken(token: PushTokenDto): Promise<void> {
         await this.pushTokenRepository.delete({ token: token.token });
     }
@@ -51,10 +55,46 @@ export class PushNotificationService {
             },
         };
 
-        this.logger.log('info', `[PUSH_NOTIFICATION_SERVICE] Send push notification: ${JSON.stringify(message)}`);
-
         // Just for testing, private key is not included in repository.
         const messageId: string = await firebaseAdmin.messaging().send(message);
         this.logger.log('info', `[PUSH_NOTIFICATION_SERVICE] Push notification sent: ${messageId}`);
+    }
+
+    /**
+     * Send push notification to random device. Used as example.
+     * Mobile app does not have user authentication, so we cannot send push notification to specific user.
+     * @returns 
+     */
+    public async sendCookieToRandomDevice(): Promise<void> {
+        const pushTokens: PushTokenEntity[] = await this.pushTokenRepository.find();
+        
+        if (pushTokens.length === 0) {
+            return;
+        }
+
+        const randomToken: PushTokenEntity = pushTokens[Math.floor(Math.random() * pushTokens.length)];
+
+        const message: TokenMessage = {
+            token: randomToken.token,
+            notification: {
+                title: this.i18n.translate('data.PUSH_NOTIFICATION_TITLE_COOKIE', { lang: randomToken.language }),
+                body: this.i18n.translate('data.PUSH_NOTIFICATION_BODY_COOKIE', { lang: randomToken.language })
+            },
+            android: {
+                notification: {
+                    clickAction: 'FLUTTER_NOTIFICATION_CLICK',
+                    icon: 'notification_icon',
+                },
+            },
+        };
+
+        this.logger.log('info', `[PUSH_NOTIFICATION_SERVICE] Send push notification: ${JSON.stringify(message)}`);
+        firebaseAdmin.messaging().send(message)
+            .catch((error) => {
+                this.logger.log('error', `[PUSH_NOTIFICATION_SERVICE] Error while sending push notification: ${error}`);
+
+                // If error occurs, remove token from database.
+                this.deleteToken({ token: randomToken.token, language: randomToken.language });
+            });
     }
 }
