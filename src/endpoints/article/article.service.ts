@@ -13,6 +13,7 @@ import { EmailService } from "src/services/email.service";
 import { FileService } from "src/services/file.service";
 import { In, Repository } from "typeorm";
 import { PushNotificationService } from "src/endpoints/push-notification/push-notification.service";
+import { ExcelService } from "src/services/excel.service";
 
 @Injectable()
 export class ArticleService {
@@ -23,6 +24,7 @@ export class ArticleService {
         @InjectRepository(ArticleContentEntity) private articleContentRepository: Repository<ArticleContentEntity>,
         @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
         private readonly emailService: EmailService,
+        private readonly excelService: ExcelService,
         private readonly pushNotificationService: PushNotificationService,
         private readonly fileService: FileService
     ) { }
@@ -280,6 +282,14 @@ export class ArticleService {
         }
 
         await this.articleRepository.update(articleContentEntity.article.id, { active: activity });
+    }
+
+    public async exportArticles(): Promise<Buffer> {
+        const articles: ArticleContentEntity[] = await this.articleContentRepository.find({
+            relations: ['article', 'article.tags']
+        });
+
+        return this.excelService.exportArticles(articles.map(article => new ArticleDto(article)));
     }
 
 }

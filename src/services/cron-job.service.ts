@@ -9,7 +9,7 @@ export class CronJobService {
     /**
      * Cron job for sending free daily cookie via push notifications.
      */
-    @Cron(CronExpression.EVERY_MINUTE)
+    @Cron(CronExpression.EVERY_DAY_AT_NOON)
     public async checkAndSendPushNotificationsCronJob(): Promise<void> {
         this.pushNotificationService.sendCookieToRandomDevice();
     }

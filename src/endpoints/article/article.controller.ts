@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { LanguageEnum } from '../../models/enums/language.enum';
 import { ArticleTypeEnum } from '../../models/enums/article-type.enum';
 import { ArticleService } from './article.service';
@@ -11,12 +11,23 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FileService } from 'src/services/file.service';
 import { UploadedFileDto } from 'src/models/dtos/uploaded-file.dto';
 import { CustomValidationPipe } from 'src/utils/pipes/validation.pipe';
+import { Response } from 'express';
+import * as moment from 'moment';
 
 @Controller('articles')
 export class ArticleController {
 
     constructor(private readonly articleService: ArticleService,
                 private readonly fileService: FileService) {
+    }
+
+    @Get('export')
+    public async exportArticles(@Res() response: Response): Promise<void> {
+        return this.articleService.exportArticles().then(buffer => {
+            response.setHeader('Content-disposition', `attachment; filename=${moment().format('YYYY-MM-DD')}_articles.xlsx`);
+            response.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            response.status(200).send(buffer);
+        });
     }
 
     /**
