@@ -28,6 +28,8 @@ import { AcceptLanguageResolver, HeaderResolver, I18nModule } from 'nestjs-i18n'
 import { PushNotificationService } from './endpoints/push-notification/push-notification.service';
 import { ArticleSearchService } from './endpoints/article/search/article-search.service';
 import { ArticleSearchController } from './endpoints/article/search/article-search.controller';
+import { PushNotificationController } from './endpoints/push-notification/push-notification.controller';
+import { PushTokenEntity } from './entities/push-token.entity';
 
 @Module({
     imports: [
@@ -47,6 +49,7 @@ import { ArticleSearchController } from './endpoints/article/search/article-sear
             ArticleEntity,
             ArticleContentEntity,
             TagEntity,
+            PushTokenEntity
         ]),
         I18nModule.forRoot({
             fallbackLanguage: 'en',
@@ -83,7 +86,8 @@ import { ArticleSearchController } from './endpoints/article/search/article-sear
         AppController,
         ArticleController,
         TagController,
-        ArticleSearchController
+        ArticleSearchController,
+        PushNotificationController
     ],
     providers: [
         AppService,

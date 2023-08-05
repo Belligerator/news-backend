@@ -5,7 +5,7 @@ import { ArticleContentEntity } from "src/entities/article-content.entity";
 import { ArticleDto } from "src/models/dtos/article.dto";
 import { ArticleTypeEnum } from "src/models/enums/article-type.enum";
 import { LanguageEnum } from "src/models/enums/language.enum";
-import { Repository, SelectQueryBuilder } from "typeorm";
+import { ILike, Raw, Repository, SelectQueryBuilder } from "typeorm";
 
 @Injectable()
 export class ArticleSearchService {
@@ -31,7 +31,23 @@ export class ArticleSearchService {
     ): Promise<ArticleDto[]> {
         pattern = this.checkSearchPattern(pattern);
 
-        // Cannot use find() because of the WHERE condition with OR operator.
+        // Cannot use find() because of the WHERE condition with OR operator. https://github.com/typeorm/typeorm/issues/2869
+        // We can use OR operator in find(), but we have to copy all where conditions. Eg.:
+        /*
+            where: [{
+                    language,
+                    article: { articleType },
+                    title: ILike(`%${pattern}%`), <-- We cannot do (title LIKE :pattern OR body LIKE :pattern), we can check only one column.
+                },
+                {
+                    language,
+                    article: { articleType },
+                    body: ILike(`%${pattern}%`),
+                }],
+        */
+        // We cannot check both columns (title and body) in one where condition in find() function. So use queryBuilder.
+        // However, there is a workaround. We can use Raw() function, but it is not very clean. See searchAutocompleteArticle() method.
+        // title: Raw(() => `(ArticleContentEntity.title LIKE :pattern OR ArticleContentEntity.body LIKE :pattern)`, { pattern: `%${pattern}%` }),
         const sqlQuery: SelectQueryBuilder<ArticleContentEntity> = this.articleContentRepository
             .createQueryBuilder('content')
             .innerJoinAndSelect('content.article', 'article')
@@ -59,19 +75,19 @@ export class ArticleSearchService {
 
         // Search only in title.
         // Return only id, title and dateOfPublication. It is enough for autocomplete.
-        const queryBuilder: SelectQueryBuilder<ArticleContentEntity> = this.articleContentRepository
-            .createQueryBuilder('content')
-            .select('content.id', 'articleContentId')
-            .addSelect('title')
-            .addSelect('date_of_publication', 'dateOfPublication')
-            .innerJoin('content.article', 'article')
-            .where('language = :language', { language })
-            .andWhere('article.articleType = :articleType', { articleType })
-            .andWhere('title LIKE :pattern', { pattern: `%${pattern}%` })
-            .limit(10)
-            .orderBy('dateOfPublication', 'DESC');
+        const articleContentEntities: ArticleContentEntity[] = await this.articleContentRepository.find({
+            where: {
+                language,
+                article: { articleType, active: true },
+                // Workaround for searching in two columns with find(). Use Entity.name variable in case it is refactored.
+                title: Raw(() => `(${ArticleContentEntity.name}.title LIKE :pattern OR ${ArticleContentEntity.name}.body LIKE :pattern)`, { pattern: `%${pattern}%` }),
+            },
+            relations: ['article'],
+            take: 10,
+            order: { dateOfPublication: 'DESC' },
+        });
 
-        return await queryBuilder.getRawMany();
+        return articleContentEntities.map(articleContent => new ArticleDto(articleContent, true));
     }
 
     /**

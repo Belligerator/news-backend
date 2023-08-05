@@ -47,16 +47,19 @@ export class ArticleDto {
      */
     public updatedTags: string;
 
-    constructor(articleContent: ArticleContentEntity) {
+    constructor(articleContent: ArticleContentEntity, short: boolean = false) {
         this.articleContentId = articleContent.id;
-        this.articleType = articleContent.article.articleType;
-        this.language = articleContent.language;
         this.title = articleContent.title;
-        this.body = articleContent.body;
-        this.active = articleContent.article.active;
-        this.parent = articleContent.article.parent;
-        this.coverImage = articleContent.coverImage;
-        this.tags = articleContent.article.tags?.filter(tag => tag.language == articleContent.language) ?? [];
         this.dateOfPublication = articleContent.dateOfPublication;
+
+        if (!short) {
+            this.articleType = articleContent.article.articleType;
+            this.language = articleContent.language;
+            this.body = articleContent.body;
+            this.active = articleContent.article.active;
+            this.parent = articleContent.article.parent;
+            this.coverImage = articleContent.coverImage;
+            this.tags = articleContent.article.tags?.filter(tag => tag.language == articleContent.language) ?? [];
+        }
     }
 }
