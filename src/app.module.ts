@@ -26,6 +26,8 @@ import { TagService } from './endpoints/tag/tag.service';
 import { TagController } from './endpoints/tag/tag.controller';
 import { AcceptLanguageResolver, HeaderResolver, I18nModule } from 'nestjs-i18n';
 import { PushNotificationService } from './endpoints/push-notification/push-notification.service';
+import { ArticleSearchService } from './endpoints/article/search/article-search.service';
+import { ArticleSearchController } from './endpoints/article/search/article-search.controller';
 
 @Module({
     imports: [
@@ -80,11 +82,13 @@ import { PushNotificationService } from './endpoints/push-notification/push-noti
     controllers: [
         AppController,
         ArticleController,
-        TagController
+        TagController,
+        ArticleSearchController
     ],
     providers: [
         AppService,
         ArticleService,
+        ArticleSearchService,
         SentryService,
         FileService,
         EmailService,
