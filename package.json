@@ -1,7 +1,7 @@
 {
   "name": "news-backend",
   "version": "0.0.1",
-  "description": "Backend for the news app.",
+  "description": "The backend for serving news.",
   "author": "Dmitrij Buckovsky",
   "private": true,
   "license": "UNLICENSED",

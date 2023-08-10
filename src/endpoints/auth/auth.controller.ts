@@ -10,8 +10,9 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { RequiredParameterPipe } from 'src/utils/pipes/required-parameter.pipe';
 import { JwtRequest } from 'src/models/jwt-request.model';
-import { ApiBadRequestResponse, ApiConflictResponse, ApiForbiddenResponse, ApiNotFoundResponse, ApiOperation, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiForbiddenResponse, ApiNotFoundResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 
+@ApiTags('Administration')
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
@@ -70,6 +71,7 @@ export class AuthController {
     @ApiOperation({ summary: 'Sign out user. Delete refresh token from user.' })
     @ApiUnauthorizedResponse({ description: 'JWT payload is not valid.' })
     @ApiNotFoundResponse({ description: 'jwtPayload.userId is not provided.' })
+    @ApiBearerAuth()
     @UseGuards(AuthGuard(['jwt']))
     @HttpCode(200)
     @Post('sign-out')

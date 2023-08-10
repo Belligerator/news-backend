@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { PushNotificationService } from './push-notification.service';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiBasicAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PushTokenDto } from 'src/models/dtos/token.dto';
 import { AuthGuard } from '@nestjs/passport';
 
+@ApiBasicAuth()
+@ApiTags('Application')
 @UseGuards(AuthGuard(['basic']))
 @Controller('push-notifications')
 export class PushNotificationController {

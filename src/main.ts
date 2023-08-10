@@ -37,9 +37,6 @@ async function bootstrap(): Promise<void> {
     const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('swagger', app, document);
 
-    // app.useGlobalPipes(new I18nValidationPipe());
-    // app.useGlobalFilters(new I18nValidationExceptionFilter({ detailedErrors: false }));
-
     app.enableCors();
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
     await app.listen(3000);

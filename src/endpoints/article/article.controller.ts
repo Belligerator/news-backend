@@ -5,7 +5,7 @@ import { ArticleService } from './article.service';
 import { CheckArticleType } from 'src/utils/pipes/check-article-type.pipe';
 import { StringToNumberPipe } from 'src/utils/pipes/string-to-number.pipe';
 import { ArticleDto } from 'src/models/dtos/article.dto';
-import { ApiNotFoundResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiNotFoundResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ArticleRequestDto } from 'src/models/dtos/article-request.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileService } from 'src/services/file.service';
@@ -15,6 +15,7 @@ import { Response } from 'express';
 import * as moment from 'moment';
 import { AuthGuard } from '@nestjs/passport';
 
+@ApiTags('Administration', 'Application')
 @Controller('articles')
 export class ArticleController {
 
