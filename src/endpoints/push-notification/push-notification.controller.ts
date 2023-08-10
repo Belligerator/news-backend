@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, HttpCode, Post, UseGuards } from "@nestjs/common";
-import { PushNotificationService } from "./push-notification.service";
-import { ApiOperation } from "@nestjs/swagger";
-import { PushTokenDto } from "src/models/dtos/token.dto";
-import { AuthGuard } from "@nestjs/passport";
+import { Body, Controller, Delete, HttpCode, Post, UseGuards } from '@nestjs/common';
+import { PushNotificationService } from './push-notification.service';
+import { ApiOperation } from '@nestjs/swagger';
+import { PushTokenDto } from 'src/models/dtos/token.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @UseGuards(AuthGuard(['basic']))
 @Controller('push-notifications')

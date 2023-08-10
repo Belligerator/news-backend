@@ -1,5 +1,5 @@
-import { ValidationError, ValidationPipe } from "@nestjs/common";
-import { BadValidationRequestException } from "src/models/exceptions/bad-validation-request.exception";
+import { ValidationError, ValidationPipe } from '@nestjs/common';
+import { BadValidationRequestException } from 'src/models/exceptions/bad-validation-request.exception';
 
 /**
  * Validate if request body is valid according to DTO.

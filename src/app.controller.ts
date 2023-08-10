@@ -4,7 +4,7 @@ import { ApiOperation } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+    constructor(private readonly appService: AppService) {}
 
   /**
    * Get backend version.
@@ -13,7 +13,7 @@ export class AppController {
    */
   @ApiOperation({ summary: 'Get backend version.' })
   @Get()
-  public getVersion(): string {
-    return this.appService.getVersion();
-  }
+    public getVersion(): string {
+        return this.appService.getVersion();
+    }
 }

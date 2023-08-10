@@ -49,7 +49,7 @@ export class FileService {
      * 
      */
     private static fileFilter(_req: any, file: Express.Multer.File, cb: (error: Error | null, acceptFile: boolean) => void): void {
-        let allowedFileTypes: string[] = ['image/png', 'image/jpeg', 'image/gif'];
+        const allowedFileTypes: string[] = ['image/png', 'image/jpeg', 'image/gif'];
 
         if (!allowedFileTypes.includes(file.mimetype)) {
             return cb(new BadRequestException('Only JPG, JPEG, PNG and GIF files are allowed.'), false);

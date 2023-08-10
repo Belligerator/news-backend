@@ -71,7 +71,7 @@ import { UserEntity } from './entities/user.entity';
                 watch: true,
             },
             resolvers: [
-                { use: HeaderResolver, options: ['x-language']}
+                { use: HeaderResolver, options: ['x-language'] }
             ]
         }),
         MailerModule.forRoot({

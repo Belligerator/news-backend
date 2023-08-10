@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToMany, PrimaryColumn } from "typeorm";
-import { LanguageEnum } from "src/models/enums/language.enum";
-import { ArticleEntity } from "./article.entity";
+import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
+import { LanguageEnum } from 'src/models/enums/language.enum';
+import { ArticleEntity } from './article.entity';
 
 @Entity('tag')
 export class TagEntity {

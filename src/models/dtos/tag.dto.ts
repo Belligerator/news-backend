@@ -1,6 +1,6 @@
-import { IsNotEmpty } from "class-validator";
-import { TagEntity } from "src/entities/tag.entity";
-import { LanguageEnum } from "src/models/enums/language.enum";
+import { IsNotEmpty } from 'class-validator';
+import { TagEntity } from 'src/entities/tag.entity';
+import { LanguageEnum } from 'src/models/enums/language.enum';
 
 export class TagDto {
 

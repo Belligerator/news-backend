@@ -1,7 +1,7 @@
-import { ArticleTypeEnum } from "src/models/enums/article-type.enum";
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { ArticleContentEntity } from "./article-content.entity";
-import { TagEntity } from "./tag.entity";
+import { ArticleTypeEnum } from 'src/models/enums/article-type.enum';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ArticleContentEntity } from './article-content.entity';
+import { TagEntity } from './tag.entity';
 
 @Entity('article')
 export class ArticleEntity {
@@ -41,11 +41,11 @@ export class ArticleEntity {
     @JoinTable({
         name: 'article__tag',
         joinColumns: [
-            { name: 'article_id', referencedColumnName: 'id'},
+            { name: 'article_id', referencedColumnName: 'id' },
         ],
         inverseJoinColumns: [
-            { name: 'tag_id', referencedColumnName: 'id'},
-            { name: 'tag_language', referencedColumnName: 'language'},
+            { name: 'tag_id', referencedColumnName: 'id' },
+            { name: 'tag_language', referencedColumnName: 'language' },
         ]
     })
     public tags: TagEntity[];

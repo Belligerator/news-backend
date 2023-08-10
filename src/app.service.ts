@@ -4,7 +4,7 @@ const { version } = require('../package.json');
 @Injectable()
 export class AppService {
   
-  public getVersion(): string {
-    return version;
-  }
+    public getVersion(): string {
+        return version;
+    }
 }

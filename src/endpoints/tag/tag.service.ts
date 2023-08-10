@@ -1,10 +1,10 @@
-import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { DEFAULT_LANGUAGE } from "src/constants";
-import { TagEntity } from "src/entities/tag.entity";
-import { TagDto } from "src/models/dtos/tag.dto";
-import { LanguageEnum } from "src/models/enums/language.enum";
-import { Repository } from "typeorm";
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DEFAULT_LANGUAGE } from 'src/constants';
+import { TagEntity } from 'src/entities/tag.entity';
+import { TagDto } from 'src/models/dtos/tag.dto';
+import { LanguageEnum } from 'src/models/enums/language.enum';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TagService {
@@ -19,7 +19,7 @@ export class TagService {
         const tag: TagEntity | null = await this.tagRepository.findOneBy({ id: newTag.id, language: newTag.language });
 
         if (tag) {
-            throw new ConflictException("Tag already exists.");
+            throw new ConflictException('Tag already exists.');
         }
 
         const savedTag: TagEntity = await this.tagRepository.save({
@@ -47,7 +47,7 @@ export class TagService {
         });
 
         if (!tag) {
-            throw new NotFoundException("Tag not found");
+            throw new NotFoundException('Tag not found');
         }
 
         tag.title = newTag.title;

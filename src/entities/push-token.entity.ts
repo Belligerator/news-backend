@@ -1,6 +1,6 @@
-import { DEFAULT_LANGUAGE } from "src/constants";
-import { LanguageEnum } from "src/models/enums/language.enum";
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { DEFAULT_LANGUAGE } from 'src/constants';
+import { LanguageEnum } from 'src/models/enums/language.enum';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 /**
  * Entity for storing push tokens.

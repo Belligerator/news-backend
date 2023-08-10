@@ -1,4 +1,4 @@
-import { LanguageEnum } from "../enums/language.enum";
+import { LanguageEnum } from '../enums/language.enum';
 
 export class PushTokenDto {
 

@@ -1,10 +1,10 @@
-import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { InjectRepository } from "@nestjs/typeorm";
-import { UserEntity } from "src/entities/user.entity";
-import { Repository } from "typeorm";
-import { JwtPayload } from "src/models/jwt-payload.model";
-import { REFRESH_TOKEN_SIZE } from "src/constants";
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserEntity } from 'src/entities/user.entity';
+import { Repository } from 'typeorm';
+import { JwtPayload } from 'src/models/jwt-payload.model';
+import { REFRESH_TOKEN_SIZE } from 'src/constants';
 import * as bcrypt from 'bcrypt';
 import * as moment from 'moment';
 import * as randomToken from 'rand-token';
