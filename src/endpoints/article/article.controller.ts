@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { LanguageEnum } from '../../models/enums/language.enum';
 import { ArticleTypeEnum } from '../../models/enums/article-type.enum';
 import { ArticleService } from './article.service';
@@ -13,6 +13,7 @@ import { UploadedFileDto } from 'src/models/dtos/uploaded-file.dto';
 import { CustomValidationPipe } from 'src/utils/pipes/validation.pipe';
 import { Response } from 'express';
 import * as moment from 'moment';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('articles')
 export class ArticleController {
@@ -21,6 +22,7 @@ export class ArticleController {
                 private readonly fileService: FileService) {
     }
 
+    @UseGuards(AuthGuard(['jwt']))
     @Get('export')
     public async exportArticles(@Res() response: Response): Promise<void> {
         return this.articleService.exportArticles().then(buffer => {
@@ -31,7 +33,7 @@ export class ArticleController {
     }
 
     /**
-     * API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.
+     * API returns object with information get from ArticleEntity and details about article from ArticleContentEntity.
      * 
      * @param id 
      * @param language 
@@ -46,7 +48,7 @@ export class ArticleController {
 
     /**
      * Get all articles by article type.
-     * API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.
+     * API returns object with information get from ArticleEntity and details about article from ArticleContentEntity.
      *
      * @param articleType   Type of article.
      * @param language      Content language.
@@ -73,6 +75,7 @@ export class ArticleController {
      */
     @ApiOperation({ summary: 'Create new article.' })
     @ApiNotFoundResponse({ description: 'Cannot parse tags or body is missing for some language.' })
+    @UseGuards(AuthGuard(['jwt']))
     @HttpCode(200)
     @Post(':articleType')
     @UseInterceptors(FileInterceptor('coverImage', FileService.multerOptions))
@@ -104,6 +107,7 @@ export class ArticleController {
      */
     @ApiOperation({ summary: 'Update article by id.' })
     @ApiNotFoundResponse({ description: 'Article not found.' })
+    @UseGuards(AuthGuard(['jwt']))
     @Put(':id')
     @UseInterceptors(FileInterceptor('coverImage', FileService.multerOptions))
     public async updateArticleById(@Param('id', StringToNumberPipe) articleContentId: number,
@@ -133,6 +137,7 @@ export class ArticleController {
      */
     @ApiOperation({ summary: 'Set article activity.' })
     @ApiNotFoundResponse({ description: 'Article not found.' })
+    @UseGuards(AuthGuard(['jwt']))
     @Put(':id/activity')
     public async setArticleActivity(@Param('id', StringToNumberPipe) articleContentId: number,
                                     @Body('active') activity: boolean): Promise<void> {

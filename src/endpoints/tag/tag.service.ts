@@ -10,7 +10,7 @@ import { Repository } from "typeorm";
 export class TagService {
 
     constructor(
-        @InjectRepository(TagEntity) private tagRepository: Repository<TagEntity>
+        @InjectRepository(TagEntity) private readonly tagRepository: Repository<TagEntity>
     ) {
     }
     

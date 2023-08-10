@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, HttpCode, Post } from "@nestjs/common";
+import { Body, Controller, Delete, HttpCode, Post, UseGuards } from "@nestjs/common";
 import { PushNotificationService } from "./push-notification.service";
 import { ApiOperation } from "@nestjs/swagger";
 import { PushTokenDto } from "src/models/dtos/token.dto";
-import { Http } from "winston/lib/winston/transports";
+import { AuthGuard } from "@nestjs/passport";
 
+@UseGuards(AuthGuard(['basic']))
 @Controller('push-notifications')
 export class PushNotificationController {
 

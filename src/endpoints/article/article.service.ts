@@ -19,9 +19,9 @@ import { ExcelService } from "src/services/excel.service";
 export class ArticleService {
 
     constructor(
-        @InjectRepository(TagEntity) private tagRepository: Repository<TagEntity>,
-        @InjectRepository(ArticleEntity) private articleRepository: Repository<ArticleEntity>,
-        @InjectRepository(ArticleContentEntity) private articleContentRepository: Repository<ArticleContentEntity>,
+        @InjectRepository(TagEntity) private readonly tagRepository: Repository<TagEntity>,
+        @InjectRepository(ArticleEntity) private readonly articleRepository: Repository<ArticleEntity>,
+        @InjectRepository(ArticleContentEntity) private readonly articleContentRepository: Repository<ArticleContentEntity>,
         @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
         private readonly emailService: EmailService,
         private readonly excelService: ExcelService,

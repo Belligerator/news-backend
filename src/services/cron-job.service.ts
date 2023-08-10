@@ -4,7 +4,7 @@ import { PushNotificationService } from 'src/endpoints/push-notification/push-no
 
 @Injectable()
 export class CronJobService {
-    constructor(private pushNotificationService: PushNotificationService) {}
+    constructor(private readonly pushNotificationService: PushNotificationService) {}
 
     /**
      * Cron job for sending free daily cookie via push notifications.

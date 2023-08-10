@@ -32,6 +32,15 @@ import { PushNotificationController } from './endpoints/push-notification/push-n
 import { PushTokenEntity } from './entities/push-token.entity';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CronJobService } from './services/cron-job.service';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { BasicStrategy } from './endpoints/auth/strategies/basic.strategy';
+import { ExcelService } from './services/excel.service';
+import { AuthService } from './endpoints/auth/auth.service';
+import { JwtStrategy } from './endpoints/auth/strategies/jwt.strategy';
+import { AuthController } from './endpoints/auth/auth.controller';
+import { LocalStrategy } from './endpoints/auth/strategies/local.strategy';
+import { UserEntity } from './entities/user.entity';
 
 @Module({
     imports: [
@@ -52,7 +61,8 @@ import { CronJobService } from './services/cron-job.service';
             ArticleEntity,
             ArticleContentEntity,
             TagEntity,
-            PushTokenEntity
+            PushTokenEntity,
+            UserEntity
         ]),
         I18nModule.forRoot({
             fallbackLanguage: 'en',
@@ -84,13 +94,26 @@ import { CronJobService } from './services/cron-job.service';
             },
         }),
         WinstonModule.forRoot(loggerConfig),
+        PassportModule.register({
+            defaultStrategy: 'jwt',
+            property: 'jwtPayload',
+            session: false,
+
+        }),
+        JwtModule.register({
+            secret: process.env.JWT_SECRET,
+            signOptions: {
+                expiresIn: '1d'
+            }
+        }),
     ],
     controllers: [
         AppController,
         ArticleController,
         TagController,
         ArticleSearchController,
-        PushNotificationController
+        PushNotificationController,
+        AuthController
     ],
     providers: [
         AppService,
@@ -99,9 +122,14 @@ import { CronJobService } from './services/cron-job.service';
         SentryService,
         FileService,
         EmailService,
+        ExcelService,
+        AuthService,
         TagService,
         CronJobService,
         PushNotificationService,
+        BasicStrategy,
+        JwtStrategy,
+        LocalStrategy,
         {
             provide: APP_FILTER,
             useClass: AllExceptionsFilter,

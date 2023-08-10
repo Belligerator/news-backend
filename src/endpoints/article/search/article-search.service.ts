@@ -11,7 +11,7 @@ import { ILike, Raw, Repository, SelectQueryBuilder } from "typeorm";
 export class ArticleSearchService {
 
     constructor(
-        @InjectRepository(ArticleContentEntity) private articleContentRepository: Repository<ArticleContentEntity>,
+        @InjectRepository(ArticleContentEntity) private readonly articleContentRepository: Repository<ArticleContentEntity>,
     ) { }
 
     /**

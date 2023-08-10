@@ -14,7 +14,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class PushNotificationService {
 
     constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
-                @InjectRepository(PushTokenEntity) private pushTokenRepository: Repository<PushTokenEntity>,
+                @InjectRepository(PushTokenEntity) private readonly pushTokenRepository: Repository<PushTokenEntity>,
                 private readonly i18n: I18nService) {
     }
     
