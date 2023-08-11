@@ -35,7 +35,7 @@ async function bootstrap(): Promise<void> {
         .addTag('Administration')
         .build();
     const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('swagger', app, document);
+    SwaggerModule.setup('api/swagger', app, document);
 
     app.enableCors();
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
