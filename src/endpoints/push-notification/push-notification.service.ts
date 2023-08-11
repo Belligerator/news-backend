@@ -39,7 +39,11 @@ export class PushNotificationService {
             topic: 'new-article-' + language,
             notification: {
                 title: this.i18n.translate('data.PUSH_NOTIFICATION_TITLE', { lang: language }),
-                body: this.i18n.translate('data.PUSH_NOTIFICATION_BODY', { lang: language, args: { body: article.body } })
+                body: this.i18n.translate('data.PUSH_NOTIFICATION_BODY', {
+                    lang: language,
+                    // Do not send whole article body, just first 255 characters.
+                    args: { body: article.body.length > 252 ? article.body.substring(0, 252) + '...' : article.body }
+                })
             },
             data: {
                 articleId: article.id + '',
