@@ -40,7 +40,7 @@ export class ExcelService {
 
         // Create sheet for each language.
         for (const language of Object.values(LanguageEnum)) {
-            rows = this.artilcesToAoA(articles.filter((article: ArticleDto) => article.language === language));
+            rows = this.articlesToAoA(articles.filter((article: ArticleDto) => article.language === language));
             sheet = this.sheetFromAoA(rows, this.XLS_COLUMN_ORDER);
             XLSX.utils.book_append_sheet(workbook, sheet, 'Articles ' + language);
         }
@@ -55,7 +55,7 @@ export class ExcelService {
      * @param articles  Articles to convert.
      * @returns         Array of arrays. Rows and columns of excel.
      */
-    private artilcesToAoA(articles: ArticleDto[]): any[][] {
+    private articlesToAoA(articles: ArticleDto[]): any[][] {
         const columnNames: string[] = Object.values(this.XLS_COLUMN_ORDER);
         const articleAttributes: string[] = Object.keys(this.XLS_COLUMN_ORDER);
         const rows: any[][] = [

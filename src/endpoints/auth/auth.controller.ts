@@ -20,8 +20,8 @@ export class AuthController {
     /**
      * Sign up new user. Used for admin panel.
      * 
-     * @throws {BadRequestException} If username or password is not provided.
-     * @throws {ConflictException} If username is not unique.
+     * @throws BadRequestException If username or password is not provided.
+     * @throws ConflictException If username is not unique.
      * @param username  Username.
      * @param password  Password.
      * @returns         Access token and refresh token.
@@ -41,8 +41,8 @@ export class AuthController {
     /**
      * Sign in user.
      * 
-     * @throws {UnauthorizedException} If username or password is not correct.
-     * @throws {ForbiddenException} If user is not active.
+     * @throws UnauthorizedException If username or password is not correct.
+     * @throws ForbiddenException If user is not active.
      * @param username  Username.
      * @param password  Password.
      * @returns         Access token and refresh token.
@@ -63,8 +63,8 @@ export class AuthController {
     /**
      * Sign out user. Delete refresh token from user.
      * 
-     * @throws {UnauthorizedException} If JWT payload is not valid.
-     * @throws {NotFoundException} If jwtPayload.userId is not provided.
+     * @throws UnauthorizedException If JWT payload is not valid.
+     * @throws NotFoundException If jwtPayload.userId is not provided.
      * @param request   Request with JWT payload.
      * @returns
      */
@@ -82,7 +82,7 @@ export class AuthController {
     /**
      * Refresh access token with refresh token.
      * 
-     * @throws {UnauthorizedException} If refresh token is invalid, old.
+     * @throws UnauthorizedException If refresh token is invalid, old.
      * @param refreshToken  Refresh token used for refresh access token.
      * @param userId        User ID, whose refresh token must be updated.
      * @returns             New access token and new refresh token.

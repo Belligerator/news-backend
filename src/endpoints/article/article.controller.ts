@@ -23,6 +23,13 @@ export class ArticleController {
                 private readonly fileService: FileService) {
     }
 
+    /**
+     * Export all articles to excel file.
+     * 
+     * @param response 
+     * @returns 
+     */
+    @ApiOperation({ summary: 'Export all articles to excel file.' })
     @UseGuards(AuthGuard(['jwt']))
     @Get('export')
     public async exportArticles(@Res() response: Response): Promise<void> {
