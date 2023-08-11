@@ -106,14 +106,14 @@ export class ArticleController {
     }
 
     /**
-     * This API is used for updating article by id.
+     * This API is used for updating article content by id.
      * 
      * @throws NotFoundException    if article does not exist.
      * @param articleContentId      Id of the article content.  
      * @param body                  Article details.
      * @returns                     Updated article.
      */
-    @ApiOperation({ summary: 'Update article by id.' })
+    @ApiOperation({ summary: 'Update article content by id.' })
     @ApiNotFoundResponse({ description: 'Article not found.' })
     // @UseGuards(AuthGuard(['jwt']))   // Commented for easier testing. In real scenario endpoint should be guarded.
     @Put(':id')
