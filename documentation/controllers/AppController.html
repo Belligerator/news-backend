@@ -151,7 +151,7 @@
                     <div>
                         <b>Example :</b>
                         <div>
-                            <pre class="line-numbers"><code class="language-html">&amp;#39;0.0.1&amp;#39;</code></pre>
+                            <pre class="line-numbers"><code class="language-html">0.0.1</code></pre>
                         </div>
                     </div>
                     <div class="io-description">
@@ -176,18 +176,18 @@ import { ApiOperation } from &#x27;@nestjs/swagger&#x27;;
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+    constructor(private readonly appService: AppService) {}
 
   /**
    * Get backend version.
-   * @example &#x27;0.0.1&#x27;
+   * @example 0.0.1
    * @returns backend version.
    */
   @ApiOperation({ summary: &#x27;Get backend version.&#x27; })
   @Get()
-  public getVersion(): string {
-    return this.appService.getVersion();
-  }
+    public getVersion(): string {
+        return this.appService.getVersion();
+    }
 }
 </code></pre>
     </div>

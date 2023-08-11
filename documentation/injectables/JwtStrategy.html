@@ -40,7 +40,7 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >EmailService</li>
+  <li class="breadcrumb-item" >JwtStrategy</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -64,7 +64,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/services/email.service.ts</code>
+            <code>src/endpoints/auth/strategies/jwt.strategy.ts</code>
         </p>
 
 
@@ -87,7 +87,7 @@
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
-                                <a href="#sendEmail" >sendEmail</a>
+                                <a href="#validate" >validate</a>
                             </li>
                         </ul>
                     </td>
@@ -107,12 +107,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(logger: Logger, sentryService: <a href="../injectables/SentryService.html" target="_self">SentryService</a>, mailerService: MailerService)</code>
+<code>constructor(userEntityRepository: <a href="../entitys/UserEntity.html" target="_self">Repository&lt;UserEntity&gt;</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/services/email.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/endpoints/auth/strategies/jwt.strategy.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -130,34 +130,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>logger</td>
+                                                        <td>userEntityRepository</td>
                                                   
                                                         <td>
-                                                                    <code>Logger</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>sentryService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/SentryService.html" target="_self" >SentryService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>mailerService</td>
-                                                  
-                                                        <td>
-                                                                    <code>MailerService</code>
+                                                                        <code><a href="../entitys/UserEntity.html" target="_self" >Repository&lt;UserEntity&gt;</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -183,34 +159,36 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="sendEmail"></a>
+                    <a name="validate"></a>
                     <span class="name">
                         <span class="modifier">Public</span>
                         <span class="modifier">Async</span>
-                        <span ><b>sendEmail</b></span>
-                        <a href="#sendEmail"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>validate</b></span>
+                        <a href="#validate"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>sendEmail(article: <a href="../classes/ArticleDto.html" target="_self">ArticleDto</a>)</code>
+                    <code>validate(payload: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/services/email.service.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/endpoints/auth/strategies/jwt.strategy.ts:23</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Send email about new article.</p>
+                    <div class="io-description"><p>Validate user from JWT token.
+If user is not found, throw UnauthorizedException.
+If user is not active, throw ForbiddenException.</p>
 </div>
 
                     <div class="io-description">
@@ -222,14 +200,13 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
-                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>article</td>
+                                    <td>payload</td>
                                     <td>
-                                                <code><a href="../classes/ArticleDto.html" target="_self" >ArticleDto</a></code>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                     </td>
 
                                     <td>
@@ -237,10 +214,6 @@
                                     </td>
 
 
-                                    <td>
-                                        <p>Article to send.</p>
-
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -248,7 +221,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+                        <b>Returns : </b>        <code><a href="../interfaces/JwtPayload.html" target="_self" >Promise&lt;JwtPayload&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -264,52 +237,47 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { MailerService } from &#x27;@nestjs-modules/mailer&#x27;;
-import { Inject, Injectable, Logger } from &#x27;@nestjs/common&#x27;;
-import { WINSTON_MODULE_PROVIDER } from &#x27;nest-winston&#x27;;
-import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
-import { SentryService } from &#x27;./sentry.service&#x27;;
-import * as path from &#x27;path&#x27;;
-import * as moment from &#x27;moment&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ForbiddenException, Injectable, UnauthorizedException } from &#x27;@nestjs/common&#x27;;
+import { PassportStrategy } from &#x27;@nestjs/passport&#x27;;
+import { ExtractJwt, Strategy } from &#x27;passport-jwt&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { UserEntity } from &#x27;src/entities/user.entity&#x27;;
+import { JwtPayload } from &#x27;src/models/jwt-payload.model&#x27;;
 
 @Injectable()
-export class EmailService {
-
-    constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
-                private readonly sentryService: SentryService,
-                private readonly mailerService: MailerService) {
+export class JwtStrategy extends PassportStrategy(Strategy, &#x27;jwt&#x27;) {
+    constructor(@InjectRepository(UserEntity) private readonly userEntityRepository: Repository&lt;UserEntity&gt;) {
+        super({
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            secretOrKey: process.env.JWT_SECRET
+        });
     }
 
     /**
-     * Send email about new article.
-     * @param article   Article to send.
+     * Validate user from JWT token.
+     * If user is not found, throw UnauthorizedException.
+     * If user is not active, throw ForbiddenException.
      */
-    public async sendEmail(article: ArticleDto): Promise&lt;void&gt; {
-        this.logger.log(&#x27;info&#x27;, &#x60;[EMAIL_SERVICE] Sending email about new article ${article.articleContentId}&#x60;);
+    public async validate(payload: any): Promise&lt;JwtPayload&gt; {
+        const user: UserEntity | null &#x3D; await this.userEntityRepository.findOne(
+            {
+                where: { id: payload.userId },
+                select: [&#x27;active&#x27;, &#x27;id&#x27;]
+            });
 
-        this.mailerService.sendMail({
-            to: &#x27;test@test.com&#x27;,
-            subject: &#x27;New article: &#x27; + article.title,
-            template: &#x27;new-article&#x27;,
-            context: {
-                title: article.title,
-                body: article.body,
-                coverImage: article.coverImage,
-                dateOfPublication: moment(article.dateOfPublication).format(&#x27;DD.MM.YYYY&#x27;),
-            },
-            attachments: [{
-                filename: &#x27;best-news.png&#x27;,
-                path: path.join(__dirname, &#x27;..&#x27;, &#x27;templates&#x27;, &#x27;assets&#x27;, &#x27;images&#x27;, &#x27;best-news.png&#x27;),
-                contentType: &#x27;image/png&#x27;,
-                cid: &#x27;newsSmall&#x27;,
-            }]
-        }).then(() &#x3D;&gt; {
-            this.logger.log(&#x27;info&#x27;, &#x60;Email about new article ${article.articleContentId} was sent.&#x60;);
-        }).catch((error) &#x3D;&gt; {
-            this.sentryService.captureException(&#x27;[EMAIL_SERVICE_ERROR] Cannot send email.&#x27;, &#x60;Email about new article (${article.articleContentId}-${article.title}) was not sent. Error: ${error}&#x60;);
-        });
+        if (!user) {
+            throw new UnauthorizedException(&#x27;This endpoint can access only administrators.&#x27;);
+        }
+
+        if (!user.active) {
+            throw new ForbiddenException(&#x60;User is not active.&#x60;);
+        }
+
+        return { userId: payload.userId };
     }
-}</code></pre>
+}
+</code></pre>
     </div>
 
 </div>
@@ -352,7 +320,7 @@ export class EmailService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'EmailService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'JwtStrategy.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

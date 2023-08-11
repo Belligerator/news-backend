@@ -151,7 +151,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(articleContent: <a href="../classes/ArticleContentEntity.html" target="_self">ArticleContentEntity</a>)</code>
+<code>constructor(articleContent: <a href="../classes/ArticleContentEntity.html" target="_self">ArticleContentEntity</a>, short: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -178,6 +178,18 @@
                                                   
                                                         <td>
                                                                         <code><a href="../classes/ArticleContentEntity.html" target="_self" >ArticleContentEntity</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>short</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -550,8 +562,8 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ArticleContentEntity } from &quot;src/entities/article-content.entity&quot;;
-import { TagDto } from &quot;./tag.dto&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ArticleContentEntity } from &#x27;src/entities/article-content.entity&#x27;;
+import { TagDto } from &#x27;./tag.dto&#x27;;
 
 export class ArticleDto {
 
@@ -599,17 +611,20 @@ export class ArticleDto {
      */
     public updatedTags: string;
 
-    constructor(articleContent: ArticleContentEntity) {
+    constructor(articleContent: ArticleContentEntity, short: boolean &#x3D; false) {
         this.articleContentId &#x3D; articleContent.id;
-        this.articleType &#x3D; articleContent.article.articleType;
-        this.language &#x3D; articleContent.language;
         this.title &#x3D; articleContent.title;
-        this.body &#x3D; articleContent.body;
-        this.active &#x3D; articleContent.article.active;
-        this.parent &#x3D; articleContent.article.parent;
-        this.coverImage &#x3D; articleContent.coverImage;
-        this.tags &#x3D; articleContent.article.tags?.filter(tag &#x3D;&gt; tag.language &#x3D;&#x3D; articleContent.language) ?? [];
         this.dateOfPublication &#x3D; articleContent.dateOfPublication;
+
+        if (!short) {
+            this.articleType &#x3D; articleContent.article.articleType;
+            this.language &#x3D; articleContent.language;
+            this.body &#x3D; articleContent.body;
+            this.active &#x3D; articleContent.article.active;
+            this.parent &#x3D; articleContent.article.parent;
+            this.coverImage &#x3D; articleContent.coverImage;
+            this.tags &#x3D; articleContent.article.tags?.filter(tag &#x3D;&gt; tag.language &#x3D;&#x3D; articleContent.language) ?? [];
+        }
     }
 }
 </code></pre>

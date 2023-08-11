@@ -639,7 +639,7 @@ export class FileService {
      * 
      */
     private static fileFilter(_req: any, file: Express.Multer.File, cb: (error: Error | null, acceptFile: boolean) &#x3D;&gt; void): void {
-        let allowedFileTypes: string[] &#x3D; [&#x27;image/png&#x27;, &#x27;image/jpeg&#x27;, &#x27;image/gif&#x27;];
+        const allowedFileTypes: string[] &#x3D; [&#x27;image/png&#x27;, &#x27;image/jpeg&#x27;, &#x27;image/gif&#x27;];
 
         if (!allowedFileTypes.includes(file.mimetype)) {
             return cb(new BadRequestException(&#x27;Only JPG, JPEG, PNG and GIF files are allowed.&#x27;), false);

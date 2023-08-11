@@ -152,8 +152,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">src/endpoints/article/search/article-search.controller.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/endpoints/article/search/article-search.controller.ts:30</a></div>
                 </td>
             </tr>
 
@@ -303,8 +303,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">src/endpoints/article/search/article-search.controller.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">src/endpoints/article/search/article-search.controller.ts:49</a></div>
                 </td>
             </tr>
 
@@ -398,11 +398,12 @@
 import { CheckArticleType } from &#x27;src/utils/pipes/check-article-type.pipe&#x27;;
 import { StringToNumberPipe } from &#x27;src/utils/pipes/string-to-number.pipe&#x27;;
 import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
-import { ApiNotFoundResponse, ApiOperation } from &#x27;@nestjs/swagger&#x27;;
+import { ApiNotFoundResponse, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { ArticleTypeEnum } from &#x27;src/models/enums/article-type.enum&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
 import { ArticleSearchService } from &#x27;./article-search.service&#x27;;
 
+@ApiTags(&#x27;Administration&#x27;, &#x27;Application&#x27;)
 @Controller(&#x27;articles/search&#x27;)
 export class ArticleSearchController {
 

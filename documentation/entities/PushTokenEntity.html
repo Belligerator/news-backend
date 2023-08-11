@@ -28,7 +28,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content entity">
                    <div class="content-data">
 
 
@@ -36,15 +36,9 @@
 
 
 
-
-
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >TagDto</li>
+  <li class="breadcrumb-item">Entities</li>
+  <li class="breadcrumb-item" >PushTokenEntity</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -68,12 +62,19 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/models/dtos/tag.dto.ts</code>
+            <code>src/entities/push-token.entity.ts</code>
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Entity for storing push tokens.
+Mobile application does not have user accounts, so sending push notifications to a specific user does not make sense.
+It is only for purpose of sample application. We will send push notication (daily cookie :D) to a random device (token).</p>
 
-
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -91,7 +92,7 @@
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
-                                <a href="#id" >id</a>
+                                <a href="#createdAt" >createdAt</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
@@ -99,13 +100,14 @@
                                 <a href="#language" >language</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
-                                <a href="#order" >order</a>
+                                <a href="#token" >token</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
-                                <a href="#title" >title</a>
+                                <a href="#updatedAt" >updatedAt</a>
                             </li>
                         </ul>
                     </td>
@@ -120,55 +122,6 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(tagEntity: <a href="../entitys/TagEntity.html" target="_self">TagEntity</a>)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/models/dtos/tag.dto.ts:31</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>tagEntity</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../entitys/TagEntity.html" target="_self" >TagEntity</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
-
             <section data-compodoc="block-properties">
     
     <h3 id="inputs">
@@ -178,18 +131,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="id"></a>
+                    <a name="createdAt"></a>
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier">Public</span>
-                        <span ><b>id</b></span>
-                        <a href="#id"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>createdAt</b></span>
+                        <a href="#createdAt"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
 
                     </td>
                 </tr>
@@ -198,22 +151,16 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />
+                            @Column(&#x27;datetime&#x27;, {name: &#x27;created_at&#x27;, default: () &#x3D;&gt; CURRENT_TIMESTAMP})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/dtos/tag.dto.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/entities/push-token.entity.ts:20</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Uniqe string shortcut for tag.</p>
-<div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -241,22 +188,16 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />
+                            @Column(&#x27;enum&#x27;, {enum: LanguageEnum, default: DEFAULT_LANGUAGE})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/models/dtos/tag.dto.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/entities/push-token.entity.ts:17</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>What language is the tag available in?</p>
-<div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -264,45 +205,12 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="order"></a>
-                    <span class="name">
-                            <span class="modifier">Public</span>
-                        <span ><b>order</b></span>
-                        <a href="#order"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/models/dtos/tag.dto.ts:31</a></div>
-                        </td>
-                    </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Order of the tag.</p>
-</div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="title"></a>
+                    <a name="token"></a>
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier">Public</span>
-                        <span ><b>title</b></span>
-                        <a href="#title"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>token</b></span>
+                        <a href="#token"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -317,82 +225,108 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />
+                            @PrimaryColumn()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/models/dtos/tag.dto.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/entities/push-token.entity.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updatedAt"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>updatedAt</b></span>
+                        <a href="#updatedAt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column(&#x27;datetime&#x27;, {name: &#x27;updated_at&#x27;, default: () &#x3D;&gt; CURRENT_TIMESTAMP, onUpdate: &#x27;CURRENT_TIMESTAMP&#x27;})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/entities/push-token.entity.ts:28</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>User-friendly name of the tag.</p>
-<div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
+                    <div class="io-description"><p>Last time when token saved to database.
+onUpdate will not update time, because there are no columns to update. So we need to update it manually.
+This column is used for finding when application was last time opened. It is not guaranteed because token can be changed on device.</p>
+</div>
                 </td>
             </tr>
 
         </tbody>
     </table>
 </section>
-
-
-
-
-
-
-
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsNotEmpty } from &#x27;class-validator&#x27;;
-import { TagEntity } from &#x27;src/entities/tag.entity&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DEFAULT_LANGUAGE } from &#x27;src/constants&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
+import { Column, Entity, PrimaryColumn } from &#x27;typeorm&#x27;;
 
-export class TagDto {
+/**
+ * Entity for storing push tokens.
+ * Mobile application does not have user accounts, so sending push notifications to a specific user does not make sense.
+ * It is only for purpose of sample application. We will send push notication (daily cookie :D) to a random device (token).
+ */
+@Entity(&#x27;push_token&#x27;)
+export class PushTokenEntity {
 
-    /**
-     * Uniqe string shortcut for tag.
-     * @example world for World news.
-     */
-    @IsNotEmpty()
-    public id: string;
+    @PrimaryColumn()
+    public token: string;
 
-    /**
-     * What language is the tag available in?
-     * @example en
-     */
-    @IsNotEmpty()
+    @Column(&#x27;enum&#x27;, { enum: LanguageEnum, default: DEFAULT_LANGUAGE })
     public language: LanguageEnum;
-
-    /**
-     * User-friendly name of the tag.
-     * @example World
-     */
-    @IsNotEmpty()
-    public title: string;
-
-    /**
-     * Order of the tag.
-     */
-    public order: number;
-
-    constructor(tagEntity: TagEntity) {
-        if (tagEntity) {
-            this.id &#x3D; tagEntity.id;
-            this.language &#x3D; tagEntity.language;
-            this.title &#x3D; tagEntity.title;
-            this.order &#x3D; tagEntity.order;
-        }
-    }
     
+    @Column(&#x27;datetime&#x27;, { name: &#x27;created_at&#x27;, default: () &#x3D;&gt; &#x27;CURRENT_TIMESTAMP&#x27; })
+    public createdAt: Date;
+
+    /**
+     * Last time when token saved to database.
+     * onUpdate will not update time, because there are no columns to update. So we need to update it manually.
+     * This column is used for finding when application was last time opened. It is not guaranteed because token can be changed on device.
+     */
+    @Column(&#x27;datetime&#x27;, { name: &#x27;updated_at&#x27;, default: () &#x3D;&gt; &#x27;CURRENT_TIMESTAMP&#x27;, onUpdate: &#x27;CURRENT_TIMESTAMP&#x27; })
+    public updatedAt: Date;
+
 }
 </code></pre>
     </div>
 </div>
+
+
+
+
+
+
 
 
 
@@ -427,8 +361,8 @@ export class TagDto {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'TagDto.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'entity';
+            var COMPODOC_CURRENT_PAGE_URL = 'PushTokenEntity.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

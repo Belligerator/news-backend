@@ -104,6 +104,13 @@
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
+                                <a href="#exportArticles" >exportArticles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#getArticleById" >getArticleById</a>
                             </li>
                             <li>
@@ -182,8 +189,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">src/endpoints/article/article.controller.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="90"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:90</a></div>
                 </td>
             </tr>
 
@@ -270,6 +277,89 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="exportArticles"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>exportArticles</b></span>
+                        <a href="#exportArticles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>exportArticles(response: Response)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Export all articles to excel file.&#x27;})<br />@Get(&#x27;export&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:35</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Export all articles to excel file.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getArticleById"></a>
                     <span class="name">
                         <span class="modifier"></span>
@@ -298,15 +388,15 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">src/endpoints/article/article.controller.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:52</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.</p>
+                    <div class="io-description"><p>API returns object with information get from ArticleEntity and details about article from ArticleContentEntity.</p>
 </div>
 
                     <div class="io-description">
@@ -394,8 +484,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">src/endpoints/article/article.controller.ts:50</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:70</a></div>
                 </td>
             </tr>
 
@@ -403,7 +493,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>Get all articles by article type.
-API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.</p>
+API returns object with information get from ArticleEntity and details about article from ArticleContentEntity.</p>
 </div>
 
                     <div class="io-description">
@@ -549,8 +639,8 @@ API returns object with infromation get from ArticleEntity and details about art
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="127"
-                            class="link-to-prism">src/endpoints/article/article.controller.ts:127</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="150"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:150</a></div>
                 </td>
             </tr>
 
@@ -650,21 +740,21 @@ Articles can be deactivated also via updateArticleById. But this API is for quic
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@ApiOperation({summary: &#x27;Update article by id.&#x27;})<br />@ApiNotFoundResponse({description: &#x27;Article not found.&#x27;})<br />@Put(&#x27;:id&#x27;)<br />@UseInterceptors(undefined)<br /></code>
+                    <code>@ApiOperation({summary: &#x27;Update article content by id.&#x27;})<br />@ApiNotFoundResponse({description: &#x27;Article not found.&#x27;})<br />@Put(&#x27;:id&#x27;)<br />@UseInterceptors(undefined)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="99"
-                            class="link-to-prism">src/endpoints/article/article.controller.ts:99</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">src/endpoints/article/article.controller.ts:121</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>This API is used for updating article by id.</p>
+                    <div class="io-description"><p>This API is used for updating article content by id.</p>
 </div>
 
                     <div class="io-description">
@@ -747,21 +837,24 @@ Articles can be deactivated also via updateArticleById. But this API is for quic
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, UploadedFile, UseInterceptors } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, Res, UploadedFile, UseGuards, UseInterceptors } from &#x27;@nestjs/common&#x27;;
 import { LanguageEnum } from &#x27;../../models/enums/language.enum&#x27;;
 import { ArticleTypeEnum } from &#x27;../../models/enums/article-type.enum&#x27;;
 import { ArticleService } from &#x27;./article.service&#x27;;
 import { CheckArticleType } from &#x27;src/utils/pipes/check-article-type.pipe&#x27;;
 import { StringToNumberPipe } from &#x27;src/utils/pipes/string-to-number.pipe&#x27;;
 import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
-import { ApiNotFoundResponse, ApiOperation } from &#x27;@nestjs/swagger&#x27;;
+import { ApiNotFoundResponse, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { ArticleRequestDto } from &#x27;src/models/dtos/article-request.dto&#x27;;
 import { FileInterceptor } from &#x27;@nestjs/platform-express&#x27;;
 import { FileService } from &#x27;src/services/file.service&#x27;;
 import { UploadedFileDto } from &#x27;src/models/dtos/uploaded-file.dto&#x27;;
-import { SERVER_URL } from &#x27;src/app.module&#x27;;
 import { CustomValidationPipe } from &#x27;src/utils/pipes/validation.pipe&#x27;;
+import { Response } from &#x27;express&#x27;;
+import * as moment from &#x27;moment&#x27;;
+import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
 
+@ApiTags(&#x27;Administration&#x27;, &#x27;Application&#x27;)
 @Controller(&#x27;articles&#x27;)
 export class ArticleController {
 
@@ -770,7 +863,24 @@ export class ArticleController {
     }
 
     /**
-     * API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.
+     * Export all articles to excel file.
+     * 
+     * @param response 
+     * @returns 
+     */
+    @ApiOperation({ summary: &#x27;Export all articles to excel file.&#x27; })
+    // @UseGuards(AuthGuard([&#x27;jwt&#x27;]))   // Commented for easier testing. In real scenario endpoint should be guarded.
+    @Get(&#x27;export&#x27;)
+    public async exportArticles(@Res() response: Response): Promise&lt;void&gt; {
+        return this.articleService.exportArticles().then(buffer &#x3D;&gt; {
+            response.setHeader(&#x27;Content-disposition&#x27;, &#x60;attachment; filename&#x3D;${moment().format(&#x27;YYYY-MM-DD&#x27;)}_articles.xlsx&#x60;);
+            response.set(&#x27;Content-Type&#x27;, &#x27;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&#x27;);
+            response.status(200).send(buffer);
+        });
+    }
+
+    /**
+     * API returns object with information get from ArticleEntity and details about article from ArticleContentEntity.
      * 
      * @param id 
      * @param language 
@@ -785,7 +895,7 @@ export class ArticleController {
 
     /**
      * Get all articles by article type.
-     * API returns object with infromation get from ArticleEntity and details about article from ArticleContentEntity.
+     * API returns object with information get from ArticleEntity and details about article from ArticleContentEntity.
      *
      * @param articleType   Type of article.
      * @param language      Content language.
@@ -812,6 +922,7 @@ export class ArticleController {
      */
     @ApiOperation({ summary: &#x27;Create new article.&#x27; })
     @ApiNotFoundResponse({ description: &#x27;Cannot parse tags or body is missing for some language.&#x27; })
+    // @UseGuards(AuthGuard([&#x27;jwt&#x27;]))   // Commented for easier testing. In real scenario endpoint should be guarded.
     @HttpCode(200)
     @Post(&#x27;:articleType&#x27;)
     @UseInterceptors(FileInterceptor(&#x27;coverImage&#x27;, FileService.multerOptions))
@@ -821,7 +932,7 @@ export class ArticleController {
 
         if (file) {
             await this.fileService.resizeImage(file.path);
-            body.coverImage &#x3D; &#x60;${SERVER_URL}/${file.destination}/${file.filename}&#x60;;
+            body.coverImage &#x3D; &#x60;${file.destination}/${file.filename}&#x60;;
         }
 
         // Create article. If error occurs, remove file if exists.
@@ -834,15 +945,16 @@ export class ArticleController {
     }
 
     /**
-     * This API is used for updating article by id.
+     * This API is used for updating article content by id.
      * 
      * @throws NotFoundException    if article does not exist.
      * @param articleContentId      Id of the article content.  
      * @param body                  Article details.
      * @returns                     Updated article.
      */
-    @ApiOperation({ summary: &#x27;Update article by id.&#x27; })
+    @ApiOperation({ summary: &#x27;Update article content by id.&#x27; })
     @ApiNotFoundResponse({ description: &#x27;Article not found.&#x27; })
+    // @UseGuards(AuthGuard([&#x27;jwt&#x27;]))   // Commented for easier testing. In real scenario endpoint should be guarded.
     @Put(&#x27;:id&#x27;)
     @UseInterceptors(FileInterceptor(&#x27;coverImage&#x27;, FileService.multerOptions))
     public async updateArticleById(@Param(&#x27;id&#x27;, StringToNumberPipe) articleContentId: number,
@@ -851,7 +963,7 @@ export class ArticleController {
 
         if (file) {
             await this.fileService.resizeImage(file.path);
-            body.coverImage &#x3D; &#x60;${SERVER_URL}/${file.destination}/${file.filename}&#x60;;
+            body.coverImage &#x3D; &#x60;${file.destination}/${file.filename}&#x60;;
         }
         
         return this.articleService.updateArticleById(articleContentId, body).catch((error) &#x3D;&gt; {
@@ -872,6 +984,7 @@ export class ArticleController {
      */
     @ApiOperation({ summary: &#x27;Set article activity.&#x27; })
     @ApiNotFoundResponse({ description: &#x27;Article not found.&#x27; })
+    // @UseGuards(AuthGuard([&#x27;jwt&#x27;]))   // Commented for easier testing. In real scenario endpoint should be guarded.
     @Put(&#x27;:id/activity&#x27;)
     public async setArticleActivity(@Param(&#x27;id&#x27;, StringToNumberPipe) articleContentId: number,
                                     @Body(&#x27;active&#x27;) activity: boolean): Promise&lt;void&gt; {

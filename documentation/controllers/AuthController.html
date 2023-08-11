@@ -37,7 +37,7 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Controllers</li>
-  <li class="breadcrumb-item" >TagController</li>
+  <li class="breadcrumb-item" >AuthController</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,14 +61,14 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/endpoints/tag/tag.controller.ts</code>
+            <code>src/endpoints/auth/auth.controller.ts</code>
         </p>
 
             <p class="comment">
                 <h3>Prefix</h3>
             </p>
             <p class="comment">
-                <code>tags</code>
+                <code>auth</code>
             </p>
 
 
@@ -95,30 +95,37 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#createTag" >createTag</a>
-                            </li>
-                            <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#deleteTag" >deleteTag</a>
-                            </li>
-                            <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#getAllTags" >getAllTags</a>
+                                <a href="#refreshAccessToken" >refreshAccessToken</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Async</span>
-                                <a href="#updateTag" >updateTag</a>
+                                <a href="#signInUser" >signInUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                <a href="#signOutUser" >signOutUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                <a href="#signUpUser" >signUpUser</a>
                             </li>
                         </ul>
                     </td>
@@ -141,23 +148,22 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="createTag"></a>
+                    <a name="refreshAccessToken"></a>
                     <span class="name">
                         <span class="modifier"></span>
                         <span class="modifier"></span>
                         <span class="modifier"></span>
                         <span class="modifier"></span>
                         <span class="modifier">Public</span>
-                        <span class="modifier">Async</span>
-                        <span ><b>createTag</b></span>
-                        <a href="#createTag"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>refreshAccessToken</b></span>
+                        <a href="#refreshAccessToken"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>createTag(newTag: <a href="../classes/TagDto.html" target="_self">TagDto</a>)</code>
+                    <code>refreshAccessToken(refreshToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
@@ -165,21 +171,21 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@ApiOperation({summary: &#x27;Create new tag if not exists.&#x27;})<br />@ApiConflictResponse({description: &#x27;Tag already exists.&#x27;})<br />@HttpCode(200)<br />@Post()<br /></code>
+                    <code>@ApiOperation({summary: &#x27;Refresh access token with refresh token.&#x27;})<br />@ApiUnauthorizedResponse({description: &#x27;Invalid refresh token, please sign in.&#x27;})<br />@HttpCode(200)<br />@Post(&#x27;refresh-token&#x27;)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:94</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Create new tag if not exists.</p>
+                    <div class="io-description"><p>Refresh access token with refresh token.</p>
 </div>
 
                     <div class="io-description">
@@ -196,9 +202,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>newTag</td>
+                                    <td>refreshToken</td>
                                     <td>
-                                                <code><a href="../classes/TagDto.html" target="_self" >TagDto</a></code>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -207,7 +213,23 @@
 
 
                                     <td>
-                                        <p>New tag.</p>
+                                        <p>Refresh token used for refresh access token.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>userId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>User ID, whose refresh token must be updated.</p>
 
                                     </td>
                                 </tr>
@@ -217,11 +239,11 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/TagDto.html" target="_self" >Promise&lt;TagDto&gt;</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
 
                     </div>
                     <div class="io-description">
-                        <p>Created tag.</p>
+                        <p>New access token and new refresh token.</p>
 
                     </div>
                 </td>
@@ -232,21 +254,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="deleteTag"></a>
+                    <a name="signInUser"></a>
                     <span class="name">
                         <span class="modifier"></span>
                         <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
                         <span class="modifier">Public</span>
-                        <span class="modifier">Async</span>
-                        <span ><b>deleteTag</b></span>
-                        <a href="#deleteTag"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>signInUser</b></span>
+                        <a href="#signInUser"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>deleteTag(newTag: <a href="../classes/TagDto.html" target="_self">TagDto</a>)</code>
+                    <code>signInUser(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -254,21 +279,21 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@ApiOperation({summary: &#x27;Delete tag.&#x27;})<br />@Delete()<br /></code>
+                    <code>@ApiOperation({summary: &#x27;Sign in user.&#x27;})<br />@ApiUnauthorizedResponse({description: &#x27;Username or password is not correct.&#x27;})<br />@ApiForbiddenResponse({description: &#x27;User is not active.&#x27;})<br />@UseGuards(undefined)<br />@HttpCode(200)<br />@Post(&#x27;sign-in&#x27;)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:61</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="56"
+                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:56</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Delete tag.</p>
+                    <div class="io-description"><p>Sign in user.</p>
 </div>
 
                     <div class="io-description">
@@ -285,9 +310,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>newTag</td>
+                                    <td>username</td>
                                     <td>
-                                                <code><a href="../classes/TagDto.html" target="_self" >TagDto</a></code>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -296,7 +321,116 @@
 
 
                                     <td>
-                                        <p>Tag to delete.</p>
+                                        <p>Username.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>password</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Password.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Access token and refresh token.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signOutUser"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier">Public</span>
+                        <span ><b>signOutUser</b></span>
+                        <a href="#signOutUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>signOutUser(request: <a href="../interfaces/JwtRequest.html" target="_self">JwtRequest</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Sign out user. Delete refresh token from user.&#x27;})<br />@ApiUnauthorizedResponse({description: &#x27;JWT payload is not valid.&#x27;})<br />@ApiNotFoundResponse({description: &#x27;jwtPayload.userId is not provided.&#x27;})<br />@ApiBearerAuth()<br />@UseGuards(undefined)<br />@HttpCode(200)<br />@Post(&#x27;sign-out&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="78"
+                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:78</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sign out user. Delete refresh token from user.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                                <code><a href="../interfaces/JwtRequest.html" target="_self" >JwtRequest</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Request with JWT payload.</p>
 
                                     </td>
                                 </tr>
@@ -320,21 +454,23 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getAllTags"></a>
+                    <a name="signUpUser"></a>
                     <span class="name">
                         <span class="modifier"></span>
                         <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
                         <span class="modifier">Public</span>
-                        <span class="modifier">Async</span>
-                        <span ><b>getAllTags</b></span>
-                        <a href="#getAllTags"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>signUpUser</b></span>
+                        <a href="#signUpUser"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getAllTags(language: <a href="../undefineds/LanguageEnum.html" target="_self">LanguageEnum</a>)</code>
+                    <code>signUpUser(username: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -342,106 +478,21 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@ApiOperation({summary: &#x27;Get all tags.&#x27;})<br />@Get()<br /></code>
+                    <code>@ApiOperation({summary: &#x27;Sign up new user. Used for admin panel.&#x27;})<br />@ApiBadRequestResponse({description: &#x27;Username or password is not provided.&#x27;})<br />@ApiConflictResponse({description: &#x27;Username is not unique.&#x27;})<br />@HttpCode(200)<br />@Post(&#x27;sign-up&#x27;)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:35</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Get tag by id for specific language.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>language</td>
-                                    <td>
-                                                <code><a href="../miscellaneous/enumerations.html#LanguageEnum" target="_self" >LanguageEnum</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/TagDto.html" target="_self" >Promise&lt;TagDto[]&gt;</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        <p>Tag.</p>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="updateTag"></a>
-                    <span class="name">
-                        <span class="modifier"></span>
-                        <span class="modifier"></span>
-                        <span class="modifier"></span>
-                        <span class="modifier">Public</span>
-                        <span class="modifier">Async</span>
-                        <span ><b>updateTag</b></span>
-                        <a href="#updateTag"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateTag(newTag: <a href="../classes/TagDto.html" target="_self">TagDto</a>)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>Decorators : </b>
-                    <br />
-                    <code>@ApiOperation({summary: &#x27;Get tag.&#x27;})<br />@ApiNotFoundResponse({description: &#x27;Tag not found.&#x27;})<br />@Put()<br /></code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:50</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:34</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Update tag.</p>
+                    <div class="io-description"><p>Sign up new user. Used for admin panel.</p>
 </div>
 
                     <div class="io-description">
@@ -458,9 +509,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>newTag</td>
+                                    <td>username</td>
                                     <td>
-                                                <code><a href="../classes/TagDto.html" target="_self" >TagDto</a></code>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -469,7 +520,23 @@
 
 
                                     <td>
-                                        <p>New tag.</p>
+                                        <p>Username.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>password</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Password.</p>
 
                                     </td>
                                 </tr>
@@ -479,11 +546,11 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/TagDto.html" target="_self" >Promise&lt;TagDto&gt;</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;literal type&gt;</code>
 
                     </div>
                     <div class="io-description">
-                        <p>Updated tag.</p>
+                        <p>Access token and refresh token.</p>
 
                     </div>
                 </td>
@@ -494,68 +561,104 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, Controller, Delete, Get, Headers, HttpCode, Post, Put } from &#x27;@nestjs/common&#x27;;
-import { TagService } from &#x27;./tag.service&#x27;;
-import { TagDto } from &#x27;src/models/dtos/tag.dto&#x27;;
-import { ApiConflictResponse, ApiNotFoundResponse, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
-import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
-import { CustomValidationPipe } from &#x27;src/utils/pipes/validation.pipe&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+    Body,
+    Controller,
+    HttpCode,
+    Post,
+    Req,
+    UseGuards,
+} from &#x27;@nestjs/common&#x27;;
+import { AuthService } from &#x27;./auth.service&#x27;;
+import { AuthGuard } from &#x27;@nestjs/passport&#x27;;
+import { RequiredParameterPipe } from &#x27;src/utils/pipes/required-parameter.pipe&#x27;;
+import { JwtRequest } from &#x27;src/models/jwt-request.model&#x27;;
+import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiForbiddenResponse, ApiNotFoundResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from &#x27;@nestjs/swagger&#x27;;
 
-@ApiTags(&#x27;Administration&#x27;, &#x27;Application&#x27;)
-@Controller(&#x27;tags&#x27;)
-export class TagController {
-
-    constructor(private readonly tagService: TagService) { }
+@ApiTags(&#x27;Administration&#x27;)
+@Controller(&#x27;auth&#x27;)
+export class AuthController {
+    constructor(private readonly authService: AuthService) {}
 
     /**
-     * Create new tag if not exists.
+     * Sign up new user. Used for admin panel.
      * 
-     * @throws          ConflictException if tag already exists.
-     * @param newTag    New tag.
-     * @returns         Created tag.
+     * @throws BadRequestException If username or password is not provided.
+     * @throws ConflictException If username is not unique.
+     * @param username  Username.
+     * @param password  Password.
+     * @returns         Access token and refresh token.
      */
-    @ApiOperation({ summary: &#x27;Create new tag if not exists.&#x27; })
-    @ApiConflictResponse({ description: &#x27;Tag already exists.&#x27; })
+    @ApiOperation({ summary: &#x27;Sign up new user. Used for admin panel.&#x27; })
+    @ApiBadRequestResponse({ description: &#x27;Username or password is not provided.&#x27; })
+    @ApiConflictResponse({ description: &#x27;Username is not unique.&#x27; })
     @HttpCode(200)
-    @Post()
-    public async createTag(@Body(CustomValidationPipe) newTag: TagDto): Promise&lt;TagDto&gt; {
-        return this.tagService.createTag(newTag);
+    @Post(&#x27;sign-up&#x27;)
+    public signUpUser(
+        @Body(&#x27;username&#x27;, RequiredParameterPipe) username: string,
+        @Body(&#x27;password&#x27;, RequiredParameterPipe) password: string,
+    ): Promise&lt;{ accessToken: string; refreshToken: string; }&gt; {
+        return this.authService.signUpUser(username, password);
     }
 
     /**
-     * Get tag by id for specific language.
-     * @returns         Tag.
-     */
-    @ApiOperation({ summary: &#x27;Get all tags.&#x27; })
-    @Get()
-    public async getAllTags(@Headers(&#x27;x-language&#x27;) language: LanguageEnum): Promise&lt;TagDto[]&gt; {
-        return this.tagService.getAllTags(language);
-    }
-
-    /**
-     * Update tag.
+     * Sign in user.
      * 
-     * @throws          NotFoundException if tag not found.
-     * @param id        Tag id.
-     * @param newTag    New tag.
-     * @returns         Updated tag.
+     * @throws UnauthorizedException If username or password is not correct.
+     * @throws ForbiddenException If user is not active.
+     * @param username  Username.
+     * @param password  Password.
+     * @returns         Access token and refresh token.
      */
-    @ApiOperation({ summary: &#x27;Get tag.&#x27; })
-    @ApiNotFoundResponse({ description: &#x27;Tag not found.&#x27; })
-    @Put()
-    public async updateTag(@Body(CustomValidationPipe) newTag: TagDto): Promise&lt;TagDto&gt; {
-        return this.tagService.updateTag(newTag);
+    @ApiOperation({ summary: &#x27;Sign in user.&#x27; })
+    @ApiUnauthorizedResponse({ description: &#x27;Username or password is not correct.&#x27; })
+    @ApiForbiddenResponse({ description: &#x27;User is not active.&#x27; })
+    @UseGuards(AuthGuard(&#x27;local&#x27;))
+    @HttpCode(200)
+    @Post(&#x27;sign-in&#x27;)
+    public signInUser(
+        @Body(&#x27;username&#x27;, RequiredParameterPipe) username: string,
+        @Body(&#x27;password&#x27;, RequiredParameterPipe) password: string,
+    ): Promise&lt;{ accessToken: string; refreshToken: string; }&gt; {
+        return this.authService.signInUser(username);
     }
 
     /**
-     * Delete tag.
+     * Sign out user. Delete refresh token from user.
      * 
-     * @param newTag    Tag to delete. 
+     * @throws UnauthorizedException If JWT payload is not valid.
+     * @throws NotFoundException If jwtPayload.userId is not provided.
+     * @param request   Request with JWT payload.
+     * @returns
      */
-    @ApiOperation({ summary: &#x27;Delete tag.&#x27; })
-    @Delete()
-    public async deleteTag(@Body() newTag: TagDto): Promise&lt;void&gt; {
-        return this.tagService.deleteTag(newTag);
+    @ApiOperation({ summary: &#x27;Sign out user. Delete refresh token from user.&#x27; })
+    @ApiUnauthorizedResponse({ description: &#x27;JWT payload is not valid.&#x27; })
+    @ApiNotFoundResponse({ description: &#x27;jwtPayload.userId is not provided.&#x27; })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard([&#x27;jwt&#x27;]))
+    @HttpCode(200)
+    @Post(&#x27;sign-out&#x27;)
+    public signOutUser(@Req() request: JwtRequest): Promise&lt;void&gt; {
+        return this.authService.signOutUser(request.jwtPayload);
+    }
+
+    /**
+     * Refresh access token with refresh token.
+     * 
+     * @throws UnauthorizedException If refresh token is invalid, old.
+     * @param refreshToken  Refresh token used for refresh access token.
+     * @param userId        User ID, whose refresh token must be updated.
+     * @returns             New access token and new refresh token.
+     */
+    @ApiOperation({ summary: &#x27;Refresh access token with refresh token.&#x27; })
+    @ApiUnauthorizedResponse({ description: &#x27;Invalid refresh token, please sign in.&#x27; })
+    @HttpCode(200)
+    @Post(&#x27;refresh-token&#x27;)
+    public refreshAccessToken(
+        @Body(&#x27;refreshToken&#x27;, RequiredParameterPipe) refreshToken: string,
+        @Body(&#x27;userId&#x27;, RequiredParameterPipe) userId: number,
+    ): Promise&lt;{ accessToken: string; refreshToken: string; }&gt; {
+        return this.authService.refreshAccessToken(userId, refreshToken);
     }
 }
 </code></pre>
@@ -603,7 +706,7 @@ export class TagController {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
-            var COMPODOC_CURRENT_PAGE_URL = 'TagController.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthController.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

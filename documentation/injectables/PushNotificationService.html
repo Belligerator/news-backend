@@ -87,6 +87,21 @@
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
+                                <a href="#deleteToken" >deleteToken</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveToken" >saveToken</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendCookieToRandomDevice" >sendCookieToRandomDevice</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#sendPushNotificationToTopic" >sendPushNotificationToTopic</a>
                             </li>
                         </ul>
@@ -107,12 +122,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(logger: Logger, i18n: I18nService)</code>
+<code>constructor(logger: Logger, pushTokenRepository: <a href="../entitys/PushTokenEntity.html" target="_self">Repository&lt;PushTokenEntity&gt;</a>, i18n: I18nService)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -134,6 +149,18 @@
                                                   
                                                         <td>
                                                                     <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>pushTokenRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/PushTokenEntity.html" target="_self" >Repository&lt;PushTokenEntity&gt;</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -171,6 +198,207 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="deleteToken"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>deleteToken</b></span>
+                        <a href="#deleteToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteToken(token: <a href="../classes/PushTokenDto.html" target="_self">PushTokenDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:33</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Delete token for push notifications.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>token</td>
+                                    <td>
+                                                <code><a href="../classes/PushTokenDto.html" target="_self" >PushTokenDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveToken"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>saveToken</b></span>
+                        <a href="#saveToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveToken(token: <a href="../classes/PushTokenDto.html" target="_self">PushTokenDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:25</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Save token for push notifications.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>token</td>
+                                    <td>
+                                                <code><a href="../classes/PushTokenDto.html" target="_self" >PushTokenDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>Token to save.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendCookieToRandomDevice"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>sendCookieToRandomDevice</b></span>
+                        <a href="#sendCookieToRandomDevice"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendCookieToRandomDevice()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:72</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Send push notification to random device. Used as example.
+Mobile app does not have user authentication, so we cannot send push notification to specific user.</p>
+</div>
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="sendPushNotificationToTopic"></a>
                     <span class="name">
                         <span class="modifier">Public</span>
@@ -190,8 +418,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:17</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:37</a></div>
                 </td>
             </tr>
 
@@ -258,27 +486,51 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Inject, Injectable, Logger } from &#x27;@nestjs/common&#x27;;
-import { TopicMessage } from &#x27;firebase-admin/lib/messaging/messaging-api&#x27;;
+import { TokenMessage, TopicMessage } from &#x27;firebase-admin/lib/messaging/messaging-api&#x27;;
 import { WINSTON_MODULE_PROVIDER } from &#x27;nest-winston&#x27;;
 import { I18nService } from &#x27;nestjs-i18n&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
 import { ArticleContentEntity } from &#x27;src/entities/article-content.entity&#x27;;
 import * as firebaseAdmin from &#x27;firebase-admin&#x27;;
+import { PushTokenDto } from &#x27;src/models/dtos/token.dto&#x27;;
+import { PushTokenEntity } from &#x27;src/entities/push-token.entity&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 
 @Injectable()
 export class PushNotificationService {
 
-
     constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+                @InjectRepository(PushTokenEntity) private readonly pushTokenRepository: Repository&lt;PushTokenEntity&gt;,
                 private readonly i18n: I18nService) {
     }
     
+    /**
+     * Save token for push notifications.
+     * @param token     Token to save.
+     */
+    public async saveToken(token: PushTokenDto): Promise&lt;void&gt; {
+        await this.pushTokenRepository.save({ token: token.token, language: token.language, updatedAt: new Date() });
+    }
+
+    /**
+     * Delete token for push notifications.
+     * @param token 
+     */
+    public async deleteToken(token: PushTokenDto): Promise&lt;void&gt; {
+        await this.pushTokenRepository.delete({ token: token.token });
+    }
+
     public async sendPushNotificationToTopic(article: ArticleContentEntity, language: LanguageEnum): Promise&lt;void&gt; {
         const message: TopicMessage &#x3D; {
             topic: &#x27;new-article-&#x27; + language,
             notification: {
                 title: this.i18n.translate(&#x27;data.PUSH_NOTIFICATION_TITLE&#x27;, { lang: language }),
-                body: this.i18n.translate(&#x27;data.PUSH_NOTIFICATION_BODY&#x27;, { lang: language, args: { body: article.body } })
+                body: this.i18n.translate(&#x27;data.PUSH_NOTIFICATION_BODY&#x27;, {
+                    lang: language,
+                    // Do not send whole article body, just first 255 characters.
+                    args: { body: article.body.length &gt; 252 ? article.body.substring(0, 252) + &#x27;...&#x27; : article.body }
+                })
             },
             data: {
                 articleId: article.id + &#x27;&#x27;,
@@ -294,11 +546,47 @@ export class PushNotificationService {
             },
         };
 
-        this.logger.log(&#x27;info&#x27;, &#x60;[PUSH_NOTIFICATION_SERVICE] Send push notification: ${JSON.stringify(message)}&#x60;);
-
         // Just for testing, private key is not included in repository.
         const messageId: string &#x3D; await firebaseAdmin.messaging().send(message);
         this.logger.log(&#x27;info&#x27;, &#x60;[PUSH_NOTIFICATION_SERVICE] Push notification sent: ${messageId}&#x60;);
+    }
+
+    /**
+     * Send push notification to random device. Used as example.
+     * Mobile app does not have user authentication, so we cannot send push notification to specific user.
+     * @returns 
+     */
+    public async sendCookieToRandomDevice(): Promise&lt;void&gt; {
+        const pushTokens: PushTokenEntity[] &#x3D; await this.pushTokenRepository.find();
+        
+        if (pushTokens.length &#x3D;&#x3D;&#x3D; 0) {
+            return;
+        }
+
+        const randomToken: PushTokenEntity &#x3D; pushTokens[Math.floor(Math.random() * pushTokens.length)];
+
+        const message: TokenMessage &#x3D; {
+            token: randomToken.token,
+            notification: {
+                title: this.i18n.translate(&#x27;data.PUSH_NOTIFICATION_TITLE_COOKIE&#x27;, { lang: randomToken.language }),
+                body: this.i18n.translate(&#x27;data.PUSH_NOTIFICATION_BODY_COOKIE&#x27;, { lang: randomToken.language })
+            },
+            android: {
+                notification: {
+                    clickAction: &#x27;FLUTTER_NOTIFICATION_CLICK&#x27;,
+                    icon: &#x27;notification_icon&#x27;,
+                },
+            },
+        };
+
+        this.logger.log(&#x27;info&#x27;, &#x60;[PUSH_NOTIFICATION_SERVICE] Send push notification: ${JSON.stringify(message)}&#x60;);
+        firebaseAdmin.messaging().send(message)
+            .catch((error) &#x3D;&gt; {
+                this.logger.log(&#x27;error&#x27;, &#x60;[PUSH_NOTIFICATION_SERVICE] Error while sending push notification: ${error}&#x60;);
+
+                // If error occurs, remove token from database.
+                this.deleteToken({ token: randomToken.token, language: randomToken.language });
+            });
     }
 }
 </code></pre>

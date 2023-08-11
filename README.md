@@ -1,73 +1,74 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NestJS backend for the News Mobile App
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## About
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Welcome to the News App Backend project! This repository serves as the backend component for the [News App](https://github.com/Belligerator/news-app), a Flutter application designed to deliver the latest news to users. The backend is built to provide data and functionality to support the app's features.
 
-## Description
+Backend is built using [NestJS](https://nestjs.com/), a NodeJS framework. It is a REST API that provides endpoints for the app to consume. For data storage, the backend uses [MySQL](https://www.mysql.com/) and interacts with it using [TypeORM](https://typeorm.io/).
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project is made as a sample project and implements some of the common features found in a typical backend application. List of features:
 
-## Installation
+- CRUD operations
+- Authorization (using JWT, basic auth)
+- Firebase Cloud Messaging (FCM) push notifications (via firebase-admin)
+- Sending emails
+- Exporting data to Excel file
+- File uploads and downloads
+- Dockerization
+- Cron jobs
+- Sentry error logging
+- Serving static files
+- Migration scripts
+- Exception filters
+- Logging to file and managing log files
 
-```bash
-$ npm install
-```
+## Demo
 
-## Running the app
+A demo of the backend can be found at https://news.belligerator.cz/api/. The demo is running on a Docker container.
 
-```bash
-# development
-$ npm run start
+For that purpose I have created a docker image for the backend. The image can be found at https://hub.docker.com/r/belligerator/news-backend. The image is built using the Dockerfile in the root directory of this repository.
 
-# watch mode
-$ npm run start:dev
+On the server, there is docker-compose file that is used to run the backend and MySQL database. The file can be found at https://github.com/Belligerator/news-docker.
 
-# production mode
-$ npm run start:prod
-```
+### Mobile application
 
-## Test
+Mobile application is built using Flutter (v3.7.1) and source codes can be found at https://github.com/Belligerator/news-app. It is connected to the demo backend and can be downloaded at https://belligerator.cz/downloads/ (`news-<version>.apk`). It is available for Android only.
 
-```bash
-# unit tests
-$ npm run test
+## Getting Started
 
-# e2e tests
-$ npm run test:e2e
+### Prerequisites
 
-# test coverage
-$ npm run test:cov
-```
+For running the backend locally, you will need the following:
 
-## Support
+- [NodeJS](https://nodejs.org/en/) (v18)
+- [NestJS](https://nestjs.com/) (v10)
+- [MySQL](https://www.mysql.com/) (v5.7)
+- [Docker](https://www.docker.com/) (v20) - not required, it was used for creating the image and running the demo from the server.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Installation
 
-## Stay in touch
+1. Clone the repo
+   ```sh
+   git clone git@github.com:Belligerator/news-backend.git
+    ```
+2. Install NPM packages
+    ```sh
+    npm install
+    ```
+3. Create a `.env` file in the root directory and fill in the required environment variables. You can refer to the `.env.example` file for the required variables.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+4. Create database schema `news` in database. Migration scripts will create the tables in the next step.
 
-## License
+5. Run the app
+    ```sh
+    npm run start
+    ```
+    The app should be running on `http://localhost:3000/`.
 
-Nest is [MIT licensed](LICENSE).
+6. In the root directory, there is a `news.postman_collection.json` file that contains a Postman collection with sample requests. You can import it into Postman and use it to test the endpoints.
+
+## Documentation
+
+Documentation for the endpoints can be found at https://news.belligerator.cz/api/swagger.
+
+Documentation for the backend can be found at https://news.belligerator.cz/api/documentation.

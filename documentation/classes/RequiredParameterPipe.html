@@ -28,7 +28,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -38,9 +38,13 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >AppService</li>
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >RequiredParameterPipe</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -64,11 +68,25 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app.service.ts</code>
+            <code>src/utils/pipes/required-parameter.pipe.ts</code>
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Pipe for checking if required parameter is present.</p>
 
+            </p>
+
+
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                        <code>PipeTransform</code>
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -86,7 +104,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#getVersion" >getVersion</a>
+                                <a href="#transform" >transform</a>
                             </li>
                         </ul>
                     </td>
@@ -101,6 +119,7 @@
 </section>
 
 
+
             <section data-compodoc="block-methods">
     
     <h3 id="methods">
@@ -110,18 +129,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getVersion"></a>
+                    <a name="transform"></a>
                     <span class="name">
                         <span class="modifier">Public</span>
-                        <span ><b>getVersion</b></span>
-                        <a href="#getVersion"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>transform</b></span>
+                        <a href="#transform"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getVersion()</code>
+                    <code>transform(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, metadata: ArgumentMetadata)</code>
                 </td>
             </tr>
 
@@ -129,7 +148,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="7"
-                            class="link-to-prism">src/app.service.ts:7</a></div>
+                            class="link-to-prism">src/utils/pipes/required-parameter.pipe.ts:7</a></div>
                 </td>
             </tr>
 
@@ -138,8 +157,52 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
 
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>metadata</td>
+                                    <td>
+                                            <code>ArgumentMetadata</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -147,28 +210,31 @@
     </table>
 </section>
 
+
+
+
+
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
-const { version } &#x3D; require(&#x27;../package.json&#x27;);
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ArgumentMetadata, BadRequestException, PipeTransform } from &#x27;@nestjs/common&#x27;;
 
-@Injectable()
-export class AppService {
-  
-    public getVersion(): string {
-        return version;
+/**
+ * Pipe for checking if required parameter is present.
+ */
+export class RequiredParameterPipe implements PipeTransform {
+    public transform(value: string, metadata: ArgumentMetadata): any {
+        if (value &#x3D;&#x3D;&#x3D; undefined || value &#x3D;&#x3D;&#x3D; null) {
+            throw new BadRequestException(&#x60;Required parameter &#x27;${metadata.data}&#x27; is missing.&#x60;)
+        } else {
+            return value;
+        }
     }
 }
 </code></pre>
     </div>
-
 </div>
-
-
-
-
 
 
 
@@ -203,8 +269,8 @@ export class AppService {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'AppService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'RequiredParameterPipe.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

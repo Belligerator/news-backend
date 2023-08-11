@@ -28,7 +28,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content entity">
                    <div class="content-data">
 
 
@@ -36,15 +36,9 @@
 
 
 
-
-
-
-
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Classes</li>
-  <li class="breadcrumb-item" >TagDto</li>
+  <li class="breadcrumb-item">Entities</li>
+  <li class="breadcrumb-item" >UserEntity</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -68,10 +62,8 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/models/dtos/tag.dto.ts</code>
+            <code>src/entities/user.entity.ts</code>
         </p>
-
-
 
 
 
@@ -91,21 +83,33 @@
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
+                                <a href="#active" >active</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                <a href="#expirationDate" >expirationDate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
                                 <a href="#id" >id</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
-                                <a href="#language" >language</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Public</span>
-                                <a href="#order" >order</a>
+                                    <span class="modifier">Optional</span>
+                                <a href="#password" >password</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
-                                <a href="#title" >title</a>
+                                <a href="#refreshToken" >refreshToken</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                <a href="#username" >username</a>
                             </li>
                         </ul>
                     </td>
@@ -120,60 +124,91 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(tagEntity: <a href="../entitys/TagEntity.html" target="_self">TagEntity</a>)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/models/dtos/tag.dto.ts:31</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>tagEntity</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../entitys/TagEntity.html" target="_self" >TagEntity</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
-
             <section data-compodoc="block-properties">
     
     <h3 id="inputs">
         Properties
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="active"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>active</b></span>
+                        <a href="#active"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column({default: false})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/entities/user.entity.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="expirationDate"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>expirationDate</b></span>
+                        <a href="#expirationDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column(&#x27;timestamp&#x27;, {nullable: true, name: &#x27;expiration_date&#x27;})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/entities/user.entity.ts:29</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Refresh token expiration date.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -189,107 +224,25 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @IsNotEmpty()<br />
-                        </code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/dtos/tag.dto.ts:12</a></div>
-                        </td>
-                    </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Uniqe string shortcut for tag.</p>
-<div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="language"></a>
-                    <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier">Public</span>
-                        <span ><b>language</b></span>
-                        <a href="#language"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#LanguageEnum" target="_self" >LanguageEnum</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @IsNotEmpty()<br />
-                        </code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/models/dtos/tag.dto.ts:19</a></div>
-                        </td>
-                    </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>What language is the tag available in?</p>
-<div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="order"></a>
-                    <span class="name">
-                            <span class="modifier">Public</span>
-                        <span ><b>order</b></span>
-                        <a href="#order"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
                         <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 
                     </td>
                 </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @PrimaryGeneratedColumn()<br />
+                        </code>
+                    </td>
+                </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/models/dtos/tag.dto.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/entities/user.entity.ts:7</a></div>
                         </td>
                     </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Order of the tag.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -297,12 +250,13 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="title"></a>
+                    <a name="password"></a>
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier">Public</span>
-                        <span ><b>title</b></span>
-                        <a href="#title"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Optional</span>
+                        <span ><b>password</b></span>
+                        <a href="#password"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -317,82 +271,144 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />
+                            @Column({select: false})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/models/dtos/tag.dto.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/entities/user.entity.ts:13</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refreshToken"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>refreshToken</b></span>
+                        <a href="#refreshToken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column(&#x27;varchar&#x27;, {length: 32, nullable: true, name: &#x27;refresh_token&#x27;})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/entities/user.entity.ts:23</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>User-friendly name of the tag.</p>
-<div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
+                    <div class="io-description"><p>Refresh token. User can be logged in from one device in one time.
+For be able to log in from another device, table with refresh tokens must be created.</p>
+</div>
                 </td>
             </tr>
 
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="username"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>username</b></span>
+                        <a href="#username"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Column({unique: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/entities/user.entity.ts:10</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
 </section>
-
-
-
-
-
-
-
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsNotEmpty } from &#x27;class-validator&#x27;;
-import { TagEntity } from &#x27;src/entities/tag.entity&#x27;;
-import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Column, Entity, PrimaryGeneratedColumn } from &#x27;typeorm&#x27;;
 
-export class TagDto {
+@Entity(&#x27;user&#x27;)
+export class UserEntity {
 
-    /**
-     * Uniqe string shortcut for tag.
-     * @example world for World news.
-     */
-    @IsNotEmpty()
-    public id: string;
+    @PrimaryGeneratedColumn()
+    public id: number;
 
-    /**
-     * What language is the tag available in?
-     * @example en
-     */
-    @IsNotEmpty()
-    public language: LanguageEnum;
+    @Column({ unique: true })
+    public username: string;
 
-    /**
-     * User-friendly name of the tag.
-     * @example World
-     */
-    @IsNotEmpty()
-    public title: string;
+    @Column({ select: false })
+    public password?: string;
 
-    /**
-     * Order of the tag.
-     */
-    public order: number;
-
-    constructor(tagEntity: TagEntity) {
-        if (tagEntity) {
-            this.id &#x3D; tagEntity.id;
-            this.language &#x3D; tagEntity.language;
-            this.title &#x3D; tagEntity.title;
-            this.order &#x3D; tagEntity.order;
-        }
-    }
+    @Column({ default: false })
+    public active: boolean;
     
-}
-</code></pre>
+    /**
+     * Refresh token. User can be logged in from one device in one time.
+     * For be able to log in from another device, table with refresh tokens must be created.
+     */
+    @Column(&#x27;varchar&#x27;, { length: 32, nullable: true, name: &#x27;refresh_token&#x27; })
+    public refreshToken: string | null;
+
+    /**
+     * Refresh token expiration date.
+     */
+    @Column(&#x27;timestamp&#x27;, { nullable: true, name: &#x27;expiration_date&#x27; })
+    public expirationDate: Date | null;
+
+}</code></pre>
     </div>
 </div>
+
+
+
+
+
+
 
 
 
@@ -427,8 +443,8 @@ export class TagDto {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'TagDto.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'entity';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserEntity.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

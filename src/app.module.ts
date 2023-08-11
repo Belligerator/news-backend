@@ -50,6 +50,11 @@ import { UserEntity } from './entities/user.entity';
                 serveRoot: '/uploads',
                 exclude: ['/api/(.*)'],
             },
+            {
+                rootPath: join(__dirname, '..', 'documentation'),
+                serveRoot: '/api/documentation',
+                exclude: ['/api/(.*)'],
+            },
         ),
         ConfigModule.forRoot(),
         ScheduleModule.forRoot(),

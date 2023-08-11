@@ -8,7 +8,7 @@ export class AppController {
 
   /**
    * Get backend version.
-   * @example '0.0.1'
+   * @example 0.0.1
    * @returns backend version.
    */
   @ApiOperation({ summary: 'Get backend version.' })

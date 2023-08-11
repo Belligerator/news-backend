@@ -468,19 +468,19 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConflictException, Injectable, NotFoundException } from &quot;@nestjs/common&quot;;
-import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
-import { DEFAULT_LANGUAGE } from &quot;src/constants&quot;;
-import { TagEntity } from &quot;src/entities/tag.entity&quot;;
-import { TagDto } from &quot;src/models/dtos/tag.dto&quot;;
-import { LanguageEnum } from &quot;src/models/enums/language.enum&quot;;
-import { Repository } from &quot;typeorm&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConflictException, Injectable, NotFoundException } from &#x27;@nestjs/common&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { DEFAULT_LANGUAGE } from &#x27;src/constants&#x27;;
+import { TagEntity } from &#x27;src/entities/tag.entity&#x27;;
+import { TagDto } from &#x27;src/models/dtos/tag.dto&#x27;;
+import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
 
 @Injectable()
 export class TagService {
 
     constructor(
-        @InjectRepository(TagEntity) private tagRepository: Repository&lt;TagEntity&gt;
+        @InjectRepository(TagEntity) private readonly tagRepository: Repository&lt;TagEntity&gt;
     ) {
     }
     
@@ -489,7 +489,7 @@ export class TagService {
         const tag: TagEntity | null &#x3D; await this.tagRepository.findOneBy({ id: newTag.id, language: newTag.language });
 
         if (tag) {
-            throw new ConflictException(&quot;Tag already exists.&quot;);
+            throw new ConflictException(&#x27;Tag already exists.&#x27;);
         }
 
         const savedTag: TagEntity &#x3D; await this.tagRepository.save({
@@ -517,7 +517,7 @@ export class TagService {
         });
 
         if (!tag) {
-            throw new NotFoundException(&quot;Tag not found&quot;);
+            throw new NotFoundException(&#x27;Tag not found&#x27;);
         }
 
         tag.title &#x3D; newTag.title;

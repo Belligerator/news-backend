@@ -497,10 +497,10 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ArticleTypeEnum } from &quot;src/models/enums/article-type.enum&quot;;
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from &quot;typeorm&quot;;
-import { ArticleContentEntity } from &quot;./article-content.entity&quot;;
-import { TagEntity } from &quot;./tag.entity&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ArticleTypeEnum } from &#x27;src/models/enums/article-type.enum&#x27;;
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from &#x27;typeorm&#x27;;
+import { ArticleContentEntity } from &#x27;./article-content.entity&#x27;;
+import { TagEntity } from &#x27;./tag.entity&#x27;;
 
 @Entity(&#x27;article&#x27;)
 export class ArticleEntity {
@@ -540,11 +540,11 @@ export class ArticleEntity {
     @JoinTable({
         name: &#x27;article__tag&#x27;,
         joinColumns: [
-            { name: &#x27;article_id&#x27;, referencedColumnName: &#x27;id&#x27;},
+            { name: &#x27;article_id&#x27;, referencedColumnName: &#x27;id&#x27; },
         ],
         inverseJoinColumns: [
-            { name: &#x27;tag_id&#x27;, referencedColumnName: &#x27;id&#x27;},
-            { name: &#x27;tag_language&#x27;, referencedColumnName: &#x27;language&#x27;},
+            { name: &#x27;tag_id&#x27;, referencedColumnName: &#x27;id&#x27; },
+            { name: &#x27;tag_language&#x27;, referencedColumnName: &#x27;language&#x27; },
         ]
     })
     public tags: TagEntity[];

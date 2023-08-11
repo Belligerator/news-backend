@@ -92,6 +92,11 @@
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Async</span>
+                                <a href="#exportArticles" >exportArticles</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#getArticleById" >getArticleById</a>
                             </li>
                             <li>
@@ -127,12 +132,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(tagRepository: <a href="../entitys/TagEntity.html" target="_self">Repository&lt;TagEntity&gt;</a>, articleRepository: <a href="../entitys/ArticleEntity.html" target="_self">Repository&lt;ArticleEntity&gt;</a>, articleContentRepository: <a href="../classes/ArticleContentEntity.html" target="_self">Repository&lt;ArticleContentEntity&gt;</a>, logger: Logger, emailService: <a href="../injectables/EmailService.html" target="_self">EmailService</a>, pushNotificationService: <a href="../injectables/PushNotificationService.html" target="_self">PushNotificationService</a>, fileService: <a href="../injectables/FileService.html" target="_self">FileService</a>)</code>
+<code>constructor(tagRepository: <a href="../entitys/TagEntity.html" target="_self">Repository&lt;TagEntity&gt;</a>, articleRepository: <a href="../entitys/ArticleEntity.html" target="_self">Repository&lt;ArticleEntity&gt;</a>, articleContentRepository: <a href="../classes/ArticleContentEntity.html" target="_self">Repository&lt;ArticleContentEntity&gt;</a>, logger: Logger, emailService: <a href="../injectables/EmailService.html" target="_self">EmailService</a>, excelService: <a href="../injectables/ExcelService.html" target="_self">ExcelService</a>, pushNotificationService: <a href="../injectables/PushNotificationService.html" target="_self">PushNotificationService</a>, fileService: <a href="../injectables/FileService.html" target="_self">FileService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/endpoints/article/article.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/endpoints/article/article.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -210,6 +215,18 @@
                                                     
                                                 </tr>
                                                 <tr>
+                                                        <td>excelService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ExcelService.html" target="_self" >ExcelService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
                                                         <td>pushNotificationService</td>
                                                   
                                                         <td>
@@ -270,8 +287,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:35</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:37</a></div>
                 </td>
             </tr>
 
@@ -346,6 +363,46 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="exportArticles"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>exportArticles</b></span>
+                        <a href="#exportArticles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>exportArticles()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="287"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:287</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;Buffer&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getArticleById"></a>
                     <span class="name">
                         <span class="modifier">Public</span>
@@ -365,8 +422,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="141"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:141</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="160"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:160</a></div>
                 </td>
             </tr>
 
@@ -467,8 +524,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="102"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:102</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:104</a></div>
                 </td>
             </tr>
 
@@ -625,8 +682,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="250"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:250</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="269"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:269</a></div>
                 </td>
             </tr>
 
@@ -720,8 +777,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="173"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:173</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="192"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:192</a></div>
                 </td>
             </tr>
 
@@ -799,31 +856,33 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BadRequestException, Inject, Injectable, Logger, NotFoundException } from &quot;@nestjs/common&quot;;
-import { InjectRepository } from &quot;@nestjs/typeorm&quot;;
-import { WINSTON_MODULE_PROVIDER } from &quot;nest-winston&quot;;
-import { DEFAULT_LANGUAGE, PAGE_COUNT } from &quot;src/constants&quot;;
-import { ArticleContentEntity } from &quot;src/entities/article-content.entity&quot;;
-import { ArticleEntity } from &quot;src/entities/article.entity&quot;;
-import { TagEntity } from &quot;src/entities/tag.entity&quot;;
-import { ArticleRequestDto } from &quot;src/models/dtos/article-request.dto&quot;;
-import { ArticleDto } from &quot;src/models/dtos/article.dto&quot;;
-import { ArticleTypeEnum } from &quot;src/models/enums/article-type.enum&quot;;
-import { LanguageEnum } from &quot;src/models/enums/language.enum&quot;;
-import { EmailService } from &quot;src/services/email.service&quot;;
-import { FileService } from &quot;src/services/file.service&quot;;
-import { In, Repository } from &quot;typeorm&quot;;
-import { PushNotificationService } from &quot;src/endpoints/push-notification/push-notification.service&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BadRequestException, Inject, Injectable, Logger, NotFoundException } from &#x27;@nestjs/common&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { WINSTON_MODULE_PROVIDER } from &#x27;nest-winston&#x27;;
+import { DEFAULT_LANGUAGE, PAGE_COUNT } from &#x27;src/constants&#x27;;
+import { ArticleContentEntity } from &#x27;src/entities/article-content.entity&#x27;;
+import { ArticleEntity } from &#x27;src/entities/article.entity&#x27;;
+import { TagEntity } from &#x27;src/entities/tag.entity&#x27;;
+import { ArticleRequestDto } from &#x27;src/models/dtos/article-request.dto&#x27;;
+import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
+import { ArticleTypeEnum } from &#x27;src/models/enums/article-type.enum&#x27;;
+import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
+import { EmailService } from &#x27;src/services/email.service&#x27;;
+import { FileService } from &#x27;src/services/file.service&#x27;;
+import { In, Repository } from &#x27;typeorm&#x27;;
+import { PushNotificationService } from &#x27;src/endpoints/push-notification/push-notification.service&#x27;;
+import { ExcelService } from &#x27;src/services/excel.service&#x27;;
 
 @Injectable()
 export class ArticleService {
 
     constructor(
-        @InjectRepository(TagEntity) private tagRepository: Repository&lt;TagEntity&gt;,
-        @InjectRepository(ArticleEntity) private articleRepository: Repository&lt;ArticleEntity&gt;,
-        @InjectRepository(ArticleContentEntity) private articleContentRepository: Repository&lt;ArticleContentEntity&gt;,
+        @InjectRepository(TagEntity) private readonly tagRepository: Repository&lt;TagEntity&gt;,
+        @InjectRepository(ArticleEntity) private readonly articleRepository: Repository&lt;ArticleEntity&gt;,
+        @InjectRepository(ArticleContentEntity) private readonly articleContentRepository: Repository&lt;ArticleContentEntity&gt;,
         @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
         private readonly emailService: EmailService,
+        private readonly excelService: ExcelService,
         private readonly pushNotificationService: PushNotificationService,
         private readonly fileService: FileService
     ) { }
@@ -929,6 +988,23 @@ export class ArticleService {
             take: count,
             order: { dateOfPublication: &#x27;DESC&#x27; }
         });
+
+        // Previous query returns only tags for searched tagId (because we want to filter articles by tagId).
+        // But we want to return articles with all their tags.
+        // So we run another query to get articles from previous query with all their tags.
+        if (tagId) {
+
+            // Find all articles from previous query by ids, but now with all tags.
+            const articlesWithTags: ArticleContentEntity[] &#x3D; await this.articleContentRepository.find({
+                where: { id: In(articleContentEntities.map(articleContent &#x3D;&gt; articleContent.id)) },
+                relations: { article: { tags: true } }
+            });
+
+            // Map tags to articleContentEntities tags.
+            articleContentEntities.forEach(articleContent &#x3D;&gt; {
+                articleContent.article.tags &#x3D; articlesWithTags.find(tag &#x3D;&gt; tag.id &#x3D;&#x3D;&#x3D; articleContent.id)?.article.tags ?? [];
+            });
+        }
 
         return articleContentEntities.map(articleContent &#x3D;&gt; new ArticleDto(articleContent));
     }
@@ -1064,6 +1140,14 @@ export class ArticleService {
         }
 
         await this.articleRepository.update(articleContentEntity.article.id, { active: activity });
+    }
+
+    public async exportArticles(): Promise&lt;Buffer&gt; {
+        const articles: ArticleContentEntity[] &#x3D; await this.articleContentRepository.find({
+            relations: [&#x27;article&#x27;, &#x27;article.tags&#x27;]
+        });
+
+        return this.excelService.exportArticles(articles.map(article &#x3D;&gt; new ArticleDto(article)));
     }
 
 }

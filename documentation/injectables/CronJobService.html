@@ -40,7 +40,7 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >AppService</li>
+  <li class="breadcrumb-item" >CronJobService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -64,7 +64,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app.service.ts</code>
+            <code>src/services/cron-job.service.ts</code>
         </p>
 
 
@@ -85,8 +85,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
-                                <a href="#getVersion" >getVersion</a>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkAndSendPushNotificationsCronJob" >checkAndSendPushNotificationsCronJob</a>
                             </li>
                         </ul>
                     </td>
@@ -100,6 +102,54 @@
     </table>
 </section>
 
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(pushNotificationService: <a href="../injectables/PushNotificationService.html" target="_self">PushNotificationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/services/cron-job.service.ts:6</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>pushNotificationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PushNotificationService.html" target="_self" >PushNotificationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
 
             <section data-compodoc="block-methods">
     
@@ -110,35 +160,46 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getVersion"></a>
+                    <a name="checkAndSendPushNotificationsCronJob"></a>
                     <span class="name">
+                        <span class="modifier"></span>
                         <span class="modifier">Public</span>
-                        <span ><b>getVersion</b></span>
-                        <a href="#getVersion"><span class="icon ion-ios-link"></span></a>
+                        <span class="modifier">Async</span>
+                        <span ><b>checkAndSendPushNotificationsCronJob</b></span>
+                        <a href="#checkAndSendPushNotificationsCronJob"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getVersion()</code>
+                    <code>checkAndSendPushNotificationsCronJob()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Cron(CronExpression.EVERY_DAY_AT_NOON)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="13"
+                            class="link-to-prism">src/services/cron-job.service.ts:13</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="7"
-                            class="link-to-prism">src/app.service.ts:7</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
+                    <div class="io-description"><p>Cron job for sending free daily cookie via push notifications.</p>
+</div>
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                     </div>
                 </td>
@@ -152,13 +213,19 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
-const { version } &#x3D; require(&#x27;../package.json&#x27;);
+import { Cron, CronExpression } from &#x27;@nestjs/schedule&#x27;;
+import { PushNotificationService } from &#x27;src/endpoints/push-notification/push-notification.service&#x27;;
 
 @Injectable()
-export class AppService {
-  
-    public getVersion(): string {
-        return version;
+export class CronJobService {
+    constructor(private readonly pushNotificationService: PushNotificationService) {}
+
+    /**
+     * Cron job for sending free daily cookie via push notifications.
+     */
+    @Cron(CronExpression.EVERY_DAY_AT_NOON)
+    public async checkAndSendPushNotificationsCronJob(): Promise&lt;void&gt; {
+        this.pushNotificationService.sendCookieToRandomDevice();
     }
 }
 </code></pre>
@@ -204,7 +271,7 @@ export class AppService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'AppService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'CronJobService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
