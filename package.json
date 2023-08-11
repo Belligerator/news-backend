@@ -22,7 +22,7 @@
     "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli migration:revert -d src/config/data-source.ts"
   },
   "dependencies": {
-    "@nestjs-modules/mailer": "^1.7.1",
+    "@nestjs-modules/mailer": "^1.9.1",
     "@nestjs/cache-manager": "^2.1.0",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/common": "^10.0.0",
