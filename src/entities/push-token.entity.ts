@@ -5,7 +5,7 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 /**
  * Entity for storing push tokens.
  * Mobile application does not have user accounts, so sending push notifications to a specific user does not make sense.
- * It is only for purpose of sample application. We will send push notication (daily cookie :D) to a random device (token).
+ * It is only for purpose of sample application. We will send push notification (daily cookie :D) to a random device (token).
  */
 @Entity('push_token')
 export class PushTokenEntity {

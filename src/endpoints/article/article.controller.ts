@@ -5,7 +5,7 @@ import { ArticleService } from './article.service';
 import { CheckArticleType } from 'src/utils/pipes/check-article-type.pipe';
 import { StringToNumberPipe } from 'src/utils/pipes/string-to-number.pipe';
 import { ArticleDto } from 'src/models/dtos/article.dto';
-import { ApiNotFoundResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiNotFoundResponse, ApiOperation, ApiPayloadTooLargeResponse, ApiTags } from '@nestjs/swagger';
 import { ArticleRequestDto } from 'src/models/dtos/article-request.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileService } from 'src/services/file.service';
@@ -14,6 +14,7 @@ import { CustomValidationPipe } from 'src/utils/pipes/validation.pipe';
 import { Response } from 'express';
 import * as moment from 'moment';
 import { AuthGuard } from '@nestjs/passport';
+import { MAX_FILE_SIZE } from 'src/constants';
 
 @ApiTags('Administration', 'Application')
 @Controller('articles')
@@ -44,14 +45,12 @@ export class ArticleController {
      * API returns object with information get from ArticleEntity and details about article from ArticleContentEntity.
      * 
      * @param id 
-     * @param language 
      * @returns article detail.
      */
     @ApiOperation({ summary: 'Get article by id.' })
-    @Get('detail/:id')
-    public async getArticleById(@Param('id', StringToNumberPipe) id: number,
-                                @Headers('x-language') language: LanguageEnum): Promise<ArticleDto> {
-        return this.articleService.getArticleById(id, language);
+    @Get('detail/:articleContentId')
+    public async getArticleById(@Param('articleContentId', StringToNumberPipe) articleContentId: number): Promise<ArticleDto> {
+        return this.articleService.getArticleById(articleContentId);
     }
 
     /**
@@ -78,15 +77,17 @@ export class ArticleController {
     /**
      * API accepts ArticleRequestDto from request. For each language creates new ArticleContent.
      * 
-     * @throws BadRequestException    if cannot parse tags or body is missing for some language.
-     * @param body      Article request body.
+     * @throws BadRequestException      if cannot parse tags or body is missing for some language.
+     * @throws PayloadTooLargeException if file is too large.
+     * @param body                      Article request body.
      */
     @ApiOperation({ summary: 'Create new article.' })
     @ApiNotFoundResponse({ description: 'Cannot parse tags or body is missing for some language.' })
+    @ApiPayloadTooLargeResponse({ description: 'File is too large. Max file size is ' + MAX_FILE_SIZE + ' bytes.' })
     // @UseGuards(AuthGuard(['jwt']))   // Commented for easier testing. In real scenario endpoint should be guarded.
     @HttpCode(200)
     @Post(':articleType')
-    @UseInterceptors(FileInterceptor('coverImage', FileService.multerOptions))
+    @UseInterceptors(FileInterceptor('file', FileService.multerOptions))
     public async createArticle(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
                                @UploadedFile() file: UploadedFileDto,
                                @Body(CustomValidationPipe) body: ArticleRequestDto): Promise<void> {
@@ -108,17 +109,19 @@ export class ArticleController {
     /**
      * This API is used for updating article content by id.
      * 
-     * @throws NotFoundException    if article does not exist.
-     * @param articleContentId      Id of the article content.  
-     * @param body                  Article details.
-     * @returns                     Updated article.
+     * @throws NotFoundException        if article does not exist.
+     * @throws PayloadTooLargeException if file is too large.
+     * @param articleContentId          Id of the article content.  
+     * @param body                      Article details.
+     * @returns                         Updated article.
      */
     @ApiOperation({ summary: 'Update article content by id.' })
     @ApiNotFoundResponse({ description: 'Article not found.' })
+    @ApiPayloadTooLargeResponse({ description: 'File is too large. Max file size is ' + MAX_FILE_SIZE + ' bytes.' })
     // @UseGuards(AuthGuard(['jwt']))   // Commented for easier testing. In real scenario endpoint should be guarded.
-    @Put(':id')
-    @UseInterceptors(FileInterceptor('coverImage', FileService.multerOptions))
-    public async updateArticleById(@Param('id', StringToNumberPipe) articleContentId: number,
+    @Put(':articleContentId')
+    @UseInterceptors(FileInterceptor('file', FileService.multerOptions))
+    public async updateArticleById(@Param('articleContentId', StringToNumberPipe) articleContentId: number,
                                    @UploadedFile() file: UploadedFileDto,
                                    @Body() body: ArticleDto): Promise<ArticleDto> {
 

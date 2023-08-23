@@ -5,7 +5,7 @@ import { LanguageEnum } from 'src/models/enums/language.enum';
 export class TagDto {
 
     /**
-     * Uniqe string shortcut for tag.
+     * Unique string shortcut for tag.
      * @example world for World news.
      */
     @IsNotEmpty()

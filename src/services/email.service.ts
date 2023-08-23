@@ -5,6 +5,7 @@ import { ArticleDto } from 'src/models/dtos/article.dto';
 import { SentryService } from './sentry.service';
 import * as path from 'path';
 import * as moment from 'moment';
+import { SERVER_URL } from 'src/app.module';
 
 @Injectable()
 export class EmailService {
@@ -15,20 +16,20 @@ export class EmailService {
     }
 
     /**
-     * Send email about new article.
+     * Send email about new article. It serves as a sample of sending email.
      * @param article   Article to send.
      */
     public async sendEmail(article: ArticleDto): Promise<void> {
         this.logger.log('info', `[EMAIL_SERVICE] Sending email about new article ${article.articleContentId}`);
 
         this.mailerService.sendMail({
-            to: 'test@test.com',
+            to: 'dimatest01@gmail.com',
             subject: 'New article: ' + article.title,
             template: 'new-article',
             context: {
                 title: article.title,
                 body: article.body,
-                coverImage: article.coverImage,
+                coverImage: article.coverImage ? `${SERVER_URL}/${article.coverImage}` : null,
                 dateOfPublication: moment(article.dateOfPublication).format('DD.MM.YYYY'),
             },
             attachments: [{
@@ -38,7 +39,7 @@ export class EmailService {
                 cid: 'newsSmall',
             }]
         }).then(() => {
-            this.logger.log('info', `Email about new article ${article.articleContentId} was sent.`);
+            this.logger.log('info', `[EMAIL_SERVICE] Email about new article ${article.articleContentId} was sent.`);
         }).catch((error) => {
             this.sentryService.captureException('[EMAIL_SERVICE_ERROR] Cannot send email.', `Email about new article (${article.articleContentId}-${article.title}) was not sent. Error: ${error}`);
         });

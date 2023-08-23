@@ -63,7 +63,7 @@ export class AuthService {
         await this.userEntityRepository.save(user);
 
         const payload: JwtPayload = {
-            userId: user.id,
+            sub: user.id,
         };
 
         return {
@@ -78,7 +78,7 @@ export class AuthService {
      * @param jwtPayload    JWT payload with user ID.
      */
     public async signOutUser(jwtPayload: JwtPayload): Promise<void> {
-        const userId: number = jwtPayload.userId;
+        const userId: number = jwtPayload.sub;
         if (userId === undefined) {
             throw new NotFoundException('Cannot find user.');
         }
@@ -115,7 +115,7 @@ export class AuthService {
         await this.userEntityRepository.save(user);
 
         const payload: JwtPayload = {
-            userId: user.id,
+            sub: user.id,
         };
 
         return {

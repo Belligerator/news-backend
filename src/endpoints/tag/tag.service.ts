@@ -14,6 +14,13 @@ export class TagService {
     ) {
     }
     
+    /**
+     * Create new tag if not exists.
+     * 
+     * @throws          ConflictException if tag already exists.
+     * @param newTag    New tag. 
+     * @returns         Created tag.
+     */
     public async createTag(newTag: TagDto): Promise<TagDto> {
 
         const tag: TagEntity | null = await this.tagRepository.findOneBy({ id: newTag.id, language: newTag.language });
@@ -32,12 +39,24 @@ export class TagService {
         return new TagDto(savedTag);
     }
 
+    /**
+     * Get tag by id for specific language.
+     * 
+     * @returns         List of tags.
+     */
     public async getAllTags(language: LanguageEnum = DEFAULT_LANGUAGE): Promise<TagDto[]> {
         const tags: TagEntity[] = await this.tagRepository.find({ where: { language }, order: { order: 'ASC' } });
 
         return tags.map(tag => new TagDto(tag));
     }
 
+    /**
+     * Update tag.
+     * 
+     * @throws          NotFoundException if tag not found.
+     * @param tag       New tag.
+     * @returns         Updated tag.
+     */
     public async updateTag(newTag: TagDto): Promise<TagDto> {
         let tag: TagEntity | null = await this.tagRepository.findOne({
             where: {
@@ -58,6 +77,11 @@ export class TagService {
         return new TagDto(tag);
     }
 
+    /**
+     * Delete tag.
+     * 
+     * @param tag       Tag to delete. 
+     */
     public async deleteTag(newTag: TagDto): Promise<void> {
         await this.tagRepository.delete({ id: newTag.id, language: newTag.language });
     }

@@ -9,7 +9,7 @@ Backend is built using [NestJS](https://nestjs.com/), a NodeJS framework. It is 
 This project is made as a sample project and implements some of the common features found in a typical backend application. List of features:
 
 - CRUD operations
-- Authorization (using JWT, basic auth)
+- Authentication and Authorization (JWT, basic auth, username/password login)
 - Firebase Cloud Messaging (FCM) push notifications (via firebase-admin)
 - Sending emails
 - Exporting data to Excel file

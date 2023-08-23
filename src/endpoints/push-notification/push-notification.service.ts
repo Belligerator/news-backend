@@ -34,6 +34,12 @@ export class PushNotificationService {
         await this.pushTokenRepository.delete({ token: token.token });
     }
 
+    /**
+     * Send push notification to topic when new article is created.
+     * 
+     * @param article   Article to send.
+     * @param language  Language of article. Used to send notification to correct topic.
+     */
     public async sendPushNotificationToTopic(article: ArticleContentEntity, language: LanguageEnum): Promise<void> {
         const message: TopicMessage = {
             topic: 'new-article-' + language,
@@ -67,7 +73,6 @@ export class PushNotificationService {
     /**
      * Send push notification to random device. Used as example.
      * Mobile app does not have user authentication, so we cannot send push notification to specific user.
-     * @returns 
      */
     public async sendCookieToRandomDevice(): Promise<void> {
         const pushTokens: PushTokenEntity[] = await this.pushTokenRepository.find();

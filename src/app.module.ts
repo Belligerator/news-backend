@@ -48,18 +48,17 @@ import { UserEntity } from './entities/user.entity';
             {
                 rootPath: join(__dirname, '..', 'uploads'),
                 serveRoot: '/uploads',
-                exclude: ['/api/(.*)'],
             },
             {
                 rootPath: join(__dirname, '..', 'documentation'),
                 serveRoot: '/api/documentation',
-                exclude: ['/api/(.*)'],
             },
         ),
         ConfigModule.forRoot(),
         ScheduleModule.forRoot(),
         CacheModule.register({
-            ttl: 1000, // ms. 1s during developing. In prod, this could be higher.
+            // ms. 1s during developing. In prod, this could be higher and should be set for specific endpoints.
+            ttl: 1000,
         }),
         TypeOrmModule.forRoot(databaseConfig),
         TypeOrmModule.forFeature([
@@ -81,14 +80,14 @@ import { UserEntity } from './entities/user.entity';
         }),
         MailerModule.forRoot({
             transport: {
-                host: 'localhost',
-                port: 1025,
+                host: 'smtp.freesmtpservers.com',
+                port: 25,
                 ignoreTLS: true,
                 secure: false,
             },
             preview: false,
             defaults: {
-                from: '"Info" <test@test.com>',
+                from: '"Info" <dimatest01@gmail.com>',
             },
             template: {
                 dir: __dirname + '/templates/emails',

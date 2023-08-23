@@ -46,7 +46,6 @@ export class FileService {
 
     /**
      * Filter files that have not allowed extension.
-     * 
      */
     private static fileFilter(_req: any, file: Express.Multer.File, cb: (error: Error | null, acceptFile: boolean) => void): void {
         const allowedFileTypes: string[] = ['image/png', 'image/jpeg', 'image/gif'];

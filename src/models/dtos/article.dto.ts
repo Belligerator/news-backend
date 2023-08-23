@@ -11,7 +11,7 @@ export class ArticleDto {
 
     /**
      * Content (title, body) language.
-     * @example 'cs'
+     * @example cs
      */
     public language: string;
     
@@ -33,7 +33,7 @@ export class ArticleDto {
     public coverImage: string | null;
 
     /**
-     * Date when the article was publicated or updated.
+     * Date when the article was published or updated.
      */
     public dateOfPublication: Date;
 

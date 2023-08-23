@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Get,
     HttpCode,
     Post,
     Req,
@@ -18,13 +19,13 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     /**
-     * Sign up new user. Used for admin panel.
+     * Sign up new user.
      * 
-     * @throws BadRequestException If username or password is not provided.
-     * @throws ConflictException If username is not unique.
-     * @param username  Username.
-     * @param password  Password.
-     * @returns         Access token and refresh token.
+     * @throws BadRequestException  If username or password is not provided.
+     * @throws ConflictException    If username is not unique.
+     * @param username              Username.
+     * @param password              Password.
+     * @returns                     Access token and refresh token.
      */
     @ApiOperation({ summary: 'Sign up new user. Used for admin panel.' })
     @ApiBadRequestResponse({ description: 'Username or password is not provided.' })
@@ -41,11 +42,11 @@ export class AuthController {
     /**
      * Sign in user.
      * 
-     * @throws UnauthorizedException If username or password is not correct.
-     * @throws ForbiddenException If user is not active.
-     * @param username  Username.
-     * @param password  Password.
-     * @returns         Access token and refresh token.
+     * @throws UnauthorizedException    If username or password is not correct.
+     * @throws ForbiddenException       If user is not active.
+     * @param username                  Username.
+     * @param password                  Password.
+     * @returns                         Access token and refresh token.
      */
     @ApiOperation({ summary: 'Sign in user.' })
     @ApiUnauthorizedResponse({ description: 'Username or password is not correct.' })
@@ -73,8 +74,7 @@ export class AuthController {
     @ApiNotFoundResponse({ description: 'jwtPayload.userId is not provided.' })
     @ApiBearerAuth()
     @UseGuards(AuthGuard(['jwt']))
-    @HttpCode(200)
-    @Post('sign-out')
+    @Get('sign-out')
     public signOutUser(@Req() request: JwtRequest): Promise<void> {
         return this.authService.signOutUser(request.jwtPayload);
     }

@@ -154,19 +154,13 @@ export class ArticleService {
     /**
      * This method is used for getting article by id.
      * @param articleContentId  Id of the article content.
-     * @param language          Language of the article.
      * @returns                 Article with details.
      */
-    public async getArticleById(articleContentId: number, language: LanguageEnum = DEFAULT_LANGUAGE): Promise<ArticleDto> {
+    public async getArticleById(articleContentId: number): Promise<ArticleDto> {
 
         const articleContentEntity: ArticleContentEntity | null = await this.articleContentRepository.findOne({
             where: {
                 id: articleContentId,
-                article: {
-                    tags: {
-                        language: language
-                    }
-                }
             },
             relations: {
                 article: {
@@ -241,7 +235,8 @@ export class ArticleService {
 
             // New cover image.
             oldArticleContentEntity.coverImage = updatedArticle.coverImage;
-        } else if (updatedArticle.coverImage === '') {
+
+        } else if (updatedArticle.coverImage === '' && oldArticleContentEntity.coverImage) {
 
             // If cover image is unset, delete it.
             coverImageToDelete = oldArticleContentEntity.coverImage;

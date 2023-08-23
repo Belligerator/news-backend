@@ -28,7 +28,7 @@ export class TagController {
 
     /**
      * Get tag by id for specific language.
-     * @returns         Tag.
+     * @returns         List of tags.
      */
     @ApiOperation({ summary: 'Get all tags.' })
     @Get()
@@ -40,25 +40,24 @@ export class TagController {
      * Update tag.
      * 
      * @throws          NotFoundException if tag not found.
-     * @param id        Tag id.
-     * @param newTag    New tag.
+     * @param tag       New tag.
      * @returns         Updated tag.
      */
     @ApiOperation({ summary: 'Get tag.' })
     @ApiNotFoundResponse({ description: 'Tag not found.' })
     @Put()
-    public async updateTag(@Body(CustomValidationPipe) newTag: TagDto): Promise<TagDto> {
-        return this.tagService.updateTag(newTag);
+    public async updateTag(@Body(CustomValidationPipe) tag: TagDto): Promise<TagDto> {
+        return this.tagService.updateTag(tag);
     }
 
     /**
      * Delete tag.
      * 
-     * @param newTag    Tag to delete. 
+     * @param tag       Tag to delete.
      */
     @ApiOperation({ summary: 'Delete tag.' })
     @Delete()
-    public async deleteTag(@Body() newTag: TagDto): Promise<void> {
-        return this.tagService.deleteTag(newTag);
+    public async deleteTag(@Body() tag: TagDto): Promise<void> {
+        return this.tagService.deleteTag(tag);
     }
 }

@@ -9,8 +9,8 @@ const loggerConfig: WinstonModuleOptions = {
             filename: 'debug-%DATE%.log',
             dirname: './logs',
             datePattern: 'YYYY-MM-DD',
-            maxSize: '25m',
-            maxFiles: '14d',
+            maxSize: '10m',
+            maxFiles: '7d',
             level: 'debug',
             format: format.combine(
                 format.uncolorize(),
@@ -26,8 +26,8 @@ const loggerConfig: WinstonModuleOptions = {
             filename: 'error-%DATE%.log',
             dirname: './logs',
             datePattern: 'YYYY-MM-DD',
-            maxSize: '25m',
-            maxFiles: '14d',
+            maxSize: '10m',
+            maxFiles: '7d',
             level: 'error',
             format: format.combine(
                 format.uncolorize(),
