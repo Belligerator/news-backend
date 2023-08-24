@@ -7,6 +7,7 @@
     "assets": [
       "assets/certs/**/*",
       "assets/i18n/**/*",
+      "assets/files/**/*",
       "**/*.hbs",
       "**/*.png",
       "**/*.svg",
