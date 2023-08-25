@@ -47,7 +47,7 @@ For running the backend locally, you will need the following:
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repo [news-backend](https://github.com/Belligerator/news-backend)
    ```sh
    git clone git@github.com:Belligerator/news-backend.git
     ```
