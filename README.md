@@ -51,19 +51,24 @@ For running the backend locally, you will need the following:
    ```sh
    git clone git@github.com:Belligerator/news-backend.git
     ```
+
 2. Install NPM packages
     ```sh
     npm install
     ```
+
 3. Create a `.env` file in the root directory and fill in the required environment variables. You can refer to the `.env.example` file for the required variables.
 
+
 4. Create database schema `news` in database. Migration scripts will create the tables in the next step.
+
 
 5. Run the app
     ```sh
     npm run start
     ```
     The app should be running on `http://localhost:3000/`.
+
 
 6. In the root directory, there is a `news.postman_collection.json` file that contains a Postman collection with sample requests. You can import it into Postman and use it to test the endpoints.
 

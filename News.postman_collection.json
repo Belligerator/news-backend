@@ -1368,7 +1368,7 @@
 	"variable": [
 		{
 			"key": "host",
-			"value": "http://belligerator.cz:5022",
+			"value": "http://localhost:3000",
 			"type": "default"
 		},
 		{
