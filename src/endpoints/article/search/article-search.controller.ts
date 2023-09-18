@@ -1,4 +1,4 @@
-import { Controller, Get, Headers, Param,Query } from '@nestjs/common';
+import { Controller, Get, Headers, Param,Query, UseInterceptors } from '@nestjs/common';
 import { CheckArticleType } from 'src/utils/pipes/check-article-type.pipe';
 import { StringToNumberPipe } from 'src/utils/pipes/string-to-number.pipe';
 import { ArticleDto } from 'src/models/dtos/article.dto';
@@ -6,8 +6,11 @@ import { ApiNotFoundResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ArticleTypeEnum } from 'src/models/enums/article-type.enum';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { ArticleSearchService } from './article-search.service';
+import { CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
 
 @ApiTags('Administration', 'Application')
+@UseInterceptors(CacheInterceptor)
+@CacheKey('search')
 @Controller('articles/search')
 export class ArticleSearchController {
 

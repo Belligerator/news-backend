@@ -1,16 +1,20 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DEFAULT_LANGUAGE } from 'src/constants';
 import { TagEntity } from 'src/entities/tag.entity';
 import { TagDto } from 'src/models/dtos/tag.dto';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { Repository } from 'typeorm';
+import { Cache } from 'cache-manager';
+import { CacheKeyEnum } from 'src/models/enums/cache-key.enum';
 
 @Injectable()
 export class TagService {
 
     constructor(
-        @InjectRepository(TagEntity) private readonly tagRepository: Repository<TagEntity>
+        @InjectRepository(TagEntity) private readonly tagRepository: Repository<TagEntity>,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
     ) {
     }
     
@@ -35,6 +39,9 @@ export class TagService {
             language: newTag.language,
             order: newTag.order
         });
+
+        // Invalidate cache for tags.
+        this.cacheManager.del(CacheKeyEnum.TAGS);
 
         return new TagDto(savedTag);
     }
@@ -73,6 +80,9 @@ export class TagService {
         tag.order = newTag.order;
 
         tag = await this.tagRepository.save(tag);
+        
+        // Invalidate cache for tags.
+        this.cacheManager.del(CacheKeyEnum.TAGS);
 
         return new TagDto(tag);
     }

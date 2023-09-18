@@ -5,7 +5,7 @@ import { ArticleContentEntity } from 'src/entities/article-content.entity';
 import { ArticleDto } from 'src/models/dtos/article.dto';
 import { ArticleTypeEnum } from 'src/models/enums/article-type.enum';
 import { LanguageEnum } from 'src/models/enums/language.enum';
-import { ILike, Raw, Repository, SelectQueryBuilder } from 'typeorm';
+import { Raw, Repository, SelectQueryBuilder } from 'typeorm';
 
 @Injectable()
 export class ArticleSearchService {

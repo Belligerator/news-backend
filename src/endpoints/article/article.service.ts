@@ -14,6 +14,9 @@ import { FileService } from 'src/services/file.service';
 import { In, Repository } from 'typeorm';
 import { PushNotificationService } from 'src/endpoints/push-notification/push-notification.service';
 import { ExcelService } from 'src/services/excel.service';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import { CacheKeyEnum } from 'src/models/enums/cache-key.enum';
 
 @Injectable()
 export class ArticleService {
@@ -23,6 +26,7 @@ export class ArticleService {
         @InjectRepository(ArticleEntity) private readonly articleRepository: Repository<ArticleEntity>,
         @InjectRepository(ArticleContentEntity) private readonly articleContentRepository: Repository<ArticleContentEntity>,
         @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
         private readonly emailService: EmailService,
         private readonly excelService: ExcelService,
         private readonly pushNotificationService: PushNotificationService,
@@ -80,6 +84,10 @@ export class ArticleService {
         });
 
         await this.articleContentRepository.save(newArticleContentEntities);
+
+        // Invalidate cache for articles and search.
+        this.cacheManager.del(CacheKeyEnum.ARTICLES);
+        this.cacheManager.del(CacheKeyEnum.SEARCH);
 
         // Send email about new article.
         // This feature is just for testing purposes, so pick first language.
@@ -244,6 +252,10 @@ export class ArticleService {
         }
 
         const newArticleContentEntity: ArticleContentEntity = await this.articleContentRepository.save(oldArticleContentEntity);
+
+        // Invalidate cache for articles and search.
+        this.cacheManager.del(CacheKeyEnum.ARTICLES);
+        this.cacheManager.del(CacheKeyEnum.SEARCH);
 
         // New entity is saved, we can remove old cover image.
         // Do not await, we do not want to wait for this operation.

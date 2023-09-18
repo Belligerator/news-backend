@@ -59,6 +59,7 @@ import { UserEntity } from './entities/user.entity';
         CacheModule.register({
             // ms. 1s during developing. In prod, this could be higher and should be set for specific endpoints.
             ttl: 1000,
+            max: 10,
         }),
         TypeOrmModule.forRoot(databaseConfig),
         TypeOrmModule.forFeature([
@@ -141,10 +142,6 @@ import { UserEntity } from './entities/user.entity';
         {
             provide: APP_FILTER,
             useClass: HttpExceptionFilter,
-        },
-        {
-            provide: APP_INTERCEPTOR,
-            useClass: CacheInterceptor,
         },
     ],
 })

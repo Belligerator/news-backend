@@ -15,6 +15,10 @@ import { Response } from 'express';
 import * as moment from 'moment';
 import { AuthGuard } from '@nestjs/passport';
 import { MAX_FILE_SIZE } from 'src/constants';
+import { CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
+import { CacheKeyEnum } from 'src/models/enums/cache-key.enum';
+
+// Do not cache whole controller. Do not cache exportArticles() method.
 
 @ApiTags('Administration', 'Application')
 @Controller('articles')
@@ -48,6 +52,8 @@ export class ArticleController {
      * @returns article detail.
      */
     @ApiOperation({ summary: 'Get article by id.' })
+    @UseInterceptors(CacheInterceptor)
+    @CacheKey(CacheKeyEnum.ARTICLES)
     @Get('detail/:articleContentId')
     public async getArticleById(@Param('articleContentId', StringToNumberPipe) articleContentId: number): Promise<ArticleDto> {
         return this.articleService.getArticleById(articleContentId);
@@ -65,6 +71,8 @@ export class ArticleController {
      * @returns             list of articles.
      */
     @ApiOperation({ summary: 'Get all articles by article type.' })
+    @UseInterceptors(CacheInterceptor)
+    @CacheKey(CacheKeyEnum.ARTICLES)
     @Get(':articleType')
     public async getArticles(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
                              @Query('page', StringToNumberPipe) page: number,
