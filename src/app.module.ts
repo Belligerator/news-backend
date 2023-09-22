@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { HttpStatus, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -41,6 +41,12 @@ import { JwtStrategy } from './endpoints/auth/strategies/jwt.strategy';
 import { AuthController } from './endpoints/auth/auth.controller';
 import { LocalStrategy } from './endpoints/auth/strategies/local.strategy';
 import { UserEntity } from './entities/user.entity';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { TagResolver } from './graphql/tag.resolver';
+import { TagGQLService } from './graphql/tag.service';
+import { GraphQLError } from 'graphql';
+import { ErrorResponse } from './models/dtos/error-response.dto';
 
 @Module({
     imports: [
@@ -111,6 +117,19 @@ import { UserEntity } from './entities/user.entity';
                 expiresIn: '1d'
             }
         }),
+        GraphQLModule.forRoot<ApolloDriverConfig>({
+            driver: ApolloDriver,
+            autoSchemaFile: 'src/config/schema.gql',
+            formatError: (error: GraphQLError) => {
+                const originalError: ErrorResponse = error.extensions?.originalError as ErrorResponse;
+                const graphQLFormattedError: ErrorResponse = {
+                  message: originalError?.message || error.message,
+                  error: originalError?.error || 'INTERNAL_SERVER_ERROR',
+                  statusCode: originalError?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR
+                };
+                return graphQLFormattedError;
+              }
+        }),
     ],
     controllers: [
         AppController,
@@ -135,6 +154,8 @@ import { UserEntity } from './entities/user.entity';
         BasicStrategy,
         JwtStrategy,
         LocalStrategy,
+        TagResolver,
+        TagGQLService,
         {
             provide: APP_FILTER,
             useClass: AllExceptionsFilter,

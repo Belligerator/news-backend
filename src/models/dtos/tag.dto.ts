@@ -1,7 +1,9 @@
+import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty } from 'class-validator';
 import { TagEntity } from 'src/entities/tag.entity';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 
+@InputType()
 export class TagDto {
 
     /**
@@ -9,6 +11,7 @@ export class TagDto {
      * @example world for World news.
      */
     @IsNotEmpty()
+    @Field()
     public id: string;
 
     /**
@@ -16,6 +19,7 @@ export class TagDto {
      * @example en
      */
     @IsNotEmpty()
+    @Field()
     public language: LanguageEnum;
 
     /**
@@ -23,11 +27,13 @@ export class TagDto {
      * @example World
      */
     @IsNotEmpty()
+    @Field()
     public title: string;
 
     /**
      * Order of the tag.
      */
+    @Field({ nullable: true })
     public order: number;
 
     constructor(tagEntity: TagEntity) {

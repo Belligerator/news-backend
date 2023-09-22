@@ -1,0 +1,25 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TagEntity {
+  id: ID!
+  language: ID!
+  title: String!
+  order: Float!
+}
+
+type Query {
+  getTags: [TagEntity!]!
+}
+
+type Mutation {
+  createTag(tag: TagDto!): TagEntity!
+}
+
+input TagDto {
+  id: String!
+  language: String!
+  title: String!
+  order: Float
+}

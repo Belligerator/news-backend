@@ -1,13 +1,14 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Inject, Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
+import { ContextType, HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { GqlArgumentsHost, GqlExceptionFilter } from '@nestjs/graphql';
 
 /**
  * Error handler catching only HTTP exceptions.
  */
 @Catch(HttpException)
-export class HttpExceptionFilter implements ExceptionFilter {
+export class HttpExceptionFilter implements ExceptionFilter, GqlExceptionFilter {
 
     constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) { }
 
@@ -17,7 +18,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const request: any = ctx.getRequest<Request>();
         const status: number = exception.getStatus();
 
-        response
+        const gqlHost: GqlArgumentsHost = GqlArgumentsHost.create(host);
+        const gqlContext: ContextType = gqlHost.getType();
+
+        // If HTTP context, return JSON response. Otherwise, return GraphQL response.
+        if (gqlContext === 'http') {
+            response
             .status(status)
             .json({
                 statusCode: status,
@@ -25,7 +31,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
                 error: exception.message,
             });
 
-        this.logger.error(`HttpException ${status}: ${request.url}`);
+            this.logger.error(`HttpException ${status}: ${request.url}`);
+        } else {
+            this.logger.error(`HttpException ${status}: ${gqlHost.getInfo().fieldName}`);
+        }
+
         this.logger.error(exception.stack);
     }
 }
