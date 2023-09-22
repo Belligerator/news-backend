@@ -1,11 +1,12 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, Logger, Inject } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { HttpAdapterHost } from '@nestjs/core';
+import { AbstractHttpAdapter, HttpAdapterHost } from '@nestjs/core';
 import { ContextType, HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { ErrorResponse } from 'src/models/dtos/error-response.dto';
 import { SentryService } from 'src/services/sentry.service';
 import { GqlArgumentsHost, GqlExceptionFilter } from '@nestjs/graphql';
+import { ExpressAdapter } from '@nestjs/platform-express';
 
 /**
  * Default error handler catching all but HTTP exceptions.
@@ -17,12 +18,12 @@ export class AllExceptionsFilter implements ExceptionFilter, GqlExceptionFilter 
                 @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {
     }
 
-    public catch(exception: any, host: ArgumentsHost): void {
-        const httpAdapter: any = this.httpAdapterHost.httpAdapter;
+    public catch(exception: Error, host: ArgumentsHost): void {
+        const httpAdapter: AbstractHttpAdapter<ExpressAdapter> = this.httpAdapterHost.httpAdapter;
 
         const ctx: HttpArgumentsHost = host.switchToHttp();
-        const response: any = ctx.getResponse<Response>();
-        const request: any = ctx.getRequest<Request>();
+        const response: Response = ctx.getResponse();
+        const request: Request = ctx.getRequest();
         const status: number = HttpStatus.INTERNAL_SERVER_ERROR;
 
         const gqlHost: GqlArgumentsHost = GqlArgumentsHost.create(host);

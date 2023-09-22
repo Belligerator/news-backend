@@ -24,7 +24,7 @@ async function bootstrap(): Promise<void> {
     // https://stackoverflow.com/questions/72466834/nestjs-logs-have-weird-characters-in-log-management-tools
     process.env.NO_COLOR = 'true';
 
-    const app: INestApplication<any> = await NestFactory.create(AppModule);
+    const app: INestApplication = await NestFactory.create(AppModule);
     app.setGlobalPrefix('api');
 
     const config: Omit<OpenAPIObject, 'paths'> = new DocumentBuilder()

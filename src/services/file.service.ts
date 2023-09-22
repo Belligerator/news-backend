@@ -5,11 +5,12 @@ import { diskStorage } from 'multer';
 import { DIRECTORY_IMAGES, MAX_FILE_SIZE } from 'src/constants';
 import { v4 as uuidv4 } from 'uuid';
 import { extname } from 'path';
-import * as sharp from 'sharp';
 import { SentryService } from './sentry.service';
 import { SERVER_URL } from 'src/app.module';
-import * as fs from 'fs';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Request } from 'express';
+import * as sharp from 'sharp';
+import * as fs from 'fs';
 
 @Injectable()
 export class FileService {
@@ -47,7 +48,7 @@ export class FileService {
     /**
      * Filter files that have not allowed extension.
      */
-    private static fileFilter(_req: any, file: Express.Multer.File, cb: (error: Error | null, acceptFile: boolean) => void): void {
+    private static fileFilter(_req: Request, file: Express.Multer.File, cb: (error: Error | null, acceptFile: boolean) => void): void {
         const allowedFileTypes: string[] = ['image/png', 'image/jpeg', 'image/gif'];
 
         if (!allowedFileTypes.includes(file.mimetype)) {

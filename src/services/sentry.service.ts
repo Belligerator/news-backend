@@ -9,7 +9,7 @@ export class SentryService {
         @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
     ) { }
 
-    public captureException(message: string, data?: any): void {
+    public captureException(message: string, data?: Error | string): void {
         this.logger.error(`[SENTRY_SERVICE] Capture exception: ${message}`);
         this.logger.error(`[SENTRY_SERVICE] Data: ${data}`);
         Sentry.captureException(`${message} ---\n${data}`);

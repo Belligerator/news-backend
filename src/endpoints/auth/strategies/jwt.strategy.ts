@@ -20,10 +20,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
      * If user is not found, throw UnauthorizedException.
      * If user is not active, throw ForbiddenException.
      */
-    public async validate(payload: any): Promise<JwtPayload> {
+    public async validate(payload: JwtPayload): Promise<JwtPayload> {
         const user: UserEntity | null = await this.userEntityRepository.findOne(
             {
-                where: { id: payload.userId },
+                where: { id: payload.sub },
                 select: ['active', 'id']
             });
 
@@ -35,6 +35,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
             throw new ForbiddenException(`User is not active.`);
         }
 
-        return { sub: payload.userId };
+        return payload;
     }
 }

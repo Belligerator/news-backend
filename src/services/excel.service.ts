@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { TagDto } from 'src/models/dtos/tag.dto';
-import { WorkBook, WorkSheet } from 'xlsx';
+import { ColInfo, RowInfo, WorkBook, WorkSheet } from 'xlsx';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { ArticleDto } from 'src/models/dtos/article.dto';
 
@@ -35,7 +35,7 @@ export class ExcelService {
      */
     public exportArticles(articles: ArticleDto[]): Buffer {
         const workbook: WorkBook = XLSX.utils.book_new();
-        let rows: string[][];
+        let rows: Array<Array<string | undefined>>;
         let sheet: WorkSheet;
 
         // Create sheet for each language.
@@ -55,10 +55,10 @@ export class ExcelService {
      * @param articles  Articles to convert.
      * @returns         Array of arrays. Rows and columns of excel.
      */
-    private articlesToAoA(articles: ArticleDto[]): any[][] {
+    private articlesToAoA(articles: ArticleDto[]): Array<Array<string | undefined>> {
         const columnNames: string[] = Object.values(this.XLS_COLUMN_ORDER);
         const articleAttributes: string[] = Object.keys(this.XLS_COLUMN_ORDER);
-        const rows: any[][] = [
+        const rows: Array<Array<string | undefined>> = [
             columnNames,
             ...articles.map((content: ArticleDto) =>
                 articleAttributes.map((key: keyof ArticleDto) => {
@@ -69,7 +69,7 @@ export class ExcelService {
                     } else if (key === 'tags' && content[key]) {
                         return (content[key] as TagDto[]).map(tag => tag.title).join(', ');
                     } else {
-                        return content[key];
+                        return content[key]?.toString();
                     }
                 }),
             ),
@@ -84,15 +84,15 @@ export class ExcelService {
      * @param columnNames   Column names.
      * @returns             Sheet.
      */
-    private sheetFromAoA(rows: string[][], columnNames: { [key: string]: string }): WorkSheet {
+    private sheetFromAoA(rows: Array<Array<string | undefined>>, columnNames: { [key: string]: string }): WorkSheet {
         const sheet: WorkSheet = XLSX.utils.aoa_to_sheet(rows, {
             cellStyles: true,
             cellDates: true,
             dateNF: 'dd mmm yyyy;@'
         });
         const orderKeys: Array<string> = Object.keys(columnNames);
-        const wscols: Array<any> = orderKeys.map((key: keyof ArticleDto) => ({ width: this.XLS_COLUMN_WIDTHS[key] || 12 }));
-        const wsrows: Array<{ hpx: number }> = rows.map(() => ({ hpx: 20 }));
+        const wscols: Array<ColInfo> = orderKeys.map((key: keyof ArticleDto) => ({ width: this.XLS_COLUMN_WIDTHS[key] || 12 }));
+        const wsrows: Array<RowInfo> = rows.map(() => ({ hpx: 20 }));
         sheet['!cols'] = wscols;
         sheet['!rows'] = wsrows;
         return sheet;
