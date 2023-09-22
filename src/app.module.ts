@@ -123,12 +123,12 @@ import { ErrorResponse } from './models/dtos/error-response.dto';
             formatError: (error: GraphQLError) => {
                 const originalError: ErrorResponse = error.extensions?.originalError as ErrorResponse;
                 const graphQLFormattedError: ErrorResponse = {
-                  message: originalError?.message || error.message,
-                  error: originalError?.error || 'INTERNAL_SERVER_ERROR',
-                  statusCode: originalError?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR
+                    message: originalError?.message || error.message,
+                    error: originalError?.error || 'INTERNAL_SERVER_ERROR',
+                    statusCode: originalError?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR
                 };
                 return graphQLFormattedError;
-              }
+            }
         }),
     ],
     controllers: [

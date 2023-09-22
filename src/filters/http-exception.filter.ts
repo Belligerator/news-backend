@@ -24,12 +24,12 @@ export class HttpExceptionFilter implements ExceptionFilter, GqlExceptionFilter 
         // If HTTP context, return JSON response. Otherwise, return GraphQL response.
         if (gqlContext === 'http') {
             response
-            .status(status)
-            .json({
-                statusCode: status,
-                message: exception.message,
-                error: exception.message,
-            });
+                .status(status)
+                .json({
+                    statusCode: status,
+                    message: exception.message,
+                    error: exception.message,
+                });
 
             this.logger.error(`HttpException ${status}: ${request.url}`);
         } else {
