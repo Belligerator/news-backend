@@ -1,0 +1,51 @@
+version: '3'
+services:
+
+  db:
+    image:  mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root-pwd
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pwd
+
+    volumes:
+      - ./db/:/var/lib/mysql
+
+  backend:
+    image: belligerator/news-backend:prod
+    environment:
+      NODE_ENV: production
+      SERVER_URL: "https://my-domain.cz"
+      MYSQL_HOST: db
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pwd
+      BACKEND_API_KEY: basic-usr
+      BACKEND_API_SECRET: basic-pwd
+      JWT_SECRET: jWtSecrEt
+      SENTRY_DSN: ""
+    
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - uploads:/usr/src/app/uploads
+      - logs:/usr/src/app/logs
+      - ./certs/serviceAccountKey.json:/usr/src/app/dist/assets/certs/serviceAccountKey.json
+  web:
+    image: belligerator/news-web:prod
+    ports:
+      - 5022:80
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - uploads:/var/www/html/uploads
+      - logs:/var/www/html/logs
+      
+volumes:
+  uploads:
+  logs:
