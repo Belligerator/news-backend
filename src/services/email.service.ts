@@ -22,26 +22,27 @@ export class EmailService {
     public async sendEmail(article: ArticleDto): Promise<void> {
         this.logger.log('info', `[EMAIL_SERVICE] Sending email about new article ${article.articleContentId}`);
 
-        this.mailerService.sendMail({
-            to: 'dimatest01@gmail.com',
-            subject: 'New article: ' + article.title,
-            template: 'new-article',
-            context: {
-                title: article.title,
-                body: article.body,
-                coverImage: article.coverImage ? `${SERVER_URL}/${article.coverImage}` : null,
-                dateOfPublication: moment(article.dateOfPublication).format('DD.MM.YYYY'),
-            },
-            attachments: [{
-                filename: 'best-news.png',
-                path: path.join(__dirname, '..', 'templates', 'assets', 'images', 'best-news.png'),
-                contentType: 'image/png',
-                cid: 'newsSmall',
-            }]
-        }).then(() => {
+        try {
+            await this.mailerService.sendMail({
+                to: 'dimatest01@gmail.com',
+                subject: 'New article: ' + article.title,
+                template: 'new-article',
+                context: {
+                    title: article.title,
+                    body: article.body,
+                    coverImage: article.coverImage ? `${SERVER_URL}/${article.coverImage}` : null,
+                    dateOfPublication: moment(article.dateOfPublication).format('DD.MM.YYYY'),
+                },
+                attachments: [{
+                    filename: 'best-news.png',
+                    path: path.join(__dirname, '..', 'templates', 'assets', 'images', 'best-news.png'),
+                    contentType: 'image/png',
+                    cid: 'newsSmall',
+                }]
+            });
             this.logger.log('info', `[EMAIL_SERVICE] Email about new article ${article.articleContentId} was sent.`);
-        }).catch((error) => {
+        } catch (error) {
             this.sentryService.captureException('[EMAIL_SERVICE_ERROR] Cannot send email.', `Email about new article (${article.articleContentId}-${article.title}) was not sent. Error: ${error}`);
-        });
+        }
     }
 }

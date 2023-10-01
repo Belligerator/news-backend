@@ -70,14 +70,14 @@ export class FileService {
             })
             .toBuffer();
 
-        return sharp(buffer).toFile(path)
-            .then(() => {
+            try {
+                await sharp(buffer).toFile(path);
                 return true;
-            }).catch((error: Error) => {
+            } catch (error) {
                 this.sentryService.captureException('Error while resizing image.', error);
-                return false;
-            });
-    }
+            }
+            return false;
+        }
 
     /**
      * Remove file from system.

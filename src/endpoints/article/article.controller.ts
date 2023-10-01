@@ -38,11 +38,10 @@ export class ArticleController {
     // @UseGuards(AuthGuard(['jwt']))   // Commented for easier testing. In real scenario endpoint should be guarded.
     @Get('export')
     public async exportArticles(@Res() response: Response): Promise<void> {
-        return this.articleService.exportArticles().then(buffer => {
-            response.setHeader('Content-disposition', `attachment; filename=${moment().format('YYYY-MM-DD')}_articles.xlsx`);
-            response.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            response.status(200).send(buffer);
-        });
+        const excelBuffer: Buffer = await this.articleService.exportArticles()
+        response.setHeader('Content-disposition', `attachment; filename=${moment().format('YYYY-MM-DD')}_articles.xlsx`);
+        response.set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        response.status(200).send(excelBuffer);
     }
 
     /**
