@@ -1,11 +1,11 @@
-import { ArgumentMetadata, BadRequestException, PipeTransform } from '@nestjs/common';
+import { BadRequestException, PipeTransform } from '@nestjs/common';
 import { ArticleTypeEnum } from 'src/models/enums/article-type.enum';
 
 /**
  * Pipe for checking article type. If type is not valid, BadRequestException is thrown.
  */
-export class CheckArticleType implements PipeTransform {
-    public transform(value: ArticleTypeEnum, metadata: ArgumentMetadata): ArticleTypeEnum {
+export class CheckArticleTypePipe implements PipeTransform {
+    public transform(value: ArticleTypeEnum): ArticleTypeEnum {
 
         for (const articleType of Object.values(ArticleTypeEnum)) {
             if (value === articleType) {

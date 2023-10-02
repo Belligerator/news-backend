@@ -2,7 +2,7 @@ import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, Res,
 import { LanguageEnum } from '../../models/enums/language.enum';
 import { ArticleTypeEnum } from '../../models/enums/article-type.enum';
 import { ArticleService } from './article.service';
-import { CheckArticleType } from 'src/utils/pipes/check-article-type.pipe';
+import { CheckArticleTypePipe } from 'src/utils/pipes/check-article-type.pipe';
 import { StringToNumberPipe } from 'src/utils/pipes/string-to-number.pipe';
 import { ArticleDto } from 'src/models/dtos/article.dto';
 import { ApiNotFoundResponse, ApiOperation, ApiPayloadTooLargeResponse, ApiTags } from '@nestjs/swagger';
@@ -73,7 +73,7 @@ export class ArticleController {
     @UseInterceptors(CacheInterceptor)
     @CacheKey(CacheKeyEnum.ARTICLES)
     @Get(':articleType')
-    public async getArticles(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
+    public async getArticles(@Param('articleType', CheckArticleTypePipe) articleType: ArticleTypeEnum,
                              @Query('page', StringToNumberPipe) page: number,
                              @Query('count', StringToNumberPipe) count: number,
                              @Headers('x-language') language: LanguageEnum,
@@ -95,7 +95,7 @@ export class ArticleController {
     @HttpCode(200)
     @Post(':articleType')
     @UseInterceptors(FileInterceptor('file', FileService.multerOptions))
-    public async createArticle(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
+    public async createArticle(@Param('articleType', CheckArticleTypePipe) articleType: ArticleTypeEnum,
                                @UploadedFile() file: UploadedFileDto,
                                @Body(CustomValidationPipe) body: ArticleRequestDto): Promise<void> {
 

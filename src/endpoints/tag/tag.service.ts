@@ -92,8 +92,8 @@ export class TagService {
      * 
      * @param tag       Tag to delete. 
      */
-    public async deleteTag(newTag: TagDto): Promise<void> {
-        await this.tagRepository.delete({ id: newTag.id, language: newTag.language });
+    public async deleteTag(oldTag: TagDto): Promise<void> {
+        await this.tagRepository.delete({ id: oldTag.id, language: oldTag.language });
     }
 
 }

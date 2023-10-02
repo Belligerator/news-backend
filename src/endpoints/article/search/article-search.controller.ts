@@ -1,5 +1,5 @@
 import { Controller, Get, Headers, Param,Query, UseInterceptors } from '@nestjs/common';
-import { CheckArticleType } from 'src/utils/pipes/check-article-type.pipe';
+import { CheckArticleTypePipe } from 'src/utils/pipes/check-article-type.pipe';
 import { StringToNumberPipe } from 'src/utils/pipes/string-to-number.pipe';
 import { ArticleDto } from 'src/models/dtos/article.dto';
 import { ApiNotFoundResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -30,7 +30,7 @@ export class ArticleSearchController {
     @ApiOperation({ summary: 'Search articles by pattern in title or body.' })
     @ApiNotFoundResponse({ description: 'Pattern is not present.' })
     @Get(':articleType')
-    public search(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
+    public search(@Param('articleType', CheckArticleTypePipe) articleType: ArticleTypeEnum,
                   @Query('page', StringToNumberPipe) page: number,
                   @Query('count', StringToNumberPipe) count: number,
                   @Headers('x-language') language: LanguageEnum,
@@ -49,7 +49,7 @@ export class ArticleSearchController {
     @ApiOperation({ summary: 'Search articles for autocomplete.' })
     @ApiNotFoundResponse({ description: 'Pattern is not present.' })
     @Get('autocomplete/:articleType')
-    public searchAutocomplete(@Param('articleType', CheckArticleType) articleType: ArticleTypeEnum,
+    public searchAutocomplete(@Param('articleType', CheckArticleTypePipe) articleType: ArticleTypeEnum,
                               @Headers('x-language') language: LanguageEnum,
                               @Query('pattern') pattern: string): Promise<ArticleDto[]> {
         return this.articleSearchService.searchAutocompleteArticle(articleType, pattern, language);
