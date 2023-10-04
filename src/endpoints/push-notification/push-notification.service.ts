@@ -3,10 +3,10 @@ import { TokenMessage, TopicMessage } from 'firebase-admin/lib/messaging/messagi
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { I18nService } from 'nestjs-i18n';
 import { LanguageEnum } from 'src/models/enums/language.enum';
-import { ArticleContentEntity } from 'src/entities/article-content.entity';
+import { ArticleContentEntity } from 'src/endpoints/article/article-content.entity';
 import * as firebaseAdmin from 'firebase-admin';
-import { PushTokenDto } from 'src/models/dtos/token.dto';
-import { PushTokenEntity } from 'src/entities/push-token.entity';
+import { PushTokenDto } from 'src/endpoints/push-notification/push-token.dto';
+import { PushTokenEntity } from 'src/endpoints/push-notification/push-token.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 

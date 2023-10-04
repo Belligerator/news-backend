@@ -2,11 +2,11 @@ import { BadRequestException, Inject, Injectable, Logger, NotFoundException } fr
 import { InjectRepository } from '@nestjs/typeorm';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { DEFAULT_LANGUAGE, PAGE_COUNT } from 'src/constants';
-import { ArticleContentEntity } from 'src/entities/article-content.entity';
-import { ArticleEntity } from 'src/entities/article.entity';
-import { TagEntity } from 'src/entities/tag.entity';
-import { ArticleRequestDto } from 'src/models/dtos/article-request.dto';
-import { ArticleDto } from 'src/models/dtos/article.dto';
+import { ArticleContentEntity } from 'src/endpoints/article/article-content.entity';
+import { ArticleEntity } from 'src/endpoints/article/article.entity';
+import { TagEntity } from 'src/endpoints/tag/tag.entity';
+import { ArticleRequestDto } from 'src/endpoints/article/article-request.dto';
+import { ArticleDto } from 'src/endpoints/article/article.dto';
 import { ArticleTypeEnum } from 'src/models/enums/article-type.enum';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { EmailService } from 'src/services/email.service';

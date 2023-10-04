@@ -1,7 +1,7 @@
 import { ArticleTypeEnum } from 'src/models/enums/article-type.enum';
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ArticleContentEntity } from './article-content.entity';
-import { TagEntity } from './tag.entity';
+import { TagEntity } from '../tag/tag.entity';
 
 @Entity('article')
 export class ArticleEntity {

@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty } from 'class-validator';
-import { TagEntity } from 'src/entities/tag.entity';
+import { TagEntity } from 'src/endpoints/tag/tag.entity';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 
 @InputType()

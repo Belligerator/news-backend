@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DEFAULT_LANGUAGE, PAGE_COUNT } from 'src/constants';
-import { ArticleContentEntity } from 'src/entities/article-content.entity';
-import { ArticleDto } from 'src/models/dtos/article.dto';
+import { ArticleContentEntity } from 'src/endpoints/article/article-content.entity';
+import { ArticleDto } from 'src/endpoints/article/article.dto';
 import { ArticleTypeEnum } from 'src/models/enums/article-type.enum';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { Raw, Repository, SelectQueryBuilder } from 'typeorm';

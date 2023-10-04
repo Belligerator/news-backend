@@ -56,6 +56,8 @@ export class AuthController {
     @Post('sign-in')
     public signInUser(
         @Body('username', RequiredParameterPipe) username: string,
+        // Password is not used here, because it is already checked in AuthGuard('local') - local.strategy.ts.
+        // However, it is required for swagger.
         @Body('password', RequiredParameterPipe) password: string,
     ): Promise<{ accessToken: string; refreshToken: string; }> {
         return this.authService.signInUser(username);

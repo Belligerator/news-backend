@@ -2,7 +2,7 @@ import { TagController } from './tag.controller';
 import { TagService } from './tag.service';
 
 import { LanguageEnum } from 'src/models/enums/language.enum';
-import { TagDto } from 'src/models/dtos/tag.dto';
+import { TagDto } from 'src/endpoints/tag/tag.dto';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { DEFAULT_LANGUAGE } from 'src/constants';

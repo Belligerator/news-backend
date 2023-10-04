@@ -1,7 +1,7 @@
 import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from 'src/entities/user.entity';
+import { UserEntity } from 'src/endpoints/auth/user.entity';
 import { Repository } from 'typeorm';
 import { JwtPayload } from 'src/models/jwt-payload.model';
 import { REFRESH_TOKEN_SIZE } from 'src/constants';

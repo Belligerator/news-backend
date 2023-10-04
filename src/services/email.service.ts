@@ -1,7 +1,7 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-import { ArticleDto } from 'src/models/dtos/article.dto';
+import { ArticleDto } from 'src/endpoints/article/article.dto';
 import { SentryService } from './sentry.service';
 import * as path from 'path';
 import * as moment from 'moment';

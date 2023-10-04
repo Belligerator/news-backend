@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { TagEntity } from 'src/entities/tag.entity';
+import { TagEntity } from 'src/endpoints/tag/tag.entity';
 import { TagGQLService } from './tag.service';
-import { TagDto } from 'src/models/dtos/tag.dto';
+import { TagDto } from 'src/endpoints/tag/tag.dto';
 
 @Resolver((of: TagEntity) => TagEntity)
 export class TagResolver {

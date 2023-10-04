@@ -1,8 +1,8 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DEFAULT_LANGUAGE } from 'src/constants';
-import { TagEntity } from 'src/entities/tag.entity';
-import { TagDto } from 'src/models/dtos/tag.dto';
+import { TagEntity } from 'src/endpoints/tag/tag.entity';
+import { TagDto } from 'src/endpoints/tag/tag.dto';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { Repository } from 'typeorm';
 

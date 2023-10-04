@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Headers, HttpCode, Post, Put, UseInterceptors } from '@nestjs/common';
 import { TagService } from './tag.service';
-import { TagDto } from 'src/models/dtos/tag.dto';
+import { TagDto } from 'src/endpoints/tag/tag.dto';
 import { ApiConflictResponse, ApiNotFoundResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { CustomValidationPipe } from 'src/utils/pipes/validation.pipe';

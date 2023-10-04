@@ -1,9 +1,9 @@
-import { TagDto } from 'src/models/dtos/tag.dto';
+import { TagDto } from 'src/endpoints/tag/tag.dto';
 import { TagService } from './tag.service';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { TagEntity } from 'src/entities/tag.entity';
+import { TagEntity } from 'src/endpoints/tag/tag.entity';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { ConflictException, NotFoundException } from '@nestjs/common';

@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
 import { LanguageEnum } from 'src/models/enums/language.enum';
-import { ArticleEntity } from './article.entity';
+import { ArticleEntity } from '../article/article.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
