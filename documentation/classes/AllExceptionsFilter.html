@@ -86,6 +86,7 @@
             </p>
             <p class="comment">
                         <code>ExceptionFilter</code>
+                        <code>GqlExceptionFilter</code>
             </p>
 
 
@@ -129,7 +130,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/filters/all-exception.filter.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/filters/all-exception.filter.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -212,15 +213,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>catch(exception: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, host: ArgumentsHost)</code>
+                    <code>catch(exception: Error, host: ArgumentsHost)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="19"
-                            class="link-to-prism">src/filters/all-exception.filter.ts:19</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">src/filters/all-exception.filter.ts:21</a></div>
                 </td>
             </tr>
 
@@ -243,7 +244,7 @@
                                 <tr>
                                     <td>exception</td>
                                     <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            <code>Error</code>
                                     </td>
 
                                     <td>
@@ -292,38 +293,50 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, Logger, Inject } from &#x27;@nestjs/common&#x27;;
 import { Request, Response } from &#x27;express&#x27;;
-import { HttpAdapterHost } from &#x27;@nestjs/core&#x27;;
-import { HttpArgumentsHost } from &#x27;@nestjs/common/interfaces/features/arguments-host.interface&#x27;;
+import { AbstractHttpAdapter, HttpAdapterHost } from &#x27;@nestjs/core&#x27;;
+import { ContextType, HttpArgumentsHost } from &#x27;@nestjs/common/interfaces/features/arguments-host.interface&#x27;;
 import { WINSTON_MODULE_PROVIDER } from &#x27;nest-winston&#x27;;
 import { ErrorResponse } from &#x27;src/models/dtos/error-response.dto&#x27;;
-import { SentryService } from &#x27;src/services/sentry.service&#x27;;
+import { SentryService } from &#x27;src/services/sentry/sentry.service&#x27;;
+import { GqlArgumentsHost, GqlExceptionFilter } from &#x27;@nestjs/graphql&#x27;;
+import { ExpressAdapter } from &#x27;@nestjs/platform-express&#x27;;
 
 /**
  * Default error handler catching all but HTTP exceptions.
  */
 @Catch()
-export class AllExceptionsFilter implements ExceptionFilter {
+export class AllExceptionsFilter implements ExceptionFilter, GqlExceptionFilter {
     constructor(private readonly httpAdapterHost: HttpAdapterHost,
                 private readonly sentryService: SentryService,
                 @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {
     }
 
-    public catch(exception: any, host: ArgumentsHost): void {
-        const httpAdapter: any &#x3D; this.httpAdapterHost.httpAdapter;
+    public catch(exception: Error, host: ArgumentsHost): void {
+        const httpAdapter: AbstractHttpAdapter&lt;ExpressAdapter&gt; &#x3D; this.httpAdapterHost.httpAdapter;
 
         const ctx: HttpArgumentsHost &#x3D; host.switchToHttp();
-        const response: any &#x3D; ctx.getResponse&lt;Response&gt;();
-        const request: any &#x3D; ctx.getRequest&lt;Request&gt;();
+        const response: Response &#x3D; ctx.getResponse();
+        const request: Request &#x3D; ctx.getRequest();
         const status: number &#x3D; HttpStatus.INTERNAL_SERVER_ERROR;
 
-        const responseBody: ErrorResponse &#x3D; {
-            statusCode: status,
-            message: &#x27;Internal server error occurred, please contact the administrator.&#x27;,
-            error: exception[&#x27;message&#x27;],
-        };
-
-        httpAdapter.reply(response, responseBody, status);
-        this.sentryService.captureException(&#x60;Internal server error ${status}: ${request.url}&#x60;, exception[&#x27;stack&#x27;]);
+        const gqlHost: GqlArgumentsHost &#x3D; GqlArgumentsHost.create(host);
+        const gqlContext: ContextType &#x3D; gqlHost.getType();
+        
+        // If HTTP context, return JSON response. Otherwise, return GraphQL response.
+        if (gqlContext &#x3D;&#x3D;&#x3D; &#x27;http&#x27;) {
+            const responseBody: ErrorResponse &#x3D; {
+                statusCode: status,
+                message: &#x27;Internal server error occurred, please contact the administrator.&#x27;,
+                error: exception[&#x27;message&#x27;],
+            };
+            httpAdapter.reply(response, responseBody, status);
+    
+            this.logger.error(&#x60;HttpException ${status}: ${request.url}&#x60;);
+            this.sentryService.captureException(&#x60;Internal server error ${status}: ${request.url}&#x60;, exception[&#x27;stack&#x27;]);
+        } else {
+            this.logger.error(&#x60;HttpException ${status}: ${gqlHost.getInfo().fieldName}&#x60;);
+            this.sentryService.captureException(&#x60;Internal server error ${status}: ${gqlHost.getInfo().fieldName}&#x60;, exception[&#x27;stack&#x27;]);
+        }
     }
 }
 </code></pre>

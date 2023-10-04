@@ -132,12 +132,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(tagRepository: <a href="../entitys/TagEntity.html" target="_self">Repository&lt;TagEntity&gt;</a>, articleRepository: <a href="../entitys/ArticleEntity.html" target="_self">Repository&lt;ArticleEntity&gt;</a>, articleContentRepository: <a href="../classes/ArticleContentEntity.html" target="_self">Repository&lt;ArticleContentEntity&gt;</a>, logger: Logger, emailService: <a href="../injectables/EmailService.html" target="_self">EmailService</a>, excelService: <a href="../injectables/ExcelService.html" target="_self">ExcelService</a>, pushNotificationService: <a href="../injectables/PushNotificationService.html" target="_self">PushNotificationService</a>, fileService: <a href="../injectables/FileService.html" target="_self">FileService</a>)</code>
+<code>constructor(tagRepository: <a href="../classes/TagEntity.html" target="_self">Repository&lt;TagEntity&gt;</a>, articleRepository: <a href="../entitys/ArticleEntity.html" target="_self">Repository&lt;ArticleEntity&gt;</a>, articleContentRepository: <a href="../classes/ArticleContentEntity.html" target="_self">Repository&lt;ArticleContentEntity&gt;</a>, logger: Logger, cacheManager: Cache, emailService: <a href="../injectables/EmailService.html" target="_self">EmailService</a>, excelService: <a href="../injectables/ExcelService.html" target="_self">ExcelService</a>, pushNotificationService: <a href="../injectables/PushNotificationService.html" target="_self">PushNotificationService</a>, fileService: <a href="../injectables/FileService.html" target="_self">FileService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/endpoints/article/article.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/endpoints/article/article.service.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -158,7 +158,7 @@
                                                         <td>tagRepository</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../entitys/TagEntity.html" target="_self" >Repository&lt;TagEntity&gt;</a></code>
+                                                                        <code><a href="../classes/TagEntity.html" target="_self" >Repository&lt;TagEntity&gt;</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -195,6 +195,18 @@
                                                   
                                                         <td>
                                                                     <code>Logger</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cacheManager</td>
+                                                  
+                                                        <td>
+                                                                    <code>Cache</code>
                                                         </td>
                                                   
                                                     <td>
@@ -287,8 +299,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:41</a></div>
                 </td>
             </tr>
 
@@ -382,8 +394,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="287"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:287</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="294"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:294</a></div>
                 </td>
             </tr>
 
@@ -415,15 +427,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getArticleById(articleContentId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, language: <a href="../undefineds/LanguageEnum.html" target="_self">LanguageEnum</a>)</code>
+                    <code>getArticleById(articleContentId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="160"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:160</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="167"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:167</a></div>
                 </td>
             </tr>
 
@@ -442,7 +454,6 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
-                                    <td>Default value</td>
                                     <td>Description</td>
                                 </tr>
                             </thead>
@@ -457,30 +468,9 @@
                                         No
                                     </td>
 
-                                    <td>
-                                    </td>
 
                                     <td>
                                         <p>Id of the article content.</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>language</td>
-                                    <td>
-                                                <code><a href="../miscellaneous/enumerations.html#LanguageEnum" target="_self" >LanguageEnum</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                        <code>DEFAULT_LANGUAGE</code>
-                                    </td>
-
-                                    <td>
-                                        <p>Language of the article.</p>
 
                                     </td>
                                 </tr>
@@ -524,8 +514,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="104"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:104</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:112</a></div>
                 </td>
             </tr>
 
@@ -682,8 +672,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="269"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:269</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="276"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:276</a></div>
                 </td>
             </tr>
 
@@ -777,8 +767,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="192"
-                            class="link-to-prism">src/endpoints/article/article.service.ts:192</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="194"
+                            class="link-to-prism">src/endpoints/article/article.service.ts:194</a></div>
                 </td>
             </tr>
 
@@ -860,18 +850,21 @@
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { WINSTON_MODULE_PROVIDER } from &#x27;nest-winston&#x27;;
 import { DEFAULT_LANGUAGE, PAGE_COUNT } from &#x27;src/constants&#x27;;
-import { ArticleContentEntity } from &#x27;src/entities/article-content.entity&#x27;;
-import { ArticleEntity } from &#x27;src/entities/article.entity&#x27;;
-import { TagEntity } from &#x27;src/entities/tag.entity&#x27;;
-import { ArticleRequestDto } from &#x27;src/models/dtos/article-request.dto&#x27;;
-import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
+import { ArticleContentEntity } from &#x27;src/endpoints/article/article-content.entity&#x27;;
+import { ArticleEntity } from &#x27;src/endpoints/article/article.entity&#x27;;
+import { TagEntity } from &#x27;src/endpoints/tag/tag.entity&#x27;;
+import { ArticleRequestDto } from &#x27;src/endpoints/article/dto/article-request.dto&#x27;;
+import { ArticleDto } from &#x27;src/endpoints/article/dto/article.dto&#x27;;
 import { ArticleTypeEnum } from &#x27;src/models/enums/article-type.enum&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
-import { EmailService } from &#x27;src/services/email.service&#x27;;
-import { FileService } from &#x27;src/services/file.service&#x27;;
+import { EmailService } from &#x27;src/services/email/email.service&#x27;;
+import { FileService } from &#x27;src/services/file/file.service&#x27;;
 import { In, Repository } from &#x27;typeorm&#x27;;
 import { PushNotificationService } from &#x27;src/endpoints/push-notification/push-notification.service&#x27;;
-import { ExcelService } from &#x27;src/services/excel.service&#x27;;
+import { ExcelService } from &#x27;src/services/excel/excel.service&#x27;;
+import { CACHE_MANAGER } from &#x27;@nestjs/cache-manager&#x27;;
+import { Cache } from &#x27;cache-manager&#x27;;
+import { CacheKeyEnum } from &#x27;src/models/enums/cache-key.enum&#x27;;
 
 @Injectable()
 export class ArticleService {
@@ -881,6 +874,7 @@ export class ArticleService {
         @InjectRepository(ArticleEntity) private readonly articleRepository: Repository&lt;ArticleEntity&gt;,
         @InjectRepository(ArticleContentEntity) private readonly articleContentRepository: Repository&lt;ArticleContentEntity&gt;,
         @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
         private readonly emailService: EmailService,
         private readonly excelService: ExcelService,
         private readonly pushNotificationService: PushNotificationService,
@@ -938,6 +932,10 @@ export class ArticleService {
         });
 
         await this.articleContentRepository.save(newArticleContentEntities);
+
+        // Invalidate cache for articles and search.
+        this.cacheManager.del(CacheKeyEnum.ARTICLES);
+        this.cacheManager.del(CacheKeyEnum.SEARCH);
 
         // Send email about new article.
         // This feature is just for testing purposes, so pick first language.
@@ -1012,19 +1010,13 @@ export class ArticleService {
     /**
      * This method is used for getting article by id.
      * @param articleContentId  Id of the article content.
-     * @param language          Language of the article.
      * @returns                 Article with details.
      */
-    public async getArticleById(articleContentId: number, language: LanguageEnum &#x3D; DEFAULT_LANGUAGE): Promise&lt;ArticleDto&gt; {
+    public async getArticleById(articleContentId: number): Promise&lt;ArticleDto&gt; {
 
         const articleContentEntity: ArticleContentEntity | null &#x3D; await this.articleContentRepository.findOne({
             where: {
                 id: articleContentId,
-                article: {
-                    tags: {
-                        language: language
-                    }
-                }
             },
             relations: {
                 article: {
@@ -1099,7 +1091,8 @@ export class ArticleService {
 
             // New cover image.
             oldArticleContentEntity.coverImage &#x3D; updatedArticle.coverImage;
-        } else if (updatedArticle.coverImage &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+
+        } else if (updatedArticle.coverImage &#x3D;&#x3D;&#x3D; &#x27;&#x27; &amp;&amp; oldArticleContentEntity.coverImage) {
 
             // If cover image is unset, delete it.
             coverImageToDelete &#x3D; oldArticleContentEntity.coverImage;
@@ -1107,6 +1100,10 @@ export class ArticleService {
         }
 
         const newArticleContentEntity: ArticleContentEntity &#x3D; await this.articleContentRepository.save(oldArticleContentEntity);
+
+        // Invalidate cache for articles and search.
+        this.cacheManager.del(CacheKeyEnum.ARTICLES);
+        this.cacheManager.del(CacheKeyEnum.SEARCH);
 
         // New entity is saved, we can remove old cover image.
         // Do not await, we do not want to wait for this operation.

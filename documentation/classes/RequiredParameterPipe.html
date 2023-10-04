@@ -198,7 +198,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                     </div>
                     <div class="io-description">
@@ -224,7 +224,7 @@
  * Pipe for checking if required parameter is present.
  */
 export class RequiredParameterPipe implements PipeTransform {
-    public transform(value: string, metadata: ArgumentMetadata): any {
+    public transform(value: string, metadata: ArgumentMetadata): string {
         if (value &#x3D;&#x3D;&#x3D; undefined || value &#x3D;&#x3D;&#x3D; null) {
             throw new BadRequestException(&#x60;Required parameter &#x27;${metadata.data}&#x27; is missing.&#x60;)
         } else {

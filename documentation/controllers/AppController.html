@@ -87,6 +87,13 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getSample" >getSample</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
                                 <a href="#getVersion" >getVersion</a>
                             </li>
                         </ul>
@@ -106,6 +113,89 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSample"></a>
+                    <span class="name">
+                        <span class="modifier"></span>
+                        <span class="modifier"></span>
+                        <span class="modifier">Public</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>getSample</b></span>
+                        <a href="#getSample"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getSample(response: Response)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Get sample file.&#x27;})<br />@Get(&#x27;public/sample&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/app.controller.ts:32</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Example of serving static file from disk.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -137,8 +227,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/app.controller.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/app.controller.ts:23</a></div>
                 </td>
             </tr>
 
@@ -170,23 +260,47 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, InternalServerErrorException, Res } from &#x27;@nestjs/common&#x27;;
 import { AppService } from &#x27;./app.service&#x27;;
 import { ApiOperation } from &#x27;@nestjs/swagger&#x27;;
+import { SentryService } from &#x27;./services/sentry/sentry.service&#x27;;
+import { Response } from &#x27;express&#x27;;
+import * as path from &#x27;path&#x27;;
+import * as fs from &#x27;fs&#x27;;
 
 @Controller()
 export class AppController {
-    constructor(private readonly appService: AppService) {}
+    constructor(
+        private readonly appService: AppService,
+        private readonly sentryService: SentryService,
+    ) {}
 
-  /**
-   * Get backend version.
-   * @example 0.0.1
-   * @returns backend version.
-   */
-  @ApiOperation({ summary: &#x27;Get backend version.&#x27; })
-  @Get()
+    /**
+     * Get backend version.
+     * @example 0.0.1
+     * @returns backend version.
+     */
+    @ApiOperation({ summary: &#x27;Get backend version.&#x27; })
+    @Get()
     public getVersion(): string {
         return this.appService.getVersion();
+    }
+
+    /**
+     * Example of serving static file from disk.
+     */
+    @ApiOperation({ summary: &#x27;Get sample file.&#x27; })
+    @Get(&#x27;public/sample&#x27;)
+    public async getSample(@Res() response: Response): Promise&lt;void&gt; {
+        try {
+            const file: string &#x3D; path.join(__dirname, &#x27;assets&#x27;, &#x27;files&#x27;, &#x27;sample.pdf&#x27;);
+            response.setHeader(&#x27;Content-type&#x27;, &#x27;text/markdown&#x27;);
+            response.setHeader(&#x27;Content-disposition&#x27;, &#x27;attachment; filename&#x3D;sample.pdf&#x27;);
+            fs.createReadStream(file).pipe(response);
+        } catch (error) {
+            this.sentryService.captureException(error);
+            throw new InternalServerErrorException(&#x27;Error while getting sample file.&#x27;);
+        }
     }
 }
 </code></pre>

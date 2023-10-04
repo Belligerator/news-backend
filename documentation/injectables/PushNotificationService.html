@@ -370,8 +370,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="72"
-                            class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:72</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:77</a></div>
                 </td>
             </tr>
 
@@ -382,14 +382,9 @@
 Mobile app does not have user authentication, so we cannot send push notification to specific user.</p>
 </div>
 
-                    <div>
-                    </div>
                     <div class="io-description">
                         <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
-                    </div>
-                    <div class="io-description">
-                        
                     </div>
                 </td>
             </tr>
@@ -418,14 +413,16 @@ Mobile app does not have user authentication, so we cannot send push notificatio
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/endpoints/push-notification/push-notification.service.ts:43</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Send push notification to topic when new article is created.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -436,6 +433,7 @@ Mobile app does not have user authentication, so we cannot send push notificatio
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -450,6 +448,10 @@ Mobile app does not have user authentication, so we cannot send push notificatio
                                     </td>
 
 
+                                    <td>
+                                        <p>Article to send.</p>
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>language</td>
@@ -462,6 +464,10 @@ Mobile app does not have user authentication, so we cannot send push notificatio
                                     </td>
 
 
+                                    <td>
+                                        <p>Language of article. Used to send notification to correct topic.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -490,10 +496,10 @@ import { TokenMessage, TopicMessage } from &#x27;firebase-admin/lib/messaging/me
 import { WINSTON_MODULE_PROVIDER } from &#x27;nest-winston&#x27;;
 import { I18nService } from &#x27;nestjs-i18n&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
-import { ArticleContentEntity } from &#x27;src/entities/article-content.entity&#x27;;
+import { ArticleContentEntity } from &#x27;src/endpoints/article/article-content.entity&#x27;;
 import * as firebaseAdmin from &#x27;firebase-admin&#x27;;
-import { PushTokenDto } from &#x27;src/models/dtos/token.dto&#x27;;
-import { PushTokenEntity } from &#x27;src/entities/push-token.entity&#x27;;
+import { PushTokenDto } from &#x27;src/endpoints/push-notification/dto/push-token.dto&#x27;;
+import { PushTokenEntity } from &#x27;src/endpoints/push-notification/push-token.entity&#x27;;
 import { Repository } from &#x27;typeorm&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 
@@ -521,6 +527,12 @@ export class PushNotificationService {
         await this.pushTokenRepository.delete({ token: token.token });
     }
 
+    /**
+     * Send push notification to topic when new article is created.
+     * 
+     * @param article   Article to send.
+     * @param language  Language of article. Used to send notification to correct topic.
+     */
     public async sendPushNotificationToTopic(article: ArticleContentEntity, language: LanguageEnum): Promise&lt;void&gt; {
         const message: TopicMessage &#x3D; {
             topic: &#x27;new-article-&#x27; + language,
@@ -554,7 +566,6 @@ export class PushNotificationService {
     /**
      * Send push notification to random device. Used as example.
      * Mobile app does not have user authentication, so we cannot send push notification to specific user.
-     * @returns 
      */
     public async sendCookieToRandomDevice(): Promise&lt;void&gt; {
         const pushTokens: PushTokenEntity[] &#x3D; await this.pushTokenRepository.find();

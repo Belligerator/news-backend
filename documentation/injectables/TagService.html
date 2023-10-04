@@ -122,12 +122,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(tagRepository: <a href="../entitys/TagEntity.html" target="_self">Repository&lt;TagEntity&gt;</a>)</code>
+<code>constructor(tagRepository: <a href="../classes/TagEntity.html" target="_self">Repository&lt;TagEntity&gt;</a>, cacheManager: Cache)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/endpoints/tag/tag.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/endpoints/tag/tag.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -148,7 +148,19 @@
                                                         <td>tagRepository</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../entitys/TagEntity.html" target="_self" >Repository&lt;TagEntity&gt;</a></code>
+                                                                        <code><a href="../classes/TagEntity.html" target="_self" >Repository&lt;TagEntity&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cacheManager</td>
+                                                  
+                                                        <td>
+                                                                    <code>Cache</code>
                                                         </td>
                                                   
                                                     <td>
@@ -193,14 +205,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/endpoints/tag/tag.service.ts:17</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/endpoints/tag/tag.service.ts:28</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Create new tag if not exists.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -211,6 +225,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -225,6 +240,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>New tag.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -236,7 +255,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>Created tag.</p>
+
                     </div>
                 </td>
             </tr>
@@ -258,21 +278,23 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>deleteTag(newTag: <a href="../classes/TagDto.html" target="_self">TagDto</a>)</code>
+                    <code>deleteTag(oldTag: <a href="../classes/TagDto.html" target="_self">TagDto</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">src/endpoints/tag/tag.service.ts:61</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="95"
+                            class="link-to-prism">src/endpoints/tag/tag.service.ts:95</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Delete tag.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -287,7 +309,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>newTag</td>
+                                    <td>oldTag</td>
                                     <td>
                                                 <code><a href="../classes/TagDto.html" target="_self" >TagDto</a></code>
                                     </td>
@@ -337,14 +359,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/endpoints/tag/tag.service.ts:35</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">src/endpoints/tag/tag.service.ts:54</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Get tag by id for specific language.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -384,7 +408,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>List of tags.</p>
+
                     </div>
                 </td>
             </tr>
@@ -413,14 +438,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="41"
-                            class="link-to-prism">src/endpoints/tag/tag.service.ts:41</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="67"
+                            class="link-to-prism">src/endpoints/tag/tag.service.ts:67</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Update tag.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -456,7 +483,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>Updated tag.</p>
+
                     </div>
                 </td>
             </tr>
@@ -468,22 +496,33 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ConflictException, Injectable, NotFoundException } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CACHE_MANAGER } from &#x27;@nestjs/cache-manager&#x27;;
+import { ConflictException, Inject, Injectable, NotFoundException } from &#x27;@nestjs/common&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { DEFAULT_LANGUAGE } from &#x27;src/constants&#x27;;
-import { TagEntity } from &#x27;src/entities/tag.entity&#x27;;
-import { TagDto } from &#x27;src/models/dtos/tag.dto&#x27;;
+import { TagEntity } from &#x27;src/endpoints/tag/tag.entity&#x27;;
+import { TagDto } from &#x27;src/endpoints/tag/dto/tag.dto&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
 import { Repository } from &#x27;typeorm&#x27;;
+import { Cache } from &#x27;cache-manager&#x27;;
+import { CacheKeyEnum } from &#x27;src/models/enums/cache-key.enum&#x27;;
 
 @Injectable()
 export class TagService {
 
     constructor(
-        @InjectRepository(TagEntity) private readonly tagRepository: Repository&lt;TagEntity&gt;
+        @InjectRepository(TagEntity) private readonly tagRepository: Repository&lt;TagEntity&gt;,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache,
     ) {
     }
     
+    /**
+     * Create new tag if not exists.
+     * 
+     * @throws          ConflictException if tag already exists.
+     * @param newTag    New tag. 
+     * @returns         Created tag.
+     */
     public async createTag(newTag: TagDto): Promise&lt;TagDto&gt; {
 
         const tag: TagEntity | null &#x3D; await this.tagRepository.findOneBy({ id: newTag.id, language: newTag.language });
@@ -499,15 +538,30 @@ export class TagService {
             order: newTag.order
         });
 
+        // Invalidate cache for tags.
+        this.cacheManager.del(CacheKeyEnum.TAGS);
+
         return new TagDto(savedTag);
     }
 
+    /**
+     * Get tag by id for specific language.
+     * 
+     * @returns         List of tags.
+     */
     public async getAllTags(language: LanguageEnum &#x3D; DEFAULT_LANGUAGE): Promise&lt;TagDto[]&gt; {
         const tags: TagEntity[] &#x3D; await this.tagRepository.find({ where: { language }, order: { order: &#x27;ASC&#x27; } });
 
         return tags.map(tag &#x3D;&gt; new TagDto(tag));
     }
 
+    /**
+     * Update tag.
+     * 
+     * @throws          NotFoundException if tag not found.
+     * @param tag       New tag.
+     * @returns         Updated tag.
+     */
     public async updateTag(newTag: TagDto): Promise&lt;TagDto&gt; {
         let tag: TagEntity | null &#x3D; await this.tagRepository.findOne({
             where: {
@@ -524,12 +578,20 @@ export class TagService {
         tag.order &#x3D; newTag.order;
 
         tag &#x3D; await this.tagRepository.save(tag);
+        
+        // Invalidate cache for tags.
+        this.cacheManager.del(CacheKeyEnum.TAGS);
 
         return new TagDto(tag);
     }
 
-    public async deleteTag(newTag: TagDto): Promise&lt;void&gt; {
-        await this.tagRepository.delete({ id: newTag.id, language: newTag.language });
+    /**
+     * Delete tag.
+     * 
+     * @param tag       Tag to delete. 
+     */
+    public async deleteTag(oldTag: TagDto): Promise&lt;void&gt; {
+        await this.tagRepository.delete({ id: oldTag.id, language: oldTag.language });
     }
 
 }</code></pre>

@@ -31,18 +31,19 @@
                <div class="content getting-started">
                    <div class="content-data">
 
-<h1>NodeJs backend for the News app</h1>
+<h1>NestJS backend for the News Mobile App</h1>
 <h2>About</h2>
-<p>Welcome to the News App Backend project! This repository serves as the backend component for the News App, a <a href="https://github.com/Belligerator/news-app">Flutter application</a> designed to deliver the latest news to users. The backend is built to provide data and functionality to support the app&#39;s features.</p>
+<p>Welcome to the News App Backend project! This repository serves as the backend component for the <a href="https://github.com/Belligerator/news-app">News App</a>, a Flutter application designed to deliver the latest news to users. The backend is built to provide data and functionality to support the app&#39;s features.</p>
 <p>Backend is built using <a href="https://nestjs.com/">NestJS</a>, a NodeJS framework. It is a REST API that provides endpoints for the app to consume. For data storage, the backend uses <a href="https://www.mysql.com/">MySQL</a> and interacts with it using <a href="https://typeorm.io/">TypeORM</a>.</p>
-<p>This project is made as a sample project and implements some of the common features found in a typical backend application. Eg.</p>
+<p>This project is made as a sample project and implements some of the common features found in a typical backend application. List of features:</p>
 <ul>
-<li>CRUD operations</li>
-<li>Authentication and Authorization (using JWT, basic auth)</li>
-<li>Sending emails</li>
-<li>File uploads and downloads</li>
-<li>Exporting data to Excel file</li>
+<li>REST Api (CRUD operations)</li>
+<li>GraphQL basics (query, mutation)</li>
+<li>Authentication and Authorization (JWT, basic auth, username/password login)</li>
 <li>Firebase Cloud Messaging (FCM) push notifications (via firebase-admin)</li>
+<li>Sending emails</li>
+<li>Exporting data to Excel file</li>
+<li>File uploads and downloads</li>
 <li>Dockerization</li>
 <li>Cron jobs</li>
 <li>Sentry error logging</li>
@@ -51,28 +52,40 @@
 <li>Exception filters</li>
 <li>Logging to file and managing log files</li>
 </ul>
+<h2>Demo</h2>
+<p>A demo of the backend can be found at <a href="https://news.belligerator.cz/api/">https://news.belligerator.cz/api/</a>. The demo is running on a Docker container.</p>
+<p>For that purpose I have created a docker image for the backend. The image can be found at <a href="https://hub.docker.com/r/belligerator/news-backend">https://hub.docker.com/r/belligerator/news-backend</a>. The image is built using the Dockerfile in the root directory of this repository.</p>
+<p>On the server, there is docker-compose file that is used to run the backend and MySQL database. The file can be found at <a href="https://github.com/Belligerator/news-docker">https://github.com/Belligerator/news-docker</a>.</p>
+<h3>Mobile application</h3>
+<p>Mobile application is built using Flutter (v3.7.1) and source codes can be found at <a href="https://github.com/Belligerator/news-app">https://github.com/Belligerator/news-app</a>. It is connected to the demo backend and can be downloaded at <a href="https://belligerator.cz/downloads/">https://belligerator.cz/downloads/</a> (<code>news-&lt;version&gt;.apk</code>). It is available for Android only.</p>
 <h2>Getting Started</h2>
 <h3>Prerequisites</h3>
+<p>For running the backend locally, you will need the following:</p>
 <ul>
-<li><a href="https://nodejs.org/en/">NodeJS</a> (v14.15.4)</li>
-<li><a href="https://www.mysql.com/">MySQL</a> (v8.0.23)</li>
-<li><a href="https://www.docker.com/">Docker</a> (v20.10.5)</li>
+<li><a href="https://nodejs.org/en/">NodeJS</a> (v18)</li>
+<li><a href="https://nestjs.com/">NestJS</a> (v10)</li>
+<li><a href="https://www.mysql.com/">MySQL</a> (v5.7)</li>
+<li><a href="https://www.docker.com/">Docker</a> (v20) - not required, it was used for creating the image and running the demo from the server.</li>
 </ul>
 <h3>Installation</h3>
 <ol>
-<li><p>Clone the repo</p>
+<li><p>Clone the repo <a href="https://github.com/Belligerator/news-backend">news-backend</a></p>
 <div><pre class="line-numbers"><code class="language-sh">git clone git&#64;github.com:Belligerator/news-backend.git</code></pre></div></li>
 <li><p>Install NPM packages</p>
 <div><pre class="line-numbers"><code class="language-sh">npm install</code></pre></div></li>
 <li><p>Create a <code>.env</code> file in the root directory and fill in the required environment variables. You can refer to the <code>.env.example</code> file for the required variables.</p>
 </li>
+<li><p>Create database schema <code>news</code> in database. Migration scripts will create the tables in the next step.</p>
+</li>
 <li><p>Run the app</p>
-<div><pre class="line-numbers"><code class="language-sh">npm run start</code></pre></div><p> The app should be running on <code>http://localhost:3000/</code></p>
+<div><pre class="line-numbers"><code class="language-sh">npm run start</code></pre></div><p> The app should be running on <code>http://localhost:3000/</code>.</p>
+</li>
+<li><p>In the root directory, there is a <code>news.postman_collection.json</code> file that contains a Postman collection with sample requests. You can import it into Postman and use it to test the endpoints.</p>
 </li>
 </ol>
-<h2>Usage</h2>
-<h3>Endpoints</h3>
-<p>Documentation for the endpoints can be found at <code>http://localhost:3000/api/swagger</code>.</p>
+<h2>Documentation</h2>
+<p>Documentation for the endpoints can be found at <a href="https://news.belligerator.cz/api/swagger">https://news.belligerator.cz/api/swagger</a>.</p>
+<p>Documentation for the backend can be found at <a href="https://news.belligerator.cz/api/documentation">https://news.belligerator.cz/api/documentation</a>.</p>
 
 
 

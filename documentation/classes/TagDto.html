@@ -68,7 +68,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/models/dtos/tag.dto.ts</code>
+            <code>src/endpoints/tag/dto/tag.dto.ts</code>
         </p>
 
 
@@ -90,19 +90,23 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                 <a href="#id" >id</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                 <a href="#language" >language</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                 <a href="#order" >order</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                 <a href="#title" >title</a>
@@ -126,12 +130,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(tagEntity: <a href="../entitys/TagEntity.html" target="_self">TagEntity</a>)</code>
+<code>constructor(tagEntity: <a href="../classes/TagEntity.html" target="_self">TagEntity</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/models/dtos/tag.dto.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/endpoints/tag/dto/tag.dto.ts:37</a></div>
                             </td>
                         </tr>
 
@@ -152,7 +156,7 @@
                                                         <td>tagEntity</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../entitys/TagEntity.html" target="_self" >TagEntity</a></code>
+                                                                        <code><a href="../classes/TagEntity.html" target="_self" >TagEntity</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -181,6 +185,7 @@
                     <a name="id"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Public</span>
                         <span ><b>id</b></span>
                         <a href="#id"><span class="icon ion-ios-link"></span></a>
@@ -198,19 +203,19 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />
+                            @IsNotEmpty()<br />@Field()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/dtos/tag.dto.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/endpoints/tag/dto/tag.dto.ts:15</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Uniqe string shortcut for tag.</p>
+                    <div class="io-description"><p>Unique string shortcut for tag.</p>
 <div><pre class="line-numbers"><code class="language-html"></code></pre></div></div>
                 </td>
             </tr>
@@ -223,6 +228,7 @@
                 <td class="col-md-4">
                     <a name="language"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Public</span>
                         <span ><b>language</b></span>
@@ -241,13 +247,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />
+                            @IsNotEmpty()<br />@Field()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/models/dtos/tag.dto.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/endpoints/tag/dto/tag.dto.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -266,6 +272,7 @@
                 <td class="col-md-4">
                     <a name="order"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier">Public</span>
                         <span ><b>order</b></span>
                         <a href="#order"><span class="icon ion-ios-link"></span></a>
@@ -278,9 +285,18 @@
 
                     </td>
                 </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Field({nullable: true})<br />
+                        </code>
+                    </td>
+                </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/models/dtos/tag.dto.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/endpoints/tag/dto/tag.dto.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -300,6 +316,7 @@
                     <a name="title"></a>
                     <span class="name">
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Public</span>
                         <span ><b>title</b></span>
                         <a href="#title"><span class="icon ion-ios-link"></span></a>
@@ -317,13 +334,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @IsNotEmpty()<br />
+                            @IsNotEmpty()<br />@Field()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/models/dtos/tag.dto.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/endpoints/tag/dto/tag.dto.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -348,17 +365,20 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsNotEmpty } from &#x27;class-validator&#x27;;
-import { TagEntity } from &#x27;src/entities/tag.entity&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Field, InputType } from &#x27;@nestjs/graphql&#x27;;
+import { IsNotEmpty } from &#x27;class-validator&#x27;;
+import { TagEntity } from &#x27;src/endpoints/tag/tag.entity&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
 
+@InputType()
 export class TagDto {
 
     /**
-     * Uniqe string shortcut for tag.
+     * Unique string shortcut for tag.
      * @example world for World news.
      */
     @IsNotEmpty()
+    @Field()
     public id: string;
 
     /**
@@ -366,6 +386,7 @@ export class TagDto {
      * @example en
      */
     @IsNotEmpty()
+    @Field()
     public language: LanguageEnum;
 
     /**
@@ -373,11 +394,13 @@ export class TagDto {
      * @example World
      */
     @IsNotEmpty()
+    @Field()
     public title: string;
 
     /**
      * Order of the tag.
      */
+    @Field({ nullable: true })
     public order: number;
 
     constructor(tagEntity: TagEntity) {

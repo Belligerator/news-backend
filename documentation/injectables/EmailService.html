@@ -64,7 +64,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/services/email.service.ts</code>
+            <code>src/services/email/email.service.ts</code>
         </p>
 
 
@@ -112,7 +112,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/services/email.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/services/email/email.service.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -202,15 +202,15 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/services/email.service.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/services/email/email.service.ts:22</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Send email about new article.</p>
+                    <div class="io-description"><p>Send email about new article. It serves as a sample of sending email.</p>
 </div>
 
                     <div class="io-description">
@@ -267,10 +267,11 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { MailerService } from &#x27;@nestjs-modules/mailer&#x27;;
 import { Inject, Injectable, Logger } from &#x27;@nestjs/common&#x27;;
 import { WINSTON_MODULE_PROVIDER } from &#x27;nest-winston&#x27;;
-import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
-import { SentryService } from &#x27;./sentry.service&#x27;;
+import { ArticleDto } from &#x27;src/endpoints/article/dto/article.dto&#x27;;
+import { SentryService } from &#x27;../sentry/sentry.service&#x27;;
 import * as path from &#x27;path&#x27;;
 import * as moment from &#x27;moment&#x27;;
+import { SERVER_URL } from &#x27;src/app.module&#x27;;
 
 @Injectable()
 export class EmailService {
@@ -281,33 +282,34 @@ export class EmailService {
     }
 
     /**
-     * Send email about new article.
+     * Send email about new article. It serves as a sample of sending email.
      * @param article   Article to send.
      */
     public async sendEmail(article: ArticleDto): Promise&lt;void&gt; {
         this.logger.log(&#x27;info&#x27;, &#x60;[EMAIL_SERVICE] Sending email about new article ${article.articleContentId}&#x60;);
 
-        this.mailerService.sendMail({
-            to: &#x27;test@test.com&#x27;,
-            subject: &#x27;New article: &#x27; + article.title,
-            template: &#x27;new-article&#x27;,
-            context: {
-                title: article.title,
-                body: article.body,
-                coverImage: article.coverImage,
-                dateOfPublication: moment(article.dateOfPublication).format(&#x27;DD.MM.YYYY&#x27;),
-            },
-            attachments: [{
-                filename: &#x27;best-news.png&#x27;,
-                path: path.join(__dirname, &#x27;..&#x27;, &#x27;templates&#x27;, &#x27;assets&#x27;, &#x27;images&#x27;, &#x27;best-news.png&#x27;),
-                contentType: &#x27;image/png&#x27;,
-                cid: &#x27;newsSmall&#x27;,
-            }]
-        }).then(() &#x3D;&gt; {
-            this.logger.log(&#x27;info&#x27;, &#x60;Email about new article ${article.articleContentId} was sent.&#x60;);
-        }).catch((error) &#x3D;&gt; {
+        try {
+            await this.mailerService.sendMail({
+                to: &#x27;dimatest01@gmail.com&#x27;,
+                subject: &#x27;New article: &#x27; + article.title,
+                template: &#x27;new-article&#x27;,
+                context: {
+                    title: article.title,
+                    body: article.body,
+                    coverImage: article.coverImage ? &#x60;${SERVER_URL}/${article.coverImage}&#x60; : null,
+                    dateOfPublication: moment(article.dateOfPublication).format(&#x27;DD.MM.YYYY&#x27;),
+                },
+                attachments: [{
+                    filename: &#x27;best-news.png&#x27;,
+                    path: path.join(__dirname, &#x27;..&#x27;, &#x27;templates&#x27;, &#x27;assets&#x27;, &#x27;images&#x27;, &#x27;best-news.png&#x27;),
+                    contentType: &#x27;image/png&#x27;,
+                    cid: &#x27;newsSmall&#x27;,
+                }]
+            });
+            this.logger.log(&#x27;info&#x27;, &#x60;[EMAIL_SERVICE] Email about new article ${article.articleContentId} was sent.&#x60;);
+        } catch (error) {
             this.sentryService.captureException(&#x27;[EMAIL_SERVICE_ERROR] Cannot send email.&#x27;, &#x60;Email about new article (${article.articleContentId}-${article.title}) was not sent. Error: ${error}&#x60;);
-        });
+        }
     }
 }</code></pre>
     </div>

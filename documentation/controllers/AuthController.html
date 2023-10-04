@@ -114,7 +114,6 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                 <a href="#signOutUser" >signOutUser</a>
                             </li>
@@ -177,8 +176,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:96</a></div>
                 </td>
             </tr>
 
@@ -285,8 +284,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="56"
-                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:56</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:57</a></div>
                 </td>
             </tr>
 
@@ -370,7 +369,6 @@
                         <span class="modifier"></span>
                         <span class="modifier"></span>
                         <span class="modifier"></span>
-                        <span class="modifier"></span>
                         <span class="modifier">Public</span>
                         <span ><b>signOutUser</b></span>
                         <a href="#signOutUser"><span class="icon ion-ios-link"></span></a>
@@ -388,14 +386,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@ApiOperation({summary: &#x27;Sign out user. Delete refresh token from user.&#x27;})<br />@ApiUnauthorizedResponse({description: &#x27;JWT payload is not valid.&#x27;})<br />@ApiNotFoundResponse({description: &#x27;jwtPayload.userId is not provided.&#x27;})<br />@ApiBearerAuth()<br />@UseGuards(undefined)<br />@HttpCode(200)<br />@Post(&#x27;sign-out&#x27;)<br /></code>
+                    <code>@ApiOperation({summary: &#x27;Sign out user. Delete refresh token from user.&#x27;})<br />@ApiUnauthorizedResponse({description: &#x27;JWT payload is not valid.&#x27;})<br />@ApiNotFoundResponse({description: &#x27;jwtPayload.userId is not provided.&#x27;})<br />@ApiBearerAuth()<br />@UseGuards(undefined)<br />@Get(&#x27;sign-out&#x27;)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="78"
-                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:78</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:80</a></div>
                 </td>
             </tr>
 
@@ -484,15 +482,15 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="34"
-                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:34</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/endpoints/auth/auth.controller.ts:35</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Sign up new user. Used for admin panel.</p>
+                    <div class="io-description"><p>Sign up new user.</p>
 </div>
 
                     <div class="io-description">
@@ -564,6 +562,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
     Body,
     Controller,
+    Get,
     HttpCode,
     Post,
     Req,
@@ -581,13 +580,13 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     /**
-     * Sign up new user. Used for admin panel.
+     * Sign up new user.
      * 
-     * @throws BadRequestException If username or password is not provided.
-     * @throws ConflictException If username is not unique.
-     * @param username  Username.
-     * @param password  Password.
-     * @returns         Access token and refresh token.
+     * @throws BadRequestException  If username or password is not provided.
+     * @throws ConflictException    If username is not unique.
+     * @param username              Username.
+     * @param password              Password.
+     * @returns                     Access token and refresh token.
      */
     @ApiOperation({ summary: &#x27;Sign up new user. Used for admin panel.&#x27; })
     @ApiBadRequestResponse({ description: &#x27;Username or password is not provided.&#x27; })
@@ -604,11 +603,11 @@ export class AuthController {
     /**
      * Sign in user.
      * 
-     * @throws UnauthorizedException If username or password is not correct.
-     * @throws ForbiddenException If user is not active.
-     * @param username  Username.
-     * @param password  Password.
-     * @returns         Access token and refresh token.
+     * @throws UnauthorizedException    If username or password is not correct.
+     * @throws ForbiddenException       If user is not active.
+     * @param username                  Username.
+     * @param password                  Password.
+     * @returns                         Access token and refresh token.
      */
     @ApiOperation({ summary: &#x27;Sign in user.&#x27; })
     @ApiUnauthorizedResponse({ description: &#x27;Username or password is not correct.&#x27; })
@@ -618,6 +617,8 @@ export class AuthController {
     @Post(&#x27;sign-in&#x27;)
     public signInUser(
         @Body(&#x27;username&#x27;, RequiredParameterPipe) username: string,
+        // Password is not used here, because it is already checked in AuthGuard(&#x27;local&#x27;) - local.strategy.ts.
+        // However, it is required for swagger.
         @Body(&#x27;password&#x27;, RequiredParameterPipe) password: string,
     ): Promise&lt;{ accessToken: string; refreshToken: string; }&gt; {
         return this.authService.signInUser(username);
@@ -636,8 +637,7 @@ export class AuthController {
     @ApiNotFoundResponse({ description: &#x27;jwtPayload.userId is not provided.&#x27; })
     @ApiBearerAuth()
     @UseGuards(AuthGuard([&#x27;jwt&#x27;]))
-    @HttpCode(200)
-    @Post(&#x27;sign-out&#x27;)
+    @Get(&#x27;sign-out&#x27;)
     public signOutUser(@Req() request: JwtRequest): Promise&lt;void&gt; {
         return this.authService.signOutUser(request.jwtPayload);
     }

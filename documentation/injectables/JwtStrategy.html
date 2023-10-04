@@ -171,7 +171,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>validate(payload: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    <code>validate(payload: <a href="../interfaces/JwtPayload.html" target="_self">JwtPayload</a>)</code>
                 </td>
             </tr>
 
@@ -206,7 +206,7 @@ If user is not active, throw ForbiddenException.</p>
                                 <tr>
                                     <td>payload</td>
                                     <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                <code><a href="../interfaces/JwtPayload.html" target="_self" >JwtPayload</a></code>
                                     </td>
 
                                     <td>
@@ -242,7 +242,7 @@ import { PassportStrategy } from &#x27;@nestjs/passport&#x27;;
 import { ExtractJwt, Strategy } from &#x27;passport-jwt&#x27;;
 import { Repository } from &#x27;typeorm&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
-import { UserEntity } from &#x27;src/entities/user.entity&#x27;;
+import { UserEntity } from &#x27;src/endpoints/auth/user.entity&#x27;;
 import { JwtPayload } from &#x27;src/models/jwt-payload.model&#x27;;
 
 @Injectable()
@@ -259,10 +259,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, &#x27;jwt&#x27;) {
      * If user is not found, throw UnauthorizedException.
      * If user is not active, throw ForbiddenException.
      */
-    public async validate(payload: any): Promise&lt;JwtPayload&gt; {
+    public async validate(payload: JwtPayload): Promise&lt;JwtPayload&gt; {
         const user: UserEntity | null &#x3D; await this.userEntityRepository.findOne(
             {
-                where: { id: payload.userId },
+                where: { id: payload.sub },
                 select: [&#x27;active&#x27;, &#x27;id&#x27;]
             });
 
@@ -274,7 +274,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, &#x27;jwt&#x27;) {
             throw new ForbiddenException(&#x60;User is not active.&#x60;);
         }
 
-        return { userId: payload.userId };
+        return payload;
     }
 }
 </code></pre>

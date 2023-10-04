@@ -526,11 +526,11 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BadRequestException, Injectable } from &#x27;@nestjs/common&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { DEFAULT_LANGUAGE, PAGE_COUNT } from &#x27;src/constants&#x27;;
-import { ArticleContentEntity } from &#x27;src/entities/article-content.entity&#x27;;
-import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
+import { ArticleContentEntity } from &#x27;src/endpoints/article/article-content.entity&#x27;;
+import { ArticleDto } from &#x27;src/endpoints/article/dto/article.dto&#x27;;
 import { ArticleTypeEnum } from &#x27;src/models/enums/article-type.enum&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
-import { ILike, Raw, Repository, SelectQueryBuilder } from &#x27;typeorm&#x27;;
+import { Raw, Repository, SelectQueryBuilder } from &#x27;typeorm&#x27;;
 
 @Injectable()
 export class ArticleSearchService {

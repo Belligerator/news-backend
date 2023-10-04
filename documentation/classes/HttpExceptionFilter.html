@@ -86,6 +86,7 @@
             </p>
             <p class="comment">
                         <code>ExceptionFilter</code>
+                        <code>GqlExceptionFilter</code>
             </p>
 
 
@@ -129,7 +130,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/filters/http-exception.filter.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/filters/http-exception.filter.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -195,8 +196,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="14"
-                            class="link-to-prism">src/filters/http-exception.filter.ts:14</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">src/filters/http-exception.filter.ts:15</a></div>
                 </td>
             </tr>
 
@@ -268,32 +269,42 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Inject, Logger } from &#x27;@nestjs/common&#x27;;
 import { Request, Response } from &#x27;express&#x27;;
-import { HttpArgumentsHost } from &#x27;@nestjs/common/interfaces/features/arguments-host.interface&#x27;;
+import { ContextType, HttpArgumentsHost } from &#x27;@nestjs/common/interfaces/features/arguments-host.interface&#x27;;
 import { WINSTON_MODULE_PROVIDER } from &#x27;nest-winston&#x27;;
+import { GqlArgumentsHost, GqlExceptionFilter } from &#x27;@nestjs/graphql&#x27;;
 
 /**
  * Error handler catching only HTTP exceptions.
  */
 @Catch(HttpException)
-export class HttpExceptionFilter implements ExceptionFilter {
+export class HttpExceptionFilter implements ExceptionFilter, GqlExceptionFilter {
 
     constructor(@Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) { }
 
     public catch(exception: HttpException, host: ArgumentsHost): void {
         const ctx: HttpArgumentsHost &#x3D; host.switchToHttp();
-        const response: any &#x3D; ctx.getResponse&lt;Response&gt;();
-        const request: any &#x3D; ctx.getRequest&lt;Request&gt;();
+        const response: Response &#x3D; ctx.getResponse();
+        const request: Request &#x3D; ctx.getRequest();
         const status: number &#x3D; exception.getStatus();
 
-        response
-            .status(status)
-            .json({
-                statusCode: status,
-                message: exception.message,
-                error: exception.message,
-            });
+        const gqlHost: GqlArgumentsHost &#x3D; GqlArgumentsHost.create(host);
+        const gqlContext: ContextType &#x3D; gqlHost.getType();
 
-        this.logger.error(&#x60;HttpException ${status}: ${request.url}&#x60;);
+        // If HTTP context, return JSON response. Otherwise, return GraphQL response.
+        if (gqlContext &#x3D;&#x3D;&#x3D; &#x27;http&#x27;) {
+            response
+                .status(status)
+                .json({
+                    statusCode: status,
+                    message: exception.message,
+                    error: exception.message,
+                });
+
+            this.logger.error(&#x60;HttpException ${status}: ${request.url}&#x60;);
+        } else {
+            this.logger.error(&#x60;HttpException ${status}: ${gqlHost.getInfo().fieldName}&#x60;);
+        }
+
         this.logger.error(exception.stack);
     }
 }

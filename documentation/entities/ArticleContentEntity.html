@@ -62,7 +62,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/entities/article-content.entity.ts</code>
+            <code>src/endpoints/article/article-content.entity.ts</code>
         </p>
 
 
@@ -170,7 +170,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/entities/article-content.entity.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/endpoints/article/article-content.entity.ts:38</a></div>
                         </td>
                     </tr>
 
@@ -207,7 +207,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/entities/article-content.entity.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/endpoints/article/article-content.entity.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -250,7 +250,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/entities/article-content.entity.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/endpoints/article/article-content.entity.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -281,13 +281,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column(&#x27;varchar&#x27;, {nullable: true, length: 255})<br />
+                            @Column(&#x27;varchar&#x27;, {nullable: true, length: 255, name: &#x27;cover_image&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/entities/article-content.entity.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/endpoints/article/article-content.entity.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -324,7 +324,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/entities/article-content.entity.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/endpoints/article/article-content.entity.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -361,7 +361,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/entities/article-content.entity.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/endpoints/article/article-content.entity.ts:13</a></div>
                         </td>
                     </tr>
 
@@ -398,7 +398,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/entities/article-content.entity.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/endpoints/article/article-content.entity.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -435,7 +435,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/entities/article-content.entity.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/endpoints/article/article-content.entity.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -476,7 +476,7 @@ export class ArticleContentEntity {
     @Column(&#x27;longtext&#x27;)
     public body: string;
 
-    @Column(&#x27;varchar&#x27;, { nullable: true, length: 255 })
+    @Column(&#x27;varchar&#x27;, { nullable: true, length: 255, name: &#x27;cover_image&#x27; })
     public coverImage: string | null;
 
     @Column(&#x27;datetime&#x27;, { name: &#x27;date_of_publication&#x27; })

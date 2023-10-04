@@ -64,7 +64,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/services/file.service.ts</code>
+            <code>src/services/file/file.service.ts</code>
         </p>
 
 
@@ -141,7 +141,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/services/file.service.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/services/file/file.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -212,7 +212,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>fileFilter(_req: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, file: Express.Multer.File, cb: (error: Error | null,acceptFile: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>) => void)</code>
+                    <code>fileFilter(_req: Request, file: Express.Multer.File, cb: (error: Error | null,acceptFile: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>) => void)</code>
                 </td>
             </tr>
 
@@ -220,7 +220,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="51"
-                            class="link-to-prism">src/services/file.service.ts:51</a></div>
+                            class="link-to-prism">src/services/file/file.service.ts:51</a></div>
                 </td>
             </tr>
 
@@ -245,7 +245,7 @@
                                 <tr>
                                     <td>_req</td>
                                     <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            <code>Request</code>
                                     </td>
 
                                     <td>
@@ -316,8 +316,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="42"
-                            class="link-to-prism">src/services/file.service.ts:42</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/services/file/file.service.ts:43</a></div>
                 </td>
             </tr>
 
@@ -397,7 +397,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="87"
-                            class="link-to-prism">src/services/file.service.ts:87</a></div>
+                            class="link-to-prism">src/services/file/file.service.ts:87</a></div>
                 </td>
             </tr>
 
@@ -471,7 +471,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="65"
-                            class="link-to-prism">src/services/file.service.ts:65</a></div>
+                            class="link-to-prism">src/services/file/file.service.ts:65</a></div>
                 </td>
             </tr>
 
@@ -569,7 +569,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/services/file.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/services/file/file.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -595,11 +595,12 @@ import { diskStorage } from &#x27;multer&#x27;;
 import { DIRECTORY_IMAGES, MAX_FILE_SIZE } from &#x27;src/constants&#x27;;
 import { v4 as uuidv4 } from &#x27;uuid&#x27;;
 import { extname } from &#x27;path&#x27;;
-import * as sharp from &#x27;sharp&#x27;;
-import { SentryService } from &#x27;./sentry.service&#x27;;
+import { SentryService } from &#x27;../sentry/sentry.service&#x27;;
 import { SERVER_URL } from &#x27;src/app.module&#x27;;
-import * as fs from &#x27;fs&#x27;;
 import { WINSTON_MODULE_PROVIDER } from &#x27;nest-winston&#x27;;
+import { Request } from &#x27;express&#x27;;
+import * as sharp from &#x27;sharp&#x27;;
+import * as fs from &#x27;fs&#x27;;
 
 @Injectable()
 export class FileService {
@@ -636,9 +637,8 @@ export class FileService {
 
     /**
      * Filter files that have not allowed extension.
-     * 
      */
-    private static fileFilter(_req: any, file: Express.Multer.File, cb: (error: Error | null, acceptFile: boolean) &#x3D;&gt; void): void {
+    private static fileFilter(_req: Request, file: Express.Multer.File, cb: (error: Error | null, acceptFile: boolean) &#x3D;&gt; void): void {
         const allowedFileTypes: string[] &#x3D; [&#x27;image/png&#x27;, &#x27;image/jpeg&#x27;, &#x27;image/gif&#x27;];
 
         if (!allowedFileTypes.includes(file.mimetype)) {
@@ -660,13 +660,13 @@ export class FileService {
             })
             .toBuffer();
 
-        return sharp(buffer).toFile(path)
-            .then(() &#x3D;&gt; {
-                return true;
-            }).catch((error: Error) &#x3D;&gt; {
-                this.sentryService.captureException(&#x27;Error while resizing image.&#x27;, error);
-                return false;
-            });
+        try {
+            await sharp(buffer).toFile(path);
+            return true;
+        } catch (error) {
+            this.sentryService.captureException(&#x27;Error while resizing image.&#x27;, error);
+        }
+        return false;
     }
 
     /**

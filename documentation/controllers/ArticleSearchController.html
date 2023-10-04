@@ -152,8 +152,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">src/endpoints/article/search/article-search.controller.ts:30</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">src/endpoints/article/search/article-search.controller.ts:34</a></div>
                 </td>
             </tr>
 
@@ -303,8 +303,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="49"
-                            class="link-to-prism">src/endpoints/article/search/article-search.controller.ts:49</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/endpoints/article/search/article-search.controller.ts:53</a></div>
                 </td>
             </tr>
 
@@ -394,16 +394,20 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Headers, Param,Query } from &#x27;@nestjs/common&#x27;;
-import { CheckArticleType } from &#x27;src/utils/pipes/check-article-type.pipe&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Controller, Get, Headers, Param,Query, UseInterceptors } from &#x27;@nestjs/common&#x27;;
+import { CheckArticleTypePipe } from &#x27;src/utils/pipes/check-article-type.pipe&#x27;;
 import { StringToNumberPipe } from &#x27;src/utils/pipes/string-to-number.pipe&#x27;;
-import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
+import { ArticleDto } from &#x27;src/endpoints/article/dto/article.dto&#x27;;
 import { ApiNotFoundResponse, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { ArticleTypeEnum } from &#x27;src/models/enums/article-type.enum&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
 import { ArticleSearchService } from &#x27;./article-search.service&#x27;;
+import { CacheInterceptor, CacheKey } from &#x27;@nestjs/cache-manager&#x27;;
+import { CacheKeyEnum } from &#x27;src/models/enums/cache-key.enum&#x27;;
 
 @ApiTags(&#x27;Administration&#x27;, &#x27;Application&#x27;)
+@UseInterceptors(CacheInterceptor)
+@CacheKey(CacheKeyEnum.SEARCH)
 @Controller(&#x27;articles/search&#x27;)
 export class ArticleSearchController {
 
@@ -423,7 +427,7 @@ export class ArticleSearchController {
     @ApiOperation({ summary: &#x27;Search articles by pattern in title or body.&#x27; })
     @ApiNotFoundResponse({ description: &#x27;Pattern is not present.&#x27; })
     @Get(&#x27;:articleType&#x27;)
-    public search(@Param(&#x27;articleType&#x27;, CheckArticleType) articleType: ArticleTypeEnum,
+    public search(@Param(&#x27;articleType&#x27;, CheckArticleTypePipe) articleType: ArticleTypeEnum,
                   @Query(&#x27;page&#x27;, StringToNumberPipe) page: number,
                   @Query(&#x27;count&#x27;, StringToNumberPipe) count: number,
                   @Headers(&#x27;x-language&#x27;) language: LanguageEnum,
@@ -442,7 +446,7 @@ export class ArticleSearchController {
     @ApiOperation({ summary: &#x27;Search articles for autocomplete.&#x27; })
     @ApiNotFoundResponse({ description: &#x27;Pattern is not present.&#x27; })
     @Get(&#x27;autocomplete/:articleType&#x27;)
-    public searchAutocomplete(@Param(&#x27;articleType&#x27;, CheckArticleType) articleType: ArticleTypeEnum,
+    public searchAutocomplete(@Param(&#x27;articleType&#x27;, CheckArticleTypePipe) articleType: ArticleTypeEnum,
                               @Headers(&#x27;x-language&#x27;) language: LanguageEnum,
                               @Query(&#x27;pattern&#x27;) pattern: string): Promise&lt;ArticleDto[]&gt; {
         return this.articleSearchService.searchAutocompleteArticle(articleType, pattern, language);

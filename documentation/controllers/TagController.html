@@ -171,8 +171,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:29</a></div>
                 </td>
             </tr>
 
@@ -246,7 +246,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>deleteTag(newTag: <a href="../classes/TagDto.html" target="_self">TagDto</a>)</code>
+                    <code>deleteTag(tag: <a href="../classes/TagDto.html" target="_self">TagDto</a>)</code>
                 </td>
             </tr>
 
@@ -260,8 +260,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:61</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:64</a></div>
                 </td>
             </tr>
 
@@ -285,7 +285,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>newTag</td>
+                                    <td>tag</td>
                                     <td>
                                                 <code><a href="../classes/TagDto.html" target="_self" >TagDto</a></code>
                                     </td>
@@ -348,8 +348,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:35</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:39</a></div>
                 </td>
             </tr>
 
@@ -393,7 +393,7 @@
 
                     </div>
                     <div class="io-description">
-                        <p>Tag.</p>
+                        <p>List of tags.</p>
 
                     </div>
                 </td>
@@ -419,7 +419,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateTag(newTag: <a href="../classes/TagDto.html" target="_self">TagDto</a>)</code>
+                    <code>updateTag(tag: <a href="../classes/TagDto.html" target="_self">TagDto</a>)</code>
                 </td>
             </tr>
 
@@ -433,8 +433,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:50</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/endpoints/tag/tag.controller.ts:53</a></div>
                 </td>
             </tr>
 
@@ -458,7 +458,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>newTag</td>
+                                    <td>tag</td>
                                     <td>
                                                 <code><a href="../classes/TagDto.html" target="_self" >TagDto</a></code>
                                     </td>
@@ -494,14 +494,18 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, Controller, Delete, Get, Headers, HttpCode, Post, Put } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Body, Controller, Delete, Get, Headers, HttpCode, Post, Put, UseInterceptors } from &#x27;@nestjs/common&#x27;;
 import { TagService } from &#x27;./tag.service&#x27;;
-import { TagDto } from &#x27;src/models/dtos/tag.dto&#x27;;
+import { TagDto } from &#x27;src/endpoints/tag/dto/tag.dto&#x27;;
 import { ApiConflictResponse, ApiNotFoundResponse, ApiOperation, ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
 import { CustomValidationPipe } from &#x27;src/utils/pipes/validation.pipe&#x27;;
+import { CacheInterceptor, CacheKey } from &#x27;@nestjs/cache-manager&#x27;;
+import { CacheKeyEnum } from &#x27;src/models/enums/cache-key.enum&#x27;;
 
 @ApiTags(&#x27;Administration&#x27;, &#x27;Application&#x27;)
+@UseInterceptors(CacheInterceptor)
+@CacheKey(CacheKeyEnum.TAGS)
 @Controller(&#x27;tags&#x27;)
 export class TagController {
 
@@ -524,7 +528,7 @@ export class TagController {
 
     /**
      * Get tag by id for specific language.
-     * @returns         Tag.
+     * @returns         List of tags.
      */
     @ApiOperation({ summary: &#x27;Get all tags.&#x27; })
     @Get()
@@ -536,26 +540,25 @@ export class TagController {
      * Update tag.
      * 
      * @throws          NotFoundException if tag not found.
-     * @param id        Tag id.
-     * @param newTag    New tag.
+     * @param tag       New tag.
      * @returns         Updated tag.
      */
     @ApiOperation({ summary: &#x27;Get tag.&#x27; })
     @ApiNotFoundResponse({ description: &#x27;Tag not found.&#x27; })
     @Put()
-    public async updateTag(@Body(CustomValidationPipe) newTag: TagDto): Promise&lt;TagDto&gt; {
-        return this.tagService.updateTag(newTag);
+    public async updateTag(@Body(CustomValidationPipe) tag: TagDto): Promise&lt;TagDto&gt; {
+        return this.tagService.updateTag(tag);
     }
 
     /**
      * Delete tag.
      * 
-     * @param newTag    Tag to delete. 
+     * @param tag       Tag to delete.
      */
     @ApiOperation({ summary: &#x27;Delete tag.&#x27; })
     @Delete()
-    public async deleteTag(@Body() newTag: TagDto): Promise&lt;void&gt; {
-        return this.tagService.deleteTag(newTag);
+    public async deleteTag(@Body() tag: TagDto): Promise&lt;void&gt; {
+        return this.tagService.deleteTag(tag);
     }
 }
 </code></pre>

@@ -64,7 +64,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/services/excel.service.ts</code>
+            <code>src/services/excel/excel.service.ts</code>
         </p>
 
 
@@ -156,7 +156,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="58"
-                            class="link-to-prism">src/services/excel.service.ts:58</a></div>
+                            class="link-to-prism">src/services/excel/excel.service.ts:58</a></div>
                 </td>
             </tr>
 
@@ -202,7 +202,7 @@ First row is column names - header.</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>[][]</code>
+                        <b>Returns : </b>    <code>Array&lt;Array&lt;string | undefined&gt;&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -236,7 +236,7 @@ First row is column names - header.</p>
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">src/services/excel.service.ts:36</a></div>
+                            class="link-to-prism">src/services/excel/excel.service.ts:36</a></div>
                 </td>
             </tr>
 
@@ -307,7 +307,7 @@ First row is column names - header.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>sheetFromAoA(rows: string[][], columnNames: literal type)</code>
+                    <code>sheetFromAoA(rows: Array<Array<string | undefined>>, columnNames: literal type)</code>
                 </td>
             </tr>
 
@@ -315,7 +315,7 @@ First row is column names - header.</p>
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="87"
-                            class="link-to-prism">src/services/excel.service.ts:87</a></div>
+                            class="link-to-prism">src/services/excel/excel.service.ts:87</a></div>
                 </td>
             </tr>
 
@@ -341,7 +341,7 @@ First row is column names - header.</p>
                                 <tr>
                                     <td>rows</td>
                                     <td>
-                                            <code>string[][]</code>
+                                            <code>Array&lt;Array&lt;string | undefined&gt;&gt;</code>
                                     </td>
 
                                     <td>
@@ -426,7 +426,7 @@ First row is column names - header.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/services/excel.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/services/excel/excel.service.ts:14</a></div>
                         </td>
                     </tr>
 
@@ -461,7 +461,7 @@ First row is column names - header.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/services/excel.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/services/excel/excel.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -475,10 +475,10 @@ First row is column names - header.</p>
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
-import { TagDto } from &#x27;src/models/dtos/tag.dto&#x27;;
-import { WorkBook, WorkSheet } from &#x27;xlsx&#x27;;
+import { TagDto } from &#x27;src/endpoints/tag/dto/tag.dto&#x27;;
+import { ColInfo, RowInfo, WorkBook, WorkSheet } from &#x27;xlsx&#x27;;
 import { LanguageEnum } from &#x27;src/models/enums/language.enum&#x27;;
-import { ArticleDto } from &#x27;src/models/dtos/article.dto&#x27;;
+import { ArticleDto } from &#x27;src/endpoints/article/dto/article.dto&#x27;;
 
 import * as XLSX from &#x27;xlsx&#x27;;
 import * as moment from &#x27;moment&#x27;;
@@ -511,7 +511,7 @@ export class ExcelService {
      */
     public exportArticles(articles: ArticleDto[]): Buffer {
         const workbook: WorkBook &#x3D; XLSX.utils.book_new();
-        let rows: string[][];
+        let rows: Array&lt;Array&lt;string | undefined&gt;&gt;;
         let sheet: WorkSheet;
 
         // Create sheet for each language.
@@ -531,10 +531,10 @@ export class ExcelService {
      * @param articles  Articles to convert.
      * @returns         Array of arrays. Rows and columns of excel.
      */
-    private articlesToAoA(articles: ArticleDto[]): any[][] {
+    private articlesToAoA(articles: ArticleDto[]): Array&lt;Array&lt;string | undefined&gt;&gt; {
         const columnNames: string[] &#x3D; Object.values(this.XLS_COLUMN_ORDER);
         const articleAttributes: string[] &#x3D; Object.keys(this.XLS_COLUMN_ORDER);
-        const rows: any[][] &#x3D; [
+        const rows: Array&lt;Array&lt;string | undefined&gt;&gt; &#x3D; [
             columnNames,
             ...articles.map((content: ArticleDto) &#x3D;&gt;
                 articleAttributes.map((key: keyof ArticleDto) &#x3D;&gt; {
@@ -545,7 +545,7 @@ export class ExcelService {
                     } else if (key &#x3D;&#x3D;&#x3D; &#x27;tags&#x27; &amp;&amp; content[key]) {
                         return (content[key] as TagDto[]).map(tag &#x3D;&gt; tag.title).join(&#x27;, &#x27;);
                     } else {
-                        return content[key];
+                        return content[key]?.toString();
                     }
                 }),
             ),
@@ -560,15 +560,15 @@ export class ExcelService {
      * @param columnNames   Column names.
      * @returns             Sheet.
      */
-    private sheetFromAoA(rows: string[][], columnNames: { [key: string]: string }): WorkSheet {
+    private sheetFromAoA(rows: Array&lt;Array&lt;string | undefined&gt;&gt;, columnNames: { [key: string]: string }): WorkSheet {
         const sheet: WorkSheet &#x3D; XLSX.utils.aoa_to_sheet(rows, {
             cellStyles: true,
             cellDates: true,
             dateNF: &#x27;dd mmm yyyy;@&#x27;
         });
         const orderKeys: Array&lt;string&gt; &#x3D; Object.keys(columnNames);
-        const wscols: Array&lt;any&gt; &#x3D; orderKeys.map((key: keyof ArticleDto) &#x3D;&gt; ({ width: this.XLS_COLUMN_WIDTHS[key] || 12 }));
-        const wsrows: Array&lt;{ hpx: number }&gt; &#x3D; rows.map(() &#x3D;&gt; ({ hpx: 20 }));
+        const wscols: Array&lt;ColInfo&gt; &#x3D; orderKeys.map((key: keyof ArticleDto) &#x3D;&gt; ({ width: this.XLS_COLUMN_WIDTHS[key] || 12 }));
+        const wsrows: Array&lt;RowInfo&gt; &#x3D; rows.map(() &#x3D;&gt; ({ hpx: 20 }));
         sheet[&#x27;!cols&#x27;] &#x3D; wscols;
         sheet[&#x27;!rows&#x27;] &#x3D; wsrows;
         return sheet;

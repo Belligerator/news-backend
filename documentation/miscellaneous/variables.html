@@ -201,7 +201,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>LanguageEnum.CS</code>
+                        <i>Default value : </i><code>LanguageEnum.EN</code>
                     </td>
                 </tr>
 
@@ -341,8 +341,8 @@
             filename: &#x27;debug-%DATE%.log&#x27;,
             dirname: &#x27;./logs&#x27;,
             datePattern: &#x27;YYYY-MM-DD&#x27;,
-            maxSize: &#x27;25m&#x27;,
-            maxFiles: &#x27;14d&#x27;,
+            maxSize: &#x27;10m&#x27;,
+            maxFiles: &#x27;7d&#x27;,
             level: &#x27;debug&#x27;,
             format: format.combine(
                 format.uncolorize(),
@@ -358,8 +358,8 @@
             filename: &#x27;error-%DATE%.log&#x27;,
             dirname: &#x27;./logs&#x27;,
             datePattern: &#x27;YYYY-MM-DD&#x27;,
-            maxSize: &#x27;25m&#x27;,
-            maxFiles: &#x27;14d&#x27;,
+            maxSize: &#x27;10m&#x27;,
+            maxFiles: &#x27;7d&#x27;,
             level: &#x27;error&#x27;,
             format: format.combine(
                 format.uncolorize(),
