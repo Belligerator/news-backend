@@ -5,7 +5,7 @@ import { diskStorage } from 'multer';
 import { DIRECTORY_IMAGES, MAX_FILE_SIZE } from 'src/constants';
 import { v4 as uuidv4 } from 'uuid';
 import { extname } from 'path';
-import { SentryService } from './sentry.service';
+import { SentryService } from '../sentry/sentry.service';
 import { SERVER_URL } from 'src/app.module';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Request } from 'express';

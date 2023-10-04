@@ -1,14 +1,15 @@
 import { Body, Controller, Delete, Get, Headers, HttpCode, Post, Put, UseInterceptors } from '@nestjs/common';
 import { TagService } from './tag.service';
-import { TagDto } from 'src/endpoints/tag/tag.dto';
+import { TagDto } from 'src/endpoints/tag/dto/tag.dto';
 import { ApiConflictResponse, ApiNotFoundResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { CustomValidationPipe } from 'src/utils/pipes/validation.pipe';
 import { CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
+import { CacheKeyEnum } from 'src/models/enums/cache-key.enum';
 
 @ApiTags('Administration', 'Application')
 @UseInterceptors(CacheInterceptor)
-@CacheKey('tags')
+@CacheKey(CacheKeyEnum.TAGS)
 @Controller('tags')
 export class TagController {
 

@@ -1,4 +1,4 @@
-import { LanguageEnum } from '../../models/enums/language.enum';
+import { LanguageEnum } from '../../../models/enums/language.enum';
 
 export class PushTokenDto {
 

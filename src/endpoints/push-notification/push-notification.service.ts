@@ -5,7 +5,7 @@ import { I18nService } from 'nestjs-i18n';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { ArticleContentEntity } from 'src/endpoints/article/article-content.entity';
 import * as firebaseAdmin from 'firebase-admin';
-import { PushTokenDto } from 'src/endpoints/push-notification/push-token.dto';
+import { PushTokenDto } from 'src/endpoints/push-notification/dto/push-token.dto';
 import { PushTokenEntity } from 'src/endpoints/push-notification/push-token.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';

@@ -1,5 +1,5 @@
 import { ArticleContentEntity } from 'src/endpoints/article/article-content.entity';
-import { TagDto } from '../tag/tag.dto';
+import { TagDto } from '../../tag/dto/tag.dto';
 
 export class ArticleDto {
 

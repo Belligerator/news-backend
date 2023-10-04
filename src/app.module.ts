@@ -6,8 +6,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import databaseConfig from './config/database-config';
 import { ArticleEntity } from './endpoints/article/article.entity';
 import { ArticleContentEntity } from './endpoints/article/article-content.entity';
-import { ArticleController } from './endpoints/article/article.controller';
-import { ArticleService } from './endpoints/article/article.service';
 import loggerConfig from './config/logger-config';
 import { WinstonModule } from 'nest-winston';
 import { APP_FILTER } from '@nestjs/core';
@@ -15,38 +13,34 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { AllExceptionsFilter } from './filters/all-exception.filter';
 import { TagEntity } from './endpoints/tag/tag.entity';
 import { CacheModule } from '@nestjs/cache-manager';
-import { SentryService } from './services/sentry.service';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { FileService } from './services/file.service';
-import { EmailService } from './services/email.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { TagService } from './endpoints/tag/tag.service';
-import { TagController } from './endpoints/tag/tag.controller';
 import { HeaderResolver, I18nModule } from 'nestjs-i18n';
-import { PushNotificationService } from './endpoints/push-notification/push-notification.service';
-import { ArticleSearchService } from './endpoints/article/search/article-search.service';
-import { ArticleSearchController } from './endpoints/article/search/article-search.controller';
-import { PushNotificationController } from './endpoints/push-notification/push-notification.controller';
 import { PushTokenEntity } from './endpoints/push-notification/push-token.entity';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CronJobService } from './services/cron-job.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { BasicStrategy } from './endpoints/auth/strategies/basic.strategy';
-import { ExcelService } from './services/excel.service';
-import { AuthService } from './endpoints/auth/auth.service';
 import { JwtStrategy } from './endpoints/auth/strategies/jwt.strategy';
-import { AuthController } from './endpoints/auth/auth.controller';
 import { LocalStrategy } from './endpoints/auth/strategies/local.strategy';
 import { UserEntity } from './endpoints/auth/user.entity';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { TagResolver } from './graphql/tag.resolver';
-import { TagGQLService } from './graphql/tag.service';
 import { GraphQLError } from 'graphql';
 import { ErrorResponse } from './models/dtos/error-response.dto';
+import { CronJobModule } from './services/cron-job/cron-job.module';
+import { EmailModule } from './services/email/email.module';
+import { ExcelModule } from './services/excel/excel.module';
+import { FileModule } from './services/file/file.module';
+import { SentryModule } from './services/sentry/sentry.module';
+import { ArticleModule } from './endpoints/article/article.module';
+import { AuthModule } from './endpoints/auth/auth.module';
+import { PushNotificationModule } from './endpoints/push-notification/push-notification.module';
+import { TagModule } from './endpoints/tag/tag.module';
+import { TagGQLModule } from './graphql/tag-gql.module';
+import { ArticleSearchModule } from './endpoints/article/search/article-search.module';
 
 @Module({
     imports: [
@@ -66,6 +60,7 @@ import { ErrorResponse } from './models/dtos/error-response.dto';
             // ms. 1s during developing. In prod, this could be higher and should be set for specific endpoints.
             ttl: 1000,
             max: 10,
+            isGlobal: true,
         }),
         TypeOrmModule.forRoot(databaseConfig),
         TypeOrmModule.forFeature([
@@ -130,32 +125,26 @@ import { ErrorResponse } from './models/dtos/error-response.dto';
                 return graphQLFormattedError;
             }
         }),
+        CronJobModule,
+        EmailModule,
+        ExcelModule,
+        FileModule,
+        SentryModule,
+        ArticleSearchModule,
+        ArticleModule,
+        AuthModule,
+        PushNotificationModule,
+        TagModule,
+        TagGQLModule
     ],
     controllers: [
         AppController,
-        ArticleController,
-        TagController,
-        ArticleSearchController,
-        PushNotificationController,
-        AuthController
     ],
     providers: [
         AppService,
-        ArticleService,
-        ArticleSearchService,
-        SentryService,
-        FileService,
-        EmailService,
-        ExcelService,
-        AuthService,
-        TagService,
-        CronJobService,
-        PushNotificationService,
         BasicStrategy,
         JwtStrategy,
         LocalStrategy,
-        TagResolver,
-        TagGQLService,
         {
             provide: APP_FILTER,
             useClass: AllExceptionsFilter,

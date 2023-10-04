@@ -1,4 +1,4 @@
-import { TagDto } from 'src/endpoints/tag/tag.dto';
+import { TagDto } from 'src/endpoints/tag/dto/tag.dto';
 import { TagService } from './tag.service';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { Test, TestingModule } from '@nestjs/testing';

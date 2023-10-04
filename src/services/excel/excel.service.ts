@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { TagDto } from 'src/endpoints/tag/tag.dto';
+import { TagDto } from 'src/endpoints/tag/dto/tag.dto';
 import { ColInfo, RowInfo, WorkBook, WorkSheet } from 'xlsx';
 import { LanguageEnum } from 'src/models/enums/language.enum';
-import { ArticleDto } from 'src/endpoints/article/article.dto';
+import { ArticleDto } from 'src/endpoints/article/dto/article.dto';
 
 import * as XLSX from 'xlsx';
 import * as moment from 'moment';
