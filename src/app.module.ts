@@ -30,17 +30,17 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLError } from 'graphql';
 import { ErrorResponse } from './models/dtos/error-response.dto';
-import { CronJobModule } from './services/cron-job/cron-job.module';
-import { EmailModule } from './services/email/email.module';
-import { ExcelModule } from './services/excel/excel.module';
-import { FileModule } from './services/file/file.module';
-import { SentryModule } from './services/sentry/sentry.module';
+import { CronJobModule } from './shared/services/cron-job/cron-job.module';
 import { ArticleModule } from './endpoints/article/article.module';
 import { AuthModule } from './endpoints/auth/auth.module';
 import { PushNotificationModule } from './endpoints/push-notification/push-notification.module';
 import { TagModule } from './endpoints/tag/tag.module';
 import { TagGQLModule } from './graphql/tag-gql.module';
 import { ArticleSearchModule } from './endpoints/article/search/article-search.module';
+import { EmailModule } from './shared/services/email/email.module';
+import { ExcelModule } from './shared/services/excel/excel.module';
+import { FileModule } from './shared/services/file/file.module';
+import { SentryModule } from './shared/services/sentry/sentry.module';
 
 @Module({
     imports: [

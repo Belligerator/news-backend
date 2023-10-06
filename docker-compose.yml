@@ -46,6 +46,7 @@ services:
       - uploads:/var/www/html/uploads
       - logs:/var/www/html/logs
       
+# Logs should not be public. It's just for debugging purposes.
 volumes:
   uploads:
   logs:

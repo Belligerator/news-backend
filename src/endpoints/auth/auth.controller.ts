@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { RequiredParameterPipe } from 'src/utils/pipes/required-parameter.pipe';
+import { RequiredParameterPipe } from 'src/shared/pipes/required-parameter.pipe';
 import { JwtRequest } from 'src/models/jwt-request.model';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiForbiddenResponse, ApiNotFoundResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 

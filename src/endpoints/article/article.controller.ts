@@ -2,21 +2,21 @@ import { Body, Controller, Get, Headers, HttpCode, Param, Post, Put, Query, Res,
 import { LanguageEnum } from '../../models/enums/language.enum';
 import { ArticleTypeEnum } from '../../models/enums/article-type.enum';
 import { ArticleService } from './article.service';
-import { CheckArticleTypePipe } from 'src/utils/pipes/check-article-type.pipe';
-import { StringToNumberPipe } from 'src/utils/pipes/string-to-number.pipe';
+import { CheckArticleTypePipe } from 'src/shared/pipes/check-article-type.pipe';
+import { StringToNumberPipe } from 'src/shared/pipes/string-to-number.pipe';
 import { ArticleDto } from 'src/endpoints/article/dto/article.dto';
 import { ApiNotFoundResponse, ApiOperation, ApiPayloadTooLargeResponse, ApiTags } from '@nestjs/swagger';
 import { ArticleRequestDto } from 'src/endpoints/article/dto/article-request.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FileService } from 'src/services/file/file.service';
 import { UploadedFileDto } from 'src/models/dtos/uploaded-file.dto';
-import { CustomValidationPipe } from 'src/utils/pipes/validation.pipe';
+import { CustomValidationPipe } from 'src/shared/pipes/validation.pipe';
 import { Response } from 'express';
 import * as moment from 'moment';
 import { AuthGuard } from '@nestjs/passport';
 import { MAX_FILE_SIZE } from 'src/constants';
 import { CacheInterceptor, CacheKey } from '@nestjs/cache-manager';
 import { CacheKeyEnum } from 'src/models/enums/cache-key.enum';
+import { FileService } from 'src/shared/services/file/file.service';
 
 // Do not cache whole controller. Do not cache exportArticles() method.
 

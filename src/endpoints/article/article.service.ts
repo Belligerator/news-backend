@@ -9,14 +9,14 @@ import { ArticleRequestDto } from 'src/endpoints/article/dto/article-request.dto
 import { ArticleDto } from 'src/endpoints/article/dto/article.dto';
 import { ArticleTypeEnum } from 'src/models/enums/article-type.enum';
 import { LanguageEnum } from 'src/models/enums/language.enum';
-import { EmailService } from 'src/services/email/email.service';
-import { FileService } from 'src/services/file/file.service';
 import { In, Repository } from 'typeorm';
 import { PushNotificationService } from 'src/endpoints/push-notification/push-notification.service';
-import { ExcelService } from 'src/services/excel/excel.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { CacheKeyEnum } from 'src/models/enums/cache-key.enum';
+import { EmailService } from 'src/shared/services/email/email.service';
+import { ExcelService } from 'src/shared/services/excel/excel.service';
+import { FileService } from 'src/shared/services/file/file.service';
 
 @Injectable()
 export class ArticleService {

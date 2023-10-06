@@ -1,6 +1,6 @@
 import { Controller, Get, Headers, Param,Query, UseInterceptors } from '@nestjs/common';
-import { CheckArticleTypePipe } from 'src/utils/pipes/check-article-type.pipe';
-import { StringToNumberPipe } from 'src/utils/pipes/string-to-number.pipe';
+import { CheckArticleTypePipe } from 'src/shared/pipes/check-article-type.pipe';
+import { StringToNumberPipe } from 'src/shared/pipes/string-to-number.pipe';
 import { ArticleDto } from 'src/endpoints/article/dto/article.dto';
 import { ApiNotFoundResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ArticleTypeEnum } from 'src/models/enums/article-type.enum';

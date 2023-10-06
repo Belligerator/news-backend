@@ -1,7 +1,7 @@
 import { Controller, Get, InternalServerErrorException, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiOperation } from '@nestjs/swagger';
-import { SentryService } from './services/sentry/sentry.service';
+import { SentryService } from './shared/services/sentry/sentry.service';
 import { Response } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';

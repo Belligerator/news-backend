@@ -4,9 +4,9 @@ import { AbstractHttpAdapter, HttpAdapterHost } from '@nestjs/core';
 import { ContextType, HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { ErrorResponse } from 'src/models/dtos/error-response.dto';
-import { SentryService } from 'src/services/sentry/sentry.service';
 import { GqlArgumentsHost, GqlExceptionFilter } from '@nestjs/graphql';
 import { ExpressAdapter } from '@nestjs/platform-express';
+import { SentryService } from 'src/shared/services/sentry/sentry.service';
 
 /**
  * Default error handler catching all but HTTP exceptions.
