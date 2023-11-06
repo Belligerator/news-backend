@@ -48,6 +48,8 @@ export class ArticleService {
         const newArticle: ArticleEntity = new ArticleEntity();
         newArticle.articleType = articleType;
         newArticle.parent = newArticleDto.parent;
+        newArticle.active = true;
+        newArticle.timestamp = new Date();
 
         // Parse tags from request.
         let tagsFromDto: TagEntity[] = [];
@@ -59,27 +61,30 @@ export class ArticleService {
         }
 
         // Find tags from database by ids from request.
+        // If tag does not exist in DB, it will be ignored.
         newArticle.tags = await this.tagRepository.findBy({
             id: In(tagsFromDto.map(tag => tag.id))
         });
 
         // Create new article content for each language.
         const newArticleContentEntities: ArticleContentEntity[] = languages.map((language: keyof typeof newArticleDto.title) => {
+            if (!newArticleDto.title[language]) {
+                throw new BadRequestException(`Missing mandatory parameter(s): title for language ${language}.`);
+            }
+            
+            if (!newArticleDto.body[language]) {
+                throw new BadRequestException(`Missing mandatory parameter(s): body for language ${language}.`);
+            }
+
             const newArticleContent: ArticleContentEntity = new ArticleContentEntity();
-            newArticleContent.title = newArticleDto.title[language];
-            newArticleContent.body = newArticleDto.body[language];
+            newArticleContent.title = newArticleDto.title[language]!;
+            newArticleContent.body = newArticleDto.body[language]!;
             newArticleContent.language = <LanguageEnum> language;
             newArticleContent.dateOfPublication = newArticleDto.dateOfPublication ?? new Date();
             newArticleContent.article = newArticle;
             newArticleContent.coverImage = newArticleDto.coverImage;
 
-            if (!newArticleContent.title) {
-                throw new BadRequestException(`Missing mandatory parameter(s): title for language ${language}.`);
-            }
-            
-            if (!newArticleContent.body) {
-                throw new BadRequestException(`Missing mandatory parameter(s): body for language ${language}.`);
-            }
+
             return newArticleContent;
         });
 

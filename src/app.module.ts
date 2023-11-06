@@ -41,6 +41,7 @@ import { EmailModule } from './shared/services/email/email.module';
 import { ExcelModule } from './shared/services/excel/excel.module';
 import { FileModule } from './shared/services/file/file.module';
 import { SentryModule } from './shared/services/sentry/sentry.module';
+import { SERVER_URL } from './constants';
 
 @Module({
     imports: [
@@ -156,5 +157,3 @@ import { SentryModule } from './shared/services/sentry/sentry.module';
     ],
 })
 export class AppModule {}
-
-export const SERVER_URL: string = process.env.SERVER_URL ?? '';

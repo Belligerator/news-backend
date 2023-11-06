@@ -6,20 +6,20 @@ import { IsNotEmpty } from 'class-validator';
 export class ArticleRequestDto {
 
     @IsNotEmpty()
-    public title: { cs: string, en: string };
+    public title: { cs?: string, en?: string };
     
     @IsNotEmpty()
-    public body: { cs: string, en: string };
+    public body: { cs?: string, en?: string };
 
     /**
      * Id of the parent article.
      */
-    public parent: number;
+    public parent: number | null;
 
     /**
      * URL of the cover image on the server.
      */
-    public coverImage: string;
+    public coverImage: string | null;
 
     /**
      * Stringified array of tag ids.
@@ -30,5 +30,5 @@ export class ArticleRequestDto {
     /**
      * Date when the article is publicated. If not present, current date is used.
      */
-    public dateOfPublication: Date;
+    public dateOfPublication?: Date;
 }

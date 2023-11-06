@@ -2,11 +2,10 @@ import { BadRequestException, Inject, Injectable, Logger } from '@nestjs/common'
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { diskStorage } from 'multer';
 
-import { DIRECTORY_IMAGES, MAX_FILE_SIZE } from 'src/constants';
+import { DIRECTORY_IMAGES, MAX_FILE_SIZE, SERVER_URL } from 'src/constants';
 import { v4 as uuidv4 } from 'uuid';
 import { extname } from 'path';
 import { SentryService } from '../sentry/sentry.service';
-import { SERVER_URL } from 'src/app.module';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Request } from 'express';
 import * as sharp from 'sharp';

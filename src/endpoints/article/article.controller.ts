@@ -35,7 +35,7 @@ export class ArticleController {
      * @returns 
      */
     @ApiOperation({ summary: 'Export all articles to excel file.' })
-    // @UseGuards(AuthGuard(['jwt']))   // Commented for easier testing. In real scenario endpoint should be guarded.
+    @UseGuards(AuthGuard(['jwt']))
     @Get('export')
     public async exportArticles(@Res() response: Response): Promise<void> {
         const excelBuffer: Buffer = await this.articleService.exportArticles()
@@ -91,7 +91,7 @@ export class ArticleController {
     @ApiOperation({ summary: 'Create new article.' })
     @ApiNotFoundResponse({ description: 'Cannot parse tags or body is missing for some language.' })
     @ApiPayloadTooLargeResponse({ description: 'File is too large. Max file size is ' + MAX_FILE_SIZE + ' bytes.' })
-    // @UseGuards(AuthGuard(['jwt']))   // Commented for easier testing. In real scenario endpoint should be guarded.
+    @UseGuards(AuthGuard(['jwt']))
     @HttpCode(200)
     @Post(':articleType')
     @UseInterceptors(FileInterceptor('file', FileService.multerOptions))
@@ -125,7 +125,7 @@ export class ArticleController {
     @ApiOperation({ summary: 'Update article content by id.' })
     @ApiNotFoundResponse({ description: 'Article not found.' })
     @ApiPayloadTooLargeResponse({ description: 'File is too large. Max file size is ' + MAX_FILE_SIZE + ' bytes.' })
-    // @UseGuards(AuthGuard(['jwt']))   // Commented for easier testing. In real scenario endpoint should be guarded.
+    @UseGuards(AuthGuard(['jwt']))
     @Put(':articleContentId')
     @UseInterceptors(FileInterceptor('file', FileService.multerOptions))
     public async updateArticleById(@Param('articleContentId', StringToNumberPipe) articleContentId: number,
@@ -155,7 +155,7 @@ export class ArticleController {
      */
     @ApiOperation({ summary: 'Set article activity.' })
     @ApiNotFoundResponse({ description: 'Article not found.' })
-    // @UseGuards(AuthGuard(['jwt']))   // Commented for easier testing. In real scenario endpoint should be guarded.
+    @UseGuards(AuthGuard(['jwt']))
     @Put(':id/activity')
     public async setArticleActivity(@Param('id', StringToNumberPipe) articleContentId: number,
                                     @Body('active') activity: boolean): Promise<void> {

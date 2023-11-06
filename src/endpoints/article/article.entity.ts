@@ -48,5 +48,5 @@ export class ArticleEntity {
             { name: 'tag_language', referencedColumnName: 'language' },
         ]
     })
-    public tags: TagEntity[];
+    public tags?: TagEntity[];
 }

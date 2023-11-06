@@ -5,7 +5,7 @@ import { ArticleDto } from 'src/endpoints/article/dto/article.dto';
 import { SentryService } from '../sentry/sentry.service';
 import * as path from 'path';
 import * as moment from 'moment';
-import { SERVER_URL } from 'src/app.module';
+import { SERVER_URL } from 'src/constants';
 
 @Injectable()
 export class EmailService {

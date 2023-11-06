@@ -1,10 +1,10 @@
 import { TagDto } from 'src/endpoints/tag/dto/tag.dto';
-import { TagService } from './tag.service';
+import { TagService } from '../tag.service';
 import { LanguageEnum } from 'src/models/enums/language.enum';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { TagEntity } from 'src/endpoints/tag/tag.entity';
-import { FindOptionsWhere, Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 
@@ -17,7 +17,7 @@ const testNewTagDto: TagDto = {
 };
 
 // Tag that is already in the database. DTO.
-const testDbTagDto: TagDto = {
+const testEnDbTagDto: TagDto = {
     id: 'world',
     title: 'World',
     language: LanguageEnum.EN,
@@ -25,7 +25,7 @@ const testDbTagDto: TagDto = {
 };
 
 // Tag that is already in the database. Entity.
-const testEnDbTagEntity: TagEntity =     {
+const testEnDbTagEntity: TagEntity = {
     id: 'world',
     title: 'World',
     language: LanguageEnum.EN,
@@ -33,7 +33,7 @@ const testEnDbTagEntity: TagEntity =     {
 };
 
 // Tag that is already in the database. Entity.
-const testCsDbTagEntity: TagEntity =     {
+const testCsDbTagEntity: TagEntity = {
     id: 'world',
     title: 'World',
     language: LanguageEnum.CS,
@@ -49,6 +49,7 @@ const dbTags: TagEntity[] = [
 describe('TagService', () => {
     let tagService: TagService;
     let tagRepository: Repository<TagEntity>;
+    let tagRepositoryToken: string | Function = getRepositoryToken(TagEntity);
 
     beforeEach(async () => {
         const app: TestingModule = await Test.createTestingModule({
@@ -62,47 +63,14 @@ describe('TagService', () => {
                     } 
                 },
                 {
-                    provide: getRepositoryToken(TagEntity),
-                    useValue: {
-                        findOneBy: jest
-                            .fn()
-                            .mockImplementation((where: FindOptionsWhere<TagEntity>): Promise<TagEntity | undefined> => {
-                                const tag: TagEntity | undefined =
-                                    dbTags.find((tag) => tag.id === where.id && tag.language === where.language);
-                                return Promise.resolve(tag);
-                            }),
-                        save: jest
-                            .fn()
-                            .mockImplementation((tagDto: TagDto): Promise<TagEntity> => {
-                                const tag: TagEntity = {
-                                    id: tagDto.id,
-                                    title: tagDto.title,
-                                    language: tagDto.language,
-                                    order: tagDto.order,
-                                };
-                                return Promise.resolve(tag);
-                            }),
-                        find: jest
-                            .fn()
-                            .mockImplementation((options: { where: { language: LanguageEnum }}): Promise<TagEntity[]> => {
-                                const tags: TagEntity[] = dbTags.filter((tag) => tag.language === options.where.language);
-                                return Promise.resolve(tags);
-                            }),
-                        findOne: jest
-                            .fn()
-                            .mockImplementation((options: { where: { id: string, language: LanguageEnum }}): Promise<TagEntity | undefined> => {
-                                const tag: TagEntity | undefined =
-                                    dbTags.find((tag) => tag.id === options.where.id && tag.language === options.where.language);
-                                return Promise.resolve(tag);
-                            }),
-                        delete: jest.fn().mockResolvedValue(null),
-                    },
+                    provide: tagRepositoryToken,
+                    useClass: Repository,
                 },
             ],
         }).compile();
 
         tagService = app.get<TagService>(TagService);
-        tagRepository = app.get<Repository<TagEntity>>(getRepositoryToken(TagEntity));
+        tagRepository = app.get<Repository<TagEntity>>(tagRepositoryToken);
     });
 
     it('should be defined', () => {
@@ -110,21 +78,35 @@ describe('TagService', () => {
     });
 
     describe('createTag', () => {
-        it('should successfully create a tag', () => {
+        it('should successfully create a tag', async () => {
 
-            const createdTag: Promise<TagDto> = tagService.createTag(testNewTagDto);
+            const createdEntity: TagEntity = {
+                id: testNewTagDto.id,
+                title: testNewTagDto.title,
+                language: testNewTagDto.language,
+                order: testNewTagDto.order,
+            };
 
-            expect(createdTag).resolves.toEqual(testNewTagDto);
+            jest.spyOn(tagRepository, 'save').mockResolvedValueOnce(createdEntity);
+            jest.spyOn(tagRepository, 'findOneBy').mockResolvedValueOnce(null);
 
-            expect(tagRepository.findOneBy).toBeCalledWith({
+            const createdTag: TagDto = await tagService.createTag(testNewTagDto);
+
+            expect(createdTag).toEqual(testNewTagDto);
+
+            expect(tagRepository.findOneBy).toHaveBeenCalledWith({
                 id: testNewTagDto.id,
                 language: testNewTagDto.language,
             });
-            // TODO: This is not working
-            //            expect(tagRepository.save).toBeCalledTimes(1);
+
+            expect(tagRepository.save).toHaveBeenCalledTimes(1);
+            expect(tagRepository.save).toHaveBeenCalledWith(createdEntity);
+
         });
         
         it('should throw an error because of duplicity', () => {
+
+            jest.spyOn(tagRepository, 'findOneBy').mockResolvedValueOnce(dbTags[0]);
 
             const duplicityTag: TagDto = {
                 id: dbTags[0].id,
@@ -136,16 +118,23 @@ describe('TagService', () => {
             const createdTag: Promise<TagDto> = tagService.createTag(duplicityTag);
 
             expect(createdTag).rejects.toThrowError(ConflictException);
+
+            expect(tagRepository.findOneBy).toBeCalledWith({ id: duplicityTag.id, language: duplicityTag.language});
         });
     });
 
     describe('getAllTags', () => {
-        it('should successfully get all tags', () => {
-            const tags: Promise<TagDto[]> = tagService.getAllTags(LanguageEnum.EN);
-            expect(tags).resolves.toEqual([new TagDto(testEnDbTagEntity)]);
+        it('should successfully get all tags', async () => {
+          
+            // Return only english tags.
+            jest.spyOn(tagRepository, 'find').mockResolvedValueOnce([testEnDbTagEntity]);
+          
+            const tags: TagDto[] = await tagService.getAllTags(LanguageEnum.EN);
+           
+            expect(tags).toEqual([new TagDto(testEnDbTagEntity)]);
 
             // Check if tags are ordered.
-            expect(tagRepository.find).toBeCalledWith({
+            expect(tagRepository.find).toHaveBeenCalledWith({
                 where: {
                     language: LanguageEnum.EN,
                 },
@@ -157,22 +146,28 @@ describe('TagService', () => {
     });
 
     describe('updateTag', () => {
-        it('should successfully update the tag', () => {
+        it('should successfully update the tag', async () => {
             
-            const updatedTag: Promise<TagDto> = tagService.updateTag(testDbTagDto);
+            jest.spyOn(tagRepository, 'findOne').mockResolvedValueOnce(testEnDbTagEntity);
+            jest.spyOn(tagRepository, 'save').mockResolvedValueOnce(testEnDbTagEntity);
+         
+            const updatedTag: TagDto = await tagService.updateTag(testEnDbTagDto);
 
-            expect(updatedTag).resolves.toEqual(testDbTagDto);
-            expect(tagRepository.findOne).toBeCalledWith({
+            expect(updatedTag).toEqual(testEnDbTagDto);
+            expect(updatedTag).toEqual(new TagDto(testEnDbTagEntity));
+
+            expect(tagRepository.findOne).toHaveBeenCalledWith({
                 where: {
-                    id: testDbTagDto.id,
-                    language: testDbTagDto.language,
+                    id: testEnDbTagDto.id,
+                    language: testEnDbTagDto.language,
                 }
             });
-            // TODO: This is not working
-        //    expect(tagRepository.save).toBeCalledTimes(1);
+           expect(tagRepository.save).toHaveBeenCalledTimes(1);
         });
 
         it('should throw an error because entity is not in the DB', () => {
+
+            jest.spyOn(tagRepository, 'findOne').mockResolvedValueOnce(null);
 
             const updatedTag: Promise<TagDto> = tagService.updateTag(testNewTagDto);
             
@@ -188,6 +183,8 @@ describe('TagService', () => {
 
     describe('deleteTag', () => {
         it('should successfully delete the tag', () => {
+
+            jest.spyOn(tagRepository, 'delete').mockResolvedValue({raw: ''} as DeleteResult);
 
             // This tag is not in the database. However, delete function does not check if entity exist in the database.
             // And our service does not care about it. It returns status 200. Result is the same, tag is not present in the database.

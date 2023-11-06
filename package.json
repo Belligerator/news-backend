@@ -1,6 +1,6 @@
 {
   "name": "news-backend",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "The backend for serving news.",
   "author": "Dmitrij Buckovsky",
   "private": true,
