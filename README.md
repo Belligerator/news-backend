@@ -11,6 +11,7 @@ This project is made as a sample project and implements some of the common featu
 - REST Api (CRUD operations)
 - GraphQL basics (query, mutation)
 - Authentication and Authorization (JWT, basic auth, username/password login)
+- Testing (Jest)
 - Firebase Cloud Messaging (FCM) push notifications (via firebase-admin)
 - Sending emails
 - Exporting data to Excel file
