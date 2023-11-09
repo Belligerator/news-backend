@@ -153,9 +153,9 @@ const updatedArticleContentDto: ArticleDto = {
 
 // Repository save parameter for updated article.
 const repositorySaveParameter: ArticleContentEntity = {
+    id: testArticleContent.id,
     articleId: testArticleContent.articleId,
     language: testArticleContent.language,
-    id: testArticleContent.id,
     // By default, only these properties can be changed.
     // We can also change coverImage and tags, but we do not do it in this test.
     title: updatedArticleContentDto.title,
@@ -527,12 +527,11 @@ describe('ArticleService', () => {
             jest.spyOn(articleContentRepository, 'findOne').mockResolvedValueOnce(testArticleContent);
             jest.spyOn(articleContentRepository, 'save').mockResolvedValueOnce(updatedArticleContent);
             
-            // Id should be ignored.
-            testArticleContentDto.articleContentId = -1;
-
-            const result: ArticleDto = await articleService.updateArticleById(testArticleContentId, updatedArticleContentDto);
-
-            expect(result.articleContentId).not.toEqual(-1);    // Id should not be changed.
+            const result: ArticleDto = await articleService.updateArticleById(testArticleContentId, {
+                ...updatedArticleContentDto,
+                // Id should be ignored.
+                articleContentId: -1,
+            });
 
             expect(result).toEqual({
                 ...updatedArticleContentDto,
@@ -542,6 +541,7 @@ describe('ArticleService', () => {
 
             expect(articleContentRepository.findOne).toHaveBeenCalledTimes(1);
             expect(articleContentRepository.save).toHaveBeenCalledTimes(1);
+            // If received value contains id: -1, then it means that id was not ignored.
             expect(articleContentRepository.save).toHaveBeenCalledWith(repositorySaveParameter);
         });
 
