@@ -77,7 +77,7 @@ export class ArticleController {
                              @Query('page', StringToNumberPipe) page: number,
                              @Query('count', StringToNumberPipe) count: number,
                              @Headers('x-language') language: LanguageEnum,
-                             @Query('tagId') tagId: string): Promise<ArticleDto[]> {
+                             @Query('tagId') tagId?: string): Promise<ArticleDto[]> {
         return this.articleService.getArticlesByTypeAndFilter(articleType, language, page, count, tagId);
     }
 
@@ -96,8 +96,8 @@ export class ArticleController {
     @Post(':articleType')
     @UseInterceptors(FileInterceptor('file', FileService.multerOptions))
     public async createArticle(@Param('articleType', CheckArticleTypePipe) articleType: ArticleTypeEnum,
-                               @UploadedFile() file: UploadedFileDto,
-                               @Body(CustomValidationPipe) body: ArticleRequestDto): Promise<void> {
+                               @Body(CustomValidationPipe) body: ArticleRequestDto,
+                               @UploadedFile() file?: UploadedFileDto): Promise<void> {
 
         if (file) {
             await this.fileService.resizeImage(file.path);
@@ -129,8 +129,8 @@ export class ArticleController {
     @Put(':articleContentId')
     @UseInterceptors(FileInterceptor('file', FileService.multerOptions))
     public async updateArticleById(@Param('articleContentId', StringToNumberPipe) articleContentId: number,
-                                   @UploadedFile() file: UploadedFileDto,
-                                   @Body() body: ArticleDto): Promise<ArticleDto> {
+                                   @Body() body: ArticleDto,
+                                   @UploadedFile() file?: UploadedFileDto): Promise<ArticleDto> {
 
         if (file) {
             await this.fileService.resizeImage(file.path);
