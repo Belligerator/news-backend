@@ -68,9 +68,6 @@ export class ArticleService {
 
         // Create new article content for each language.
         const newArticleContentEntities: ArticleContentEntity[] = languages.map((language: keyof typeof newArticleDto.title) => {
-            if (!newArticleDto.title[language]) {
-                throw new BadRequestException(`Missing mandatory parameter(s): title for language ${language}.`);
-            }
             
             if (!newArticleDto.body[language]) {
                 throw new BadRequestException(`Missing mandatory parameter(s): body for language ${language}.`);
@@ -83,7 +80,6 @@ export class ArticleService {
             newArticleContent.dateOfPublication = newArticleDto.dateOfPublication ?? new Date();
             newArticleContent.article = newArticle;
             newArticleContent.coverImage = newArticleDto.coverImage;
-
 
             return newArticleContent;
         });
@@ -296,6 +292,11 @@ export class ArticleService {
         await this.articleRepository.update(articleContentEntity.article.id, { active: activity });
     }
 
+    /**
+     * Export articles to excel.
+     * 
+     * @returns Excel file.
+     */
     public async exportArticles(): Promise<Buffer> {
         const articles: ArticleContentEntity[] = await this.articleContentRepository.find({
             relations: ['article', 'article.tags']

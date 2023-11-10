@@ -18,191 +18,57 @@ import { FileService } from 'src/shared/services/file/file.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { ArticleRequestDto } from '../dto/article-request.dto';
 
-const testArticleContentId: number = 1;
-const testArticleType: ArticleTypeEnum = ArticleTypeEnum.NEWS;
-const testArticleLanguage: LanguageEnum = LanguageEnum.EN;
-const now: Date = new Date();
-const tagId: string = 'sport';
-
-const tagsInDbById: TagEntity[] = [
-    {
-        id: tagId,
-        title: 'Sport',
-        language: LanguageEnum.EN,
-        order: 1,
-    },
-    {
-        id: tagId,
-        title: 'Český sport',
-        language: LanguageEnum.CS,
-        order: 1,
-    },
-];
-
-const testArticleContent: ArticleContentEntity = {
-    id: testArticleContentId,
-    articleId: 1,
-    language: testArticleLanguage,
-    title: 'title',
-    body: 'body',
-    coverImage: null,
-    dateOfPublication: now,
-    article: {
-        id: 1,
-        articleType: ArticleTypeEnum.NEWS,
-        active: true,
-        parent: null,
-        timestamp: now,
-        tags: [{
-            id: tagId,
-            title: 'Sport',
-            language: LanguageEnum.EN,
-            order: 1,
-        }]
-    },
-};
-
-// DTO from testArticleContent entity above.
-const testArticleContentDto: ArticleDto = {
-    articleContentId: testArticleContent.id,
-    title: testArticleContent.title,
-    dateOfPublication: testArticleContent.dateOfPublication,
-    articleType: testArticleContent.article.articleType,
-    language: testArticleContent.language,
-    body: testArticleContent.body,
-    active: testArticleContent.article.active,
-    parent: testArticleContent.article.parent,
-    coverImage: testArticleContent.coverImage,
-    tags: testArticleContent.article.tags ?? [],
-};
-
-const testArticleContent2: ArticleContentEntity = {
-    id: 2,
-    articleId: 2,
-    language: testArticleLanguage,
-    title: 'title 2',
-    body: 'body 2',
-    coverImage: null,
-    dateOfPublication: now,
-    article: {
-        id: 2,
-        articleType: ArticleTypeEnum.NEWS,
-        active: true,
-        parent: null,
-        timestamp: now,
-        tags: [{
-            id: tagId,
-            title: 'Sport',
-            language: LanguageEnum.EN,
-            order: 1,
-        }]
-    },
-};
-
-// DTO from testArticleContent2 entity above.
-const testArticleContentDto2: ArticleDto = {
-    articleContentId: testArticleContent2.id,
-    title: testArticleContent2.title,
-    dateOfPublication: testArticleContent2.dateOfPublication,
-    articleType: testArticleContent2.article.articleType,
-    language: testArticleContent2.language,
-    body: testArticleContent2.body,
-    active: testArticleContent2.article.active,
-    parent: testArticleContent2.article.parent,
-    coverImage: testArticleContent2.coverImage,
-    tags: testArticleContent2.article.tags ?? [],
-};
-
-const updatedArticleContent: ArticleContentEntity = {
-    id: testArticleContent.id,
-    articleId: testArticleContent.articleId,
-    language: testArticleContent.language,
-    title: 'updated title',
-    body: 'updated body',
-    coverImage: null,
-    dateOfPublication: now,
-    article: {
-        id: 1,
-        articleType: ArticleTypeEnum.NEWS,
-        active: false,
-        parent: null,
-        timestamp: now,
-        tags: [{
-            id: tagId,
-            title: 'Sport',
-            language: LanguageEnum.EN,
-            order: 1,
-        }]
-    },
-};
-
-// DTO from updatedArticleContent entity above.
-const updatedArticleContentDto: ArticleDto = {
-    articleContentId: updatedArticleContent.id,
-    title: updatedArticleContent.title,
-    dateOfPublication: updatedArticleContent.dateOfPublication,
-    articleType: updatedArticleContent.article.articleType,
-    language: updatedArticleContent.language,
-    body: updatedArticleContent.body,
-    active: updatedArticleContent.article.active,
-    parent: updatedArticleContent.article.parent,
-    coverImage: updatedArticleContent.coverImage,
-    tags: updatedArticleContent.article.tags ?? [],
-    updatedTags: JSON.stringify([{'id': tagId}]),
-};
-
-// Repository save parameter for updated article.
-const repositorySaveParameter: ArticleContentEntity = {
-    id: testArticleContent.id,
-    articleId: testArticleContent.articleId,
-    language: testArticleContent.language,
-    // By default, only these properties can be changed.
-    // We can also change coverImage and tags, but we do not do it in this test.
-    title: updatedArticleContentDto.title,
-    body: updatedArticleContentDto.body,
-    dateOfPublication: updatedArticleContentDto.dateOfPublication,
-    coverImage: testArticleContent.coverImage,
-    article: {
-        articleType: testArticleContent.article.articleType,
-        id: testArticleContent.article.id,
-        timestamp: testArticleContent.article.timestamp,
-        tags: tagsInDbById,
-        // By default, only these properties can be changed.
-        // We can also change coverImage and tags, but we do not do it in this test.
-        active: updatedArticleContentDto.active,
-        parent: updatedArticleContentDto.parent,
-    },
-};
-
-const testArticleContentList: ArticleContentEntity[] = [
-    testArticleContent,
-    testArticleContent2,
-];
-
-const testArticleContentListDto: ArticleDto[] = [
-    testArticleContentDto,
-    testArticleContentDto2,
-];
-
-const newArticleDto: ArticleRequestDto = {
-    title: { cs: 'Titulek', en: 'Title' },
-    body: { cs: 'Český text', en: 'English text' },
-    parent: null,
-    coverImage: null,
-    tags: JSON.stringify([{'id': tagId}]),
-    dateOfPublication: now,
-};
-
 describe('ArticleService', () => {
+    const testArticleContentId: number = 1;
+    const testArticleType: ArticleTypeEnum = ArticleTypeEnum.NEWS;
+    const testArticleLanguage: LanguageEnum = LanguageEnum.EN;
+    const now: Date = new Date();
+    const tagId: string = 'sport';
+
+    const tagsInDbById: TagEntity[] = [
+        {
+            id: tagId,
+            title: 'Sport',
+            language: LanguageEnum.EN,
+            order: 1,
+        },
+        {
+            id: tagId,
+            title: 'Český sport',
+            language: LanguageEnum.CS,
+            order: 1,
+        },
+    ];
+
+    // DTO from testArticleContent entity below.
+    let testArticleContentDto: ArticleDto;
+    let testArticleContent: ArticleContentEntity;
+
+    // DTO from testArticleContent2 entity below.
+    let testArticleContentDto2: ArticleDto;
+    let testArticleContent2: ArticleContentEntity;
+
+    // DTO from updatedArticleContent entity below.
+    let updatedArticleContentDto: ArticleDto;
+    let updatedArticleContent: ArticleContentEntity;
+
+    // Repository save parameter for updated article.
+    let repositorySaveParameter: ArticleContentEntity;
+
+    let testArticleContentListDto: ArticleDto[];
+    let testArticleContentList: ArticleContentEntity[];
+
+    let newArticleDto: ArticleRequestDto;
+
     let articleService: ArticleService;
     let emailService: EmailService;
+    let excelService: ExcelService;
     let pushNotificationService: PushNotificationService;
     let fileService: FileService;
 
     let articleContentRepository: Repository<ArticleContentEntity>;
     let articleContentRepositoryToken: string | Function = getRepositoryToken(ArticleContentEntity);
 
-    let tagRepository: Repository<TagEntity>;
     let tagRepositoryToken: string | Function = getRepositoryToken(TagEntity);
 
     let articleRepository: Repository<ArticleEntity>;
@@ -282,11 +148,161 @@ describe('ArticleService', () => {
 
         articleService = app.get<ArticleService>(ArticleService);
         emailService = app.get<EmailService>(EmailService);
+        excelService = app.get<ExcelService>(ExcelService);
         pushNotificationService = app.get<PushNotificationService>(PushNotificationService);
         fileService = app.get<FileService>(FileService);
         articleContentRepository = app.get<Repository<ArticleContentEntity>>(articleContentRepositoryToken);
         articleRepository = app.get<Repository<ArticleEntity>>(articleRepositoryToken);
-        tagRepository = app.get<Repository<TagEntity>>(tagRepositoryToken);
+
+        testArticleContent = {
+            id: testArticleContentId,
+            articleId: 1,
+            language: testArticleLanguage,
+            title: 'title',
+            body: 'body',
+            coverImage: null,
+            dateOfPublication: now,
+            article: {
+                id: 1,
+                articleType: ArticleTypeEnum.NEWS,
+                active: true,
+                parent: null,
+                timestamp: now,
+                tags: [{
+                    id: tagId,
+                    title: 'Sport',
+                    language: LanguageEnum.EN,
+                    order: 1,
+                }]
+            },
+        };
+
+        testArticleContentDto = {
+            articleContentId: testArticleContent.id,
+            title: testArticleContent.title,
+            dateOfPublication: testArticleContent.dateOfPublication,
+            articleType: testArticleContent.article.articleType,
+            language: testArticleContent.language,
+            body: testArticleContent.body,
+            active: testArticleContent.article.active,
+            parent: testArticleContent.article.parent,
+            coverImage: testArticleContent.coverImage,
+            tags: testArticleContent.article.tags ?? [],
+        };
+
+        testArticleContent2 = {
+            id: 2,
+            articleId: 2,
+            language: testArticleLanguage,
+            title: 'title 2',
+            body: 'body 2',
+            coverImage: null,
+            dateOfPublication: now,
+            article: {
+                id: 2,
+                articleType: ArticleTypeEnum.NEWS,
+                active: true,
+                parent: null,
+                timestamp: now,
+                tags: [{
+                    id: tagId,
+                    title: 'Sport',
+                    language: LanguageEnum.EN,
+                    order: 1,
+                }]
+            },
+        };
+
+        testArticleContentDto2 = {
+            articleContentId: testArticleContent2.id,
+            title: testArticleContent2.title,
+            dateOfPublication: testArticleContent2.dateOfPublication,
+            articleType: testArticleContent2.article.articleType,
+            language: testArticleContent2.language,
+            body: testArticleContent2.body,
+            active: testArticleContent2.article.active,
+            parent: testArticleContent2.article.parent,
+            coverImage: testArticleContent2.coverImage,
+            tags: testArticleContent2.article.tags ?? [],
+        };
+
+        updatedArticleContent = {
+            id: testArticleContent.id,
+            articleId: testArticleContent.articleId,
+            language: testArticleContent.language,
+            title: 'updated title',
+            body: 'updated body',
+            coverImage: null,
+            dateOfPublication: now,
+            article: {
+                id: 1,
+                articleType: ArticleTypeEnum.NEWS,
+                active: false,
+                parent: null,
+                timestamp: now,
+                tags: [{
+                    id: tagId,
+                    title: 'Sport',
+                    language: LanguageEnum.EN,
+                    order: 1,
+                }]
+            },
+        };
+    
+        updatedArticleContentDto = {
+            articleContentId: updatedArticleContent.id,
+            title: updatedArticleContent.title,
+            dateOfPublication: updatedArticleContent.dateOfPublication,
+            articleType: updatedArticleContent.article.articleType,
+            language: updatedArticleContent.language,
+            body: updatedArticleContent.body,
+            active: updatedArticleContent.article.active,
+            parent: updatedArticleContent.article.parent,
+            coverImage: updatedArticleContent.coverImage,
+            tags: updatedArticleContent.article.tags ?? [],
+            updatedTags: JSON.stringify([{'id': tagId}]),
+        };
+    
+        repositorySaveParameter = {
+            id: testArticleContent.id,
+            articleId: testArticleContent.articleId,
+            language: testArticleContent.language,
+            // By default, only these properties can be changed.
+            // We can also change coverImage and tags, but we do not do it in this test.
+            title: updatedArticleContentDto.title,
+            body: updatedArticleContentDto.body,
+            dateOfPublication: updatedArticleContentDto.dateOfPublication,
+            coverImage: testArticleContent.coverImage,
+            article: {
+                articleType: testArticleContent.article.articleType,
+                id: testArticleContent.article.id,
+                timestamp: testArticleContent.article.timestamp,
+                tags: tagsInDbById,
+                // By default, only these properties can be changed.
+                // We can also change coverImage and tags, but we do not do it in this test.
+                active: updatedArticleContentDto.active,
+                parent: updatedArticleContentDto.parent,
+            },
+        };
+    
+        testArticleContentList = [
+            testArticleContent,
+            testArticleContent2,
+        ];
+
+        testArticleContentListDto = [
+            testArticleContentDto,
+            testArticleContentDto2,
+        ];
+
+        newArticleDto = {
+            title: { cs: 'Titulek', en: 'Title' },
+            body: { cs: 'Český text', en: 'English text' },
+            parent: null,
+            coverImage: null,
+            tags: JSON.stringify([{'id': tagId}]),
+            dateOfPublication: now,
+        };
     });
 
     it('should be defined', () => {
@@ -347,27 +363,23 @@ describe('ArticleService', () => {
     
         });
     
-        it('should throw BadRequestException, body or title for language is missing in request', async () => {
+        it('should throw BadRequestException, body for language is missing in request', async () => {
             // Frontend send request as form data with fields for each language.
-            // title[en] and title[cs] (same for body),
-            // ArticleRequestDto and annotation @IsNotEmpty() is checking if there is mapped object 'title',
-            // but it cannot check if there is mapped object 'title.cs' or 'title.en'.
+            // title[en], title[cs], body[en], body[cs].
+            // ArticleRequestDto and annotation @IsNotEmpty() is checking if there is mapped object 'body',
+            // but it cannot check if there is mapped object 'body.cs' or 'body.en'.
             // So I have to check it in ArticleService.createArticle() method and this is test for it.
     
-            // Test for title.
-            delete newArticleDto.title.cs;
-    
+            // In case only english title is present, then body for english language should be present too.
+            // Lets mock missing body for english language.
+            newArticleDto.title.cs = undefined;
+            newArticleDto.title.en = 'Title';
+
+            newArticleDto.body.en = undefined;
+
             const resultTitle: Promise<void> = articleService.createArticle(testArticleType, newArticleDto);
     
             expect(resultTitle).rejects.toThrowError(BadRequestException);
-    
-            // Test for body.
-            newArticleDto.title.cs = 'Titulek';
-            delete newArticleDto.body.cs;
-    
-            const resultBody: Promise<void> = articleService.createArticle(testArticleType, newArticleDto);
-    
-            expect(resultBody).rejects.toThrowError(BadRequestException);
     
         });
 
@@ -614,7 +626,7 @@ describe('ArticleService', () => {
                 ...updatedArticleContent,
                 coverImage: null
             });
-            console.log(updatedArticleContentDto);
+
             const result: ArticleDto = await articleService.updateArticleById(testArticleContentId, {
                 ...updatedArticleContentDto,
                 coverImage: ''
@@ -664,8 +676,50 @@ describe('ArticleService', () => {
         });
     });
 
+    describe('setArticleActivity', () => {
+
+        it('should set activity of the article', async () => {
+
+            jest.spyOn(articleContentRepository, 'findOne').mockResolvedValueOnce(testArticleContent);
+            jest.spyOn(articleRepository, 'update').mockResolvedValueOnce({raw: [], generatedMaps: []});
+            
+            await articleService.setArticleActivity(testArticleContentId, true);
+
+            expect(articleContentRepository.findOne).toHaveBeenCalledTimes(1);
+            expect(articleRepository.update).toHaveBeenCalledTimes(1);
+            expect(articleRepository.update).toHaveBeenCalledWith(testArticleContent.article.id, {active: true});
+        });
+
+        it('should throw NotFoundException (article not found by id)', async () => {
+
+            jest.spyOn(articleContentRepository, 'findOne').mockResolvedValueOnce(null);
+            
+            const result: Promise<void> = articleService.setArticleActivity(testArticleContentId, true);
+
+            expect(result).rejects.toThrowError(NotFoundException);
+            
+        });
+
+    });
+
+    describe('exportArticles', () => {
+
+        it('should export excel file', async () => {
+
+            jest.spyOn(articleContentRepository, 'find').mockResolvedValueOnce(testArticleContentList);
+            
+            await articleService.exportArticles();
+
+            expect(articleContentRepository.find).toHaveBeenCalledTimes(1);
+            expect(excelService.exportArticles).toHaveBeenCalledTimes(1);
+            expect(excelService.exportArticles).toHaveBeenCalledWith(testArticleContentListDto);
+
+        });
+
+    });
+
     afterAll(() => {
         jest.useRealTimers();
     });
-    
+
 });
