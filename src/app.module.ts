@@ -36,12 +36,11 @@ import { AuthModule } from './endpoints/auth/auth.module';
 import { PushNotificationModule } from './endpoints/push-notification/push-notification.module';
 import { TagModule } from './endpoints/tag/tag.module';
 import { TagGQLModule } from './graphql/tag-gql.module';
-import { ArticleSearchModule } from './endpoints/article/search/article-search.module';
+import { ArticleSearchModule } from './endpoints/article-search/article-search.module';
 import { EmailModule } from './shared/services/email/email.module';
 import { ExcelModule } from './shared/services/excel/excel.module';
 import { FileModule } from './shared/services/file/file.module';
 import { SentryModule } from './shared/services/sentry/sentry.module';
-import { SERVER_URL } from './constants';
 
 @Module({
     imports: [
